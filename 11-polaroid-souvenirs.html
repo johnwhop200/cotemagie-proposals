@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Côté Magie — Francis Darcy | Magicien à Issoudun</title>
+    <meta name="description" content="Francis Darcy, magicien professionnel à Issoudun. Spectacles de magie pour tous vos événements : mariages, anniversaires, fêtes d'entreprise, spectacles jeune public.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES
+           ============================================ */
+        :root {
+            --bg: #F5F0E8;
+            --bg-dark: #2C2417;
+            --text: #2C2417;
+            --text-light: #5A4A32;
+            --accent: #8B6914;
+            --accent-light: #C9A84C;
+            --card-bg: #FFFFFF;
+            --shadow: rgba(44, 36, 23, 0.15);
+            --shadow-strong: rgba(44, 36, 23, 0.25);
+            --craft: #E8DFD0;
+            --craft-dark: #D4C8B4;
+            --tape-yellow: rgba(255, 235, 150, 0.6);
+            --note-bg: #FFFEF5;
+            --lined-blue: #C5D4E8;
+            --font-hand: 'Caveat', cursive;
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Work Sans', -apple-system, sans-serif;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { display: block; max-width: 100%; height: auto; }
+        a { color: var(--accent); text-decoration: none; transition: color 0.3s; }
+        a:hover { color: var(--text); }
+
+        /* ============================================
+           CRAFT PAPER TEXTURE (CSS only)
+           ============================================ */
+        .craft-bg {
+            background-color: var(--craft);
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.01) 2px,
+                    rgba(0,0,0,0.01) 4px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.008) 2px,
+                    rgba(0,0,0,0.008) 4px
+                ),
+                radial-gradient(ellipse at 20% 50%, rgba(139,105,20,0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(139,105,20,0.03) 0%, transparent 50%);
+        }
+
+        /* ============================================
+           POLAROID CARDS
+           ============================================ */
+        .polaroid {
+            background: var(--card-bg);
+            padding: 12px 12px 48px 12px;
+            box-shadow: 2px 4px 12px var(--shadow);
+            transform: rotate(var(--rotation, 0deg));
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+            box-shadow: 4px 8px 24px var(--shadow-strong);
+        }
+
+        .polaroid img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .polaroid img.landscape {
+            aspect-ratio: 4/3;
+        }
+
+        .polaroid img.portrait-ratio {
+            aspect-ratio: 3/4;
+        }
+
+        .polaroid .label {
+            font-family: var(--font-hand);
+            font-size: 20px;
+            text-align: center;
+            color: var(--text);
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+
+        /* ============================================
+           SCROLL REVEAL
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+
+        /* ============================================
+           SECTION COMMON
+           ============================================ */
+        section {
+            padding: 80px 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-hand);
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            color: var(--accent);
+            margin-bottom: 48px;
+        }
+
+        /* ============================================
+           1. HERO — PINBOARD
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            background: var(--bg-dark);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 120px 24px 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 40%, rgba(139,105,20,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(139,105,20,0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            color: #FFFFFF;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-hand);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+
+        .hero-location {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 48px;
+        }
+
+        .hero-pinboard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            position: relative;
+            height: 320px;
+            margin-top: 24px;
+        }
+
+        .hero-pinboard .polaroid {
+            position: absolute;
+            width: 220px;
+            cursor: pointer;
+        }
+
+        .hero-pinboard .polaroid:nth-child(1) {
+            --rotation: -6deg;
+            left: 5%;
+            top: 10%;
+            z-index: 2;
+        }
+        .hero-pinboard .polaroid:nth-child(2) {
+            --rotation: 3deg;
+            left: 28%;
+            top: -5%;
+            z-index: 3;
+        }
+        .hero-pinboard .polaroid:nth-child(3) {
+            --rotation: -2deg;
+            right: 28%;
+            top: 5%;
+            z-index: 4;
+        }
+        .hero-pinboard .polaroid:nth-child(4) {
+            --rotation: 5deg;
+            right: 5%;
+            top: 15%;
+            z-index: 2;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 16px 40px;
+            background: var(--accent);
+            color: #fff;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-cta:hover {
+            background: var(--accent-light);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           2. NAV
+           ============================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 24px;
+            transition: background 0.4s, box-shadow 0.4s, padding 0.4s;
+        }
+
+        .navbar.scrolled {
+            background: rgba(245, 240, 232, 0.97);
+            box-shadow: 0 2px 16px var(--shadow);
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .nav-brand {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            transition: color 0.4s;
+        }
+
+        .navbar.scrolled .nav-brand {
+            color: var(--text);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--text-light);
+        }
+
+        .navbar.scrolled .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: background 0.4s, transform 0.3s;
+        }
+
+        .navbar.scrolled .nav-toggle span {
+            background: var(--text);
+        }
+
+        /* ============================================
+           3. A PROPOS
+           ============================================ */
+        .about {
+            background: var(--bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-photo .polaroid {
+            --rotation: -3deg;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .about-photo .polaroid img {
+            aspect-ratio: 1/1.4;
+        }
+
+        .about-text h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            margin-bottom: 24px;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 16px;
+            max-width: 560px;
+        }
+
+        .pull-quote {
+            font-family: var(--font-hand);
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--accent);
+            margin: 32px 0;
+            padding-left: 24px;
+            border-left: 3px solid var(--accent-light);
+            line-height: 1.4;
+        }
+
+        /* ============================================
+           4. PRESTATIONS — SCATTERED POLAROIDS
+           ============================================ */
+        .prestations {
+            padding: 100px 24px;
+        }
+
+        .prestations .container {
+            text-align: center;
+        }
+
+        .prestations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 48px 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 0;
+        }
+
+        .prestations-grid .polaroid {
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto;
+            cursor: default;
+        }
+
+        .prestations-grid .polaroid .label {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           5. EVENEMENTS
+           ============================================ */
+        .evenements {
+            background: var(--bg);
+        }
+
+        .evenements .container {
+            text-align: center;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .event-card {
+            text-align: center;
+        }
+
+        .event-card .polaroid {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 24px;
+        }
+
+        .event-card .polaroid img {
+            aspect-ratio: 4/3;
+        }
+
+        .event-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .event-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            max-width: 320px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           6. GALERIE — WALL OF PHOTOS
+           ============================================ */
+        .galerie {
+            padding: 100px 24px;
+            background: var(--bg-dark);
+        }
+
+        .galerie .section-title { color: #fff; }
+        .galerie .section-subtitle { color: var(--accent-light); }
+
+        .gallery-wall {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px 0;
+        }
+
+        .gallery-wall .polaroid {
+            width: 100%;
+        }
+
+        .gallery-wall .polaroid.span-2 {
+            grid-column: span 2;
+        }
+
+        .gallery-wall .polaroid.span-2 img {
+            aspect-ratio: 2/1;
+        }
+
+        /* ============================================
+           7. REFERENCES
+           ============================================ */
+        .references {
+            background: var(--bg);
+        }
+
+        .references .container {
+            text-align: center;
+        }
+
+        .ref-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px 24px;
+            margin-top: 40px;
+        }
+
+        .tape-strip {
+            display: inline-block;
+            font-family: var(--font-hand);
+            font-size: 1.25rem;
+            color: var(--text);
+            background: var(--tape-yellow);
+            padding: 6px 20px;
+            transform: rotate(var(--rotation, 0deg));
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .tape-strip::before,
+        .tape-strip::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 12px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,235,150,0.3));
+        }
+
+        .tape-strip::before { left: -6px; }
+        .tape-strip::after { right: -6px; transform: scaleX(-1); }
+
+        .tape-strip:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        /* ============================================
+           8. TEMOIGNAGES
+           ============================================ */
+        .temoignages {
+            padding: 100px 24px;
+        }
+
+        .temoignages .container {
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .testimonial-card {
+            background: var(--note-bg);
+            padding: 32px 28px;
+            border-radius: 2px;
+            box-shadow: 2px 3px 10px var(--shadow);
+            transform: rotate(var(--rotation, 0deg));
+            transition: transform 0.4s ease;
+            text-align: left;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '\201C';
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: var(--accent-light);
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .testimonial-card:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .testimonial-card blockquote {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            padding-top: 20px;
+        }
+
+        .testimonial-card cite {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: normal;
+            display: block;
+        }
+
+        .testimonial-card cite strong {
+            color: var(--accent);
+        }
+
+        /* ============================================
+           9. CONTACT — NOTEPAD
+           ============================================ */
+        .contact {
+            background: var(--bg);
+        }
+
+        .contact .container {
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            margin-top: 48px;
+            text-align: left;
+        }
+
+        .notepad {
+            background: #fff;
+            padding: 40px 32px 32px 56px;
+            border-radius: 2px;
+            box-shadow: 3px 5px 16px var(--shadow);
+            position: relative;
+            background-image:
+                repeating-linear-gradient(
+                    transparent,
+                    transparent 31px,
+                    var(--lined-blue) 31px,
+                    var(--lined-blue) 32px
+                );
+            background-position: 0 38px;
+        }
+
+        .notepad::before {
+            content: '';
+            position: absolute;
+            left: 44px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(220, 100, 100, 0.3);
+        }
+
+        .notepad label {
+            display: block;
+            font-family: var(--font-hand);
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 4px;
+            margin-top: 16px;
+        }
+
+        .notepad label:first-child {
+            margin-top: 0;
+        }
+
+        .notepad input,
+        .notepad textarea,
+        .notepad select {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid transparent;
+            background: transparent;
+            font-family: var(--font-hand);
+            font-size: 1.1rem;
+            color: var(--text);
+            padding: 8px 0;
+            outline: none;
+            transition: border-color 0.3s;
+            line-height: 32px;
+        }
+
+        .notepad input:focus,
+        .notepad textarea:focus,
+        .notepad select:focus {
+            border-bottom-color: var(--accent);
+        }
+
+        .notepad textarea {
+            resize: vertical;
+            min-height: 96px;
+        }
+
+        .notepad button {
+            margin-top: 24px;
+            padding: 14px 40px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .notepad button:hover {
+            background: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .contact-info-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info-text h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .contact-info-text p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .contact-info-text a {
+            color: var(--accent);
+        }
+
+        /* ============================================
+           10. FOOTER
+           ============================================ */
+        .footer {
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.6);
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: var(--accent-light);
+            margin-bottom: 24px;
+        }
+
+        .footer p {
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-light);
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .hero-pinboard {
+                height: 260px;
+            }
+            .hero-pinboard .polaroid {
+                width: 180px;
+            }
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-wall {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 60px 16px; }
+
+            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: rgba(245, 240, 232, 0.98);
+                padding: 24px;
+                gap: 16px;
+                box-shadow: 0 4px 16px var(--shadow);
+            }
+
+            .nav-links.open a {
+                color: var(--text) !important;
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 100px 16px 60px;
+                min-height: auto;
+            }
+
+            .hero-pinboard {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                height: auto;
+                position: static;
+            }
+
+            .hero-pinboard .polaroid {
+                position: static;
+                width: 100%;
+                --rotation: 0deg !important;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .about-photo {
+                display: flex;
+                justify-content: center;
+            }
+
+            .about-photo .polaroid {
+                max-width: 280px;
+            }
+
+            .about-text p {
+                max-width: 100%;
+            }
+
+            .pull-quote {
+                text-align: left;
+            }
+
+            .prestations-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px 16px;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .gallery-wall {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .gallery-wall .polaroid.span-2 {
+                grid-column: span 2;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* reduce rotations on mobile */
+            .polaroid { --rotation: 0deg !important; }
+            .testimonial-card { --rotation: 0deg !important; }
+            .tape-strip { --rotation: 0deg !important; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.5rem; }
+            .prestations-grid { grid-template-columns: 1fr; }
+            .gallery-wall { grid-template-columns: 1fr; }
+            .gallery-wall .polaroid.span-2 { grid-column: span 1; }
+            .gallery-wall .polaroid.span-2 img { aspect-ratio: 1; }
+            .notepad { padding: 32px 16px 24px 40px; }
+            .notepad::before { left: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVBAR ========== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-brand">Côté Magie</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#prestations">Prestations</a></li>
+                <li><a href="#evenements">Événements</a></li>
+                <li><a href="#galerie">Galerie</a></li>
+                <li><a href="#temoignages">Avis</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========== 1. HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Côté Magie</h1>
+            <p class="hero-subtitle">L'émerveillement à portée de main</p>
+            <p class="hero-location">Francis Darcy &mdash; Magicien &agrave; Issoudun</p>
+
+            <div class="hero-pinboard">
+                <div class="polaroid" style="--rotation: -6deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg/v1/fill/w_800,h_800,q_90,enc_avif,quality_auto/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg" alt="Magie close-up" loading="eager">
+                    <div class="label">Close-up</div>
+                </div>
+                <div class="polaroid" style="--rotation: 3deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_6bcece77bb174880a05a8afe0b7b51f1~mv2.jpg/v1/fill/w_800,h_520,al_c,q_80,enc_avif,quality_auto/da939b_6bcece77bb174880a05a8afe0b7b51f1~mv2.jpg" alt="Cartes et scène" loading="eager">
+                    <div class="label">Sur scène</div>
+                </div>
+                <div class="polaroid" style="--rotation: -2deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg" alt="Spectacle enfants" loading="eager">
+                    <div class="label">Jeune public</div>
+                </div>
+                <div class="polaroid" style="--rotation: 5deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Magie mariage" loading="eager">
+                    <div class="label">Mariages</div>
+                </div>
+            </div>
+
+            <a href="#contact" class="hero-cta">Réserver votre moment magique</a>
+        </div>
+    </section>
+
+    <!-- ========== 3. A PROPOS ========== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-photo reveal">
+                    <div class="polaroid" style="--rotation: -3deg;">
+                        <img class="portrait-ratio" src="https://static.wixstatic.com/media/da939b_de131428a0654a80a6dafe41cff4358e~mv2.jpg/v1/fill/w_564,h_1130,al_c,q_85,enc_avif,quality_auto/beau%20gosse_edited.jpg" alt="Francis Darcy, magicien">
+                        <div class="label">Francis Darcy</div>
+                    </div>
+                </div>
+                <div class="about-text reveal reveal-delay-2">
+                    <h2 class="section-title">À propos</h2>
+                    <p class="section-subtitle" style="margin-bottom: 24px;">Le magicien derrière la magie...</p>
+                    <p>
+                        Passionné de magie depuis l'enfance, Francis Darcy a fait de l'émerveillement son métier. Installé à Issoudun, au cœur du Berry, il parcourt la France pour offrir des spectacles sur mesure, adaptés à chaque public et chaque occasion.
+                    </p>
+                    <p>
+                        Close-up intimiste autour d'une table, spectacle de scène captivant, animation pour les tout-petits ou soirée d'entreprise mémorable : Francis sait créer cette parenthèse enchantée où tout devient possible.
+                    </p>
+                    <div class="pull-quote">
+                        "La vraie magie, c'est l'étincelle dans les yeux de ceux qui regardent."
+                    </div>
+                    <p>
+                        Membre de la Fédération Française des Artistes Prestidigitateurs, Francis allie technique impeccable, humour chaleureux et sens du spectacle pour des moments inoubliables.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 4. PRESTATIONS ========== -->
+    <section class="prestations craft-bg" id="prestations">
+        <div class="container">
+            <h2 class="section-title reveal">Prestations</h2>
+            <p class="section-subtitle reveal reveal-delay-1">Chaque spectacle est unique, comme chaque souvenir...</p>
+
+            <div class="prestations-grid">
+                <div class="polaroid reveal reveal-delay-1" style="--rotation: -3deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg/v1/fill/w_800,h_800,q_90,enc_avif,quality_auto/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg" alt="Magie close-up">
+                    <div class="label">Close-up</div>
+                </div>
+                <div class="polaroid reveal reveal-delay-2" style="--rotation: 2deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_6bcece77bb174880a05a8afe0b7b51f1~mv2.jpg/v1/fill/w_800,h_520,al_c,q_80,enc_avif,quality_auto/da939b_6bcece77bb174880a05a8afe0b7b51f1~mv2.jpg" alt="Spectacle de scène">
+                    <div class="label">Spectacle de scène</div>
+                </div>
+                <div class="polaroid reveal reveal-delay-3" style="--rotation: -1deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg" alt="Spectacle jeune public">
+                    <div class="label">Jeune public</div>
+                </div>
+                <div class="polaroid reveal reveal-delay-4" style="--rotation: 3deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg/v1/fill/w_600,h_600,fp_0.63_0.4,q_90,enc_avif,quality_auto/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg" alt="Sculptures de ballons">
+                    <div class="label">Ballons sculptés</div>
+                </div>
+                <div class="polaroid reveal reveal-delay-5" style="--rotation: -2deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg" alt="Ateliers de magie">
+                    <div class="label">Ateliers magie</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 5. EVENEMENTS ========== -->
+    <section class="evenements" id="evenements">
+        <div class="container">
+            <h2 class="section-title reveal">Événements</h2>
+            <p class="section-subtitle reveal reveal-delay-1">Des souvenirs magiques pour chaque occasion</p>
+
+            <div class="events-grid">
+                <div class="event-card reveal reveal-delay-1">
+                    <div class="polaroid" style="--rotation: -2deg;">
+                        <img class="landscape" src="https://static.wixstatic.com/media/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg" alt="Événements publics">
+                        <div class="label">Publics</div>
+                    </div>
+                    <h3>Événements publics</h3>
+                    <p>Fêtes de village, festivals, arbres de Noël, médiathèques... Francis anime vos événements ouverts à tous avec des spectacles adaptés à chaque tranche d'âge.</p>
+                </div>
+
+                <div class="event-card reveal reveal-delay-2">
+                    <div class="polaroid" style="--rotation: 2deg;">
+                        <img class="landscape" src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Événements privés">
+                        <div class="label">Privés</div>
+                    </div>
+                    <h3>Événements privés</h3>
+                    <p>Mariages, anniversaires, baptêmes, soirées entre amis... Un close-up de table en table ou un spectacle complet pour une fête vraiment inoubliable.</p>
+                </div>
+
+                <div class="event-card reveal reveal-delay-3">
+                    <div class="polaroid" style="--rotation: -1.5deg;">
+                        <img class="landscape" src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg" alt="Événements entreprise">
+                        <div class="label">Entreprises</div>
+                    </div>
+                    <h3>Entreprises</h3>
+                    <p>Séminaires, soirées de gala, team building, lancements de produit... La magie comme vecteur de communication, de cohésion et de moments partagés.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 6. GALERIE ========== -->
+    <section class="galerie" id="galerie">
+        <div class="container">
+            <h2 class="section-title reveal">Galerie</h2>
+            <p class="section-subtitle reveal reveal-delay-1">Feuilletez l'album de mes souvenirs magiques...</p>
+
+            <div class="gallery-wall">
+                <div class="polaroid reveal reveal-delay-1" style="--rotation: -3deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg/v1/fill/w_800,h_800,q_90,enc_avif,quality_auto/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg" alt="Close-up magie">
+                    <div class="label">L'instant close-up</div>
+                </div>
+
+                <div class="polaroid span-2 reveal reveal-delay-2" style="--rotation: 1.5deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_a26173499cf94cb2a7a2ae90b799d4e5~mv2.jpg/v1/fill/w_1920,h_726,fp_0.50_0.50,q_85,enc_avif,quality_auto/da939b_a26173499cf94cb2a7a2ae90b799d4e5~mv2.jpg" alt="Francis Darcy en spectacle">
+                    <div class="label">Sous les projecteurs</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-3" style="--rotation: -2deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Mariage magique">
+                    <div class="label">Jour de fête</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-1" style="--rotation: 2.5deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg" alt="Émerveillement des enfants">
+                    <div class="label">Yeux émerveillés</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-2" style="--rotation: -1deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg/v1/fill/w_600,h_600,fp_0.63_0.4,q_90,enc_avif,quality_auto/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg" alt="Ballons sculptés">
+                    <div class="label">Art éphémère</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-3" style="--rotation: 3deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg/v1/fill/w_600,h_514,al_c,q_80,enc_avif,quality_auto/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg" alt="Création ballons">
+                    <div class="label">Couleurs et joie</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-4" style="--rotation: -2.5deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg" alt="Atelier magie">
+                    <div class="label">Transmettre la passion</div>
+                </div>
+
+                <div class="polaroid span-2 reveal reveal-delay-5" style="--rotation: 1deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_7a2262236e8045c7a234afdcbfe407b0~mv2.jpg/v1/fill/w_1920,h_592,fp_0.50_0.50,q_85,enc_avif,quality_auto/da939b_7a2262236e8045c7a234afdcbfe407b0~mv2.jpg" alt="Francis et son chapeau">
+                    <div class="label">Et un chapeau...</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-2" style="--rotation: -1.5deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg" alt="Spectacle pour les aînés">
+                    <div class="label">Pour tous les âges</div>
+                </div>
+
+                <div class="polaroid reveal reveal-delay-3" style="--rotation: 2deg;">
+                    <img src="https://static.wixstatic.com/media/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg" alt="Ambiance de fête">
+                    <div class="label">Souvenirs de fête</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 7. REFERENCES ========== -->
+    <section class="references" id="references">
+        <div class="container">
+            <h2 class="section-title reveal">Ils m'ont fait confiance</h2>
+            <p class="section-subtitle reveal reveal-delay-1">Un carnet d'adresses qui grandit d'année en année</p>
+
+            <div class="ref-list reveal reveal-delay-2">
+                <span class="tape-strip" style="--rotation: -1.5deg;">Mairie d'Issoudun</span>
+                <span class="tape-strip" style="--rotation: 2deg;">Comité des Fêtes de Châteauroux</span>
+                <span class="tape-strip" style="--rotation: -0.5deg;">Médiathèque du Berry</span>
+                <span class="tape-strip" style="--rotation: 1.5deg;">Centre Hospitalier d'Issoudun</span>
+                <span class="tape-strip" style="--rotation: -2deg;">Rotary Club</span>
+                <span class="tape-strip" style="--rotation: 0.5deg;">Crédit Agricole Centre-Ouest</span>
+                <span class="tape-strip" style="--rotation: -1deg;">Domaine de la Serve</span>
+                <span class="tape-strip" style="--rotation: 2.5deg;">Kiwanis Club</span>
+                <span class="tape-strip" style="--rotation: -1.8deg;">EHPAD Les Music'Ailes</span>
+                <span class="tape-strip" style="--rotation: 1deg;">Association Familles Rurales</span>
+                <span class="tape-strip" style="--rotation: -0.8deg;">Château de Valençay</span>
+                <span class="tape-strip" style="--rotation: 1.8deg;">Office de Tourisme Berry</span>
+                <span class="tape-strip" style="--rotation: -2.2deg;">Lions Club</span>
+                <span class="tape-strip" style="--rotation: 0.8deg;">Conseil Départemental de l'Indre</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 8. TEMOIGNAGES ========== -->
+    <section class="temoignages craft-bg" id="temoignages">
+        <div class="container">
+            <h2 class="section-title reveal">Témoignages</h2>
+            <p class="section-subtitle reveal reveal-delay-1">Quelques mots laissés dans le livre d'or...</p>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal reveal-delay-1" style="--rotation: -1.5deg;">
+                    <blockquote>Francis a enchanté notre mariage ! Tous nos invités étaient bluffés. Le close-up pendant le cocktail a créé une ambiance incroyable. Merci pour ce moment magique.</blockquote>
+                    <cite><strong>Sophie &amp; Thomas</strong> &mdash; Mariage, Châteauroux</cite>
+                </div>
+
+                <div class="testimonial-card reveal reveal-delay-2" style="--rotation: 2deg;">
+                    <blockquote>Les enfants en parlent encore ! Un spectacle captivant du début à la fin, adapté aux petits comme aux grands. Francis a un vrai talent pour capter l'attention de son public.</blockquote>
+                    <cite><strong>Marie-Claire D.</strong> &mdash; Anniversaire enfant, Issoudun</cite>
+                </div>
+
+                <div class="testimonial-card reveal reveal-delay-3" style="--rotation: -0.8deg;">
+                    <blockquote>Pour notre séminaire d'entreprise, Francis a su créer des moments de partage et de rire. Ses tours de close-up en déambulation ont brisé la glace entre les équipes. Professionnel et chaleureux !</blockquote>
+                    <cite><strong>Laurent M.</strong> &mdash; Directeur, PME Centre-Val de Loire</cite>
+                </div>
+
+                <div class="testimonial-card reveal reveal-delay-4" style="--rotation: 1.2deg;">
+                    <blockquote>Troisième année que nous faisons appel à Francis pour l'arbre de Noël. Les résidents sont ravis, les yeux brillent à chaque fois. Un artiste au grand cœur.</blockquote>
+                    <cite><strong>Isabelle P.</strong> &mdash; Animatrice, EHPAD</cite>
+                </div>
+
+                <div class="testimonial-card reveal reveal-delay-5" style="--rotation: -1.8deg;">
+                    <blockquote>On a hésité entre DJ et magicien pour nos 50 ans de mariage. On ne regrette absolument pas ! Francis a mis une ambiance extraordinaire, des petits-enfants aux grands-parents.</blockquote>
+                    <cite><strong>Jean &amp; Monique R.</strong> &mdash; Noces d'or, Bourges</cite>
+                </div>
+
+                <div class="testimonial-card reveal reveal-delay-3" style="--rotation: 1.5deg;">
+                    <blockquote>L'atelier magie pour la fête de l'école était parfait. Les enfants sont repartis avec des étoiles plein les yeux et quelques tours à montrer aux parents !</blockquote>
+                    <cite><strong>Association des Parents d'Élèves</strong> &mdash; École primaire, Vatan</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 9. CONTACT ========== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">Contact</h2>
+            <p class="section-subtitle reveal reveal-delay-1">Racontez-moi votre événement...</p>
+
+            <div class="contact-grid">
+                <div class="notepad reveal reveal-delay-2">
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <label for="name">Votre nom</label>
+                        <input type="text" id="name" name="name" required placeholder="Jean Dupont">
+
+                        <label for="email">Votre email</label>
+                        <input type="email" id="email" name="email" required placeholder="jean@exemple.fr">
+
+                        <label for="phone">Téléphone</label>
+                        <input type="tel" id="phone" name="phone" placeholder="06 12 34 56 78">
+
+                        <label for="event-type">Type d'événement</label>
+                        <select id="event-type" name="event-type">
+                            <option value="">Choisir...</option>
+                            <option value="mariage">Mariage</option>
+                            <option value="anniversaire">Anniversaire</option>
+                            <option value="entreprise">Événement d'entreprise</option>
+                            <option value="public">Événement public</option>
+                            <option value="atelier">Atelier magie</option>
+                            <option value="autre">Autre</option>
+                        </select>
+
+                        <label for="date">Date souhaitée</label>
+                        <input type="date" id="date" name="date">
+
+                        <label for="message">Votre message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Décrivez votre événement, le nombre d'invités, le lieu..."></textarea>
+
+                        <button type="submit">Envoyer ma demande</button>
+                    </form>
+                </div>
+
+                <div class="contact-info reveal reveal-delay-3">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Téléphone</h4>
+                            <p><a href="tel:+33600000000">06 XX XX XX XX</a></p>
+                            <p style="font-size:0.85rem; color: var(--text-light);">Du lundi au samedi, 9h-19h</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Email</h4>
+                            <p><a href="mailto:contact@cotemagie.fr">contact@cotemagie.fr</a></p>
+                            <p style="font-size:0.85rem; color: var(--text-light);">Réponse sous 24h</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Zone d'intervention</h4>
+                            <p>Issoudun et toute la France</p>
+                            <p style="font-size:0.85rem; color: var(--text-light);">Indre, Berry, Centre-Val de Loire et au-delà</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>Disponibilité</h4>
+                            <p>Toute l'année, 7j/7</p>
+                            <p style="font-size:0.85rem; color: var(--text-light);">Pensez à réserver plusieurs mois à l'avance pour les week-ends</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 10. FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">Côté Magie</div>
+            <div class="footer-tagline">Francis Darcy &mdash; Magicien professionnel</div>
+            <p>Issoudun, Berry &mdash; Interventions dans toute la France</p>
+            <div class="footer-links">
+                <a href="#about">À propos</a>
+                <a href="#prestations">Prestations</a>
+                <a href="#evenements">Événements</a>
+                <a href="#galerie">Galerie</a>
+                <a href="#temoignages">Avis</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p style="margin-top: 32px; font-size: 0.8rem; opacity: 0.5;">&copy; 2025 Côté Magie &mdash; Francis Darcy. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        /* ---- Navbar scroll behavior ---- */
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        function updateNavbar() {
+            const scrollY = window.scrollY;
+            if (scrollY > 80) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            lastScroll = scrollY;
+        }
+
+        window.addEventListener('scroll', updateNavbar, { passive: true });
+        updateNavbar();
+
+        /* ---- Mobile nav toggle ---- */
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        navToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile nav on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        /* ---- Scroll reveal with IntersectionObserver ---- */
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        /* ---- Smooth scroll for anchor links ---- */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            });
+        });
+
+        /* ---- Form submit handler (demo) ---- */
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = form.querySelector('button');
+            const originalText = btn.textContent;
+
+            btn.textContent = 'Message envoyé !';
+            btn.style.background = '#4a7c59';
+
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                form.reset();
+            }, 3000);
+        }
+
+        /* ---- Parallax-like subtle effect on hero polaroids ---- */
+        const heroPolaroids = document.querySelectorAll('.hero-pinboard .polaroid');
+
+        if (window.innerWidth > 768) {
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 2;
+                const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+                heroPolaroids.forEach((p, i) => {
+                    const depth = (i + 1) * 3;
+                    const moveX = x * depth;
+                    const moveY = y * depth;
+                    const rotation = p.style.getPropertyValue('--rotation') || '0deg';
+                    p.style.transform = `rotate(${rotation}) translate(${moveX}px, ${moveY}px)`;
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>

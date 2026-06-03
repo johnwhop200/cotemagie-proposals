@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Côté Magie — Francis Darcy | Magicien Issoudun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --bg: #050510;
+  --text: #F0ECE3;
+  --gold: #FFD700;
+  --glow: #FFD70033;
+  --glow-strong: #FFD70066;
+  --glow-max: #FFD700AA;
+  --font-display: 'Cinzel Decorative', cursive;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold) var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+a { color: var(--gold); text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border 0.3s ease;
+  mix-blend-mode: screen;
+}
+
+.cursor.hover {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid var(--gold);
+}
+
+.cursor-particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  animation: cursorBurst 0.6s ease-out forwards;
+}
+
+@keyframes cursorBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) translate(var(--tx), var(--ty));
+  }
+}
+
+/* ============================================================
+   PARTICLE CANVAS
+   ============================================================ */
+#particleCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  transition: background 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(5, 5, 16, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.nav-sparkle {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  display: inline-block;
+}
+
+.nav-sparkle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%,
+    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+    2% 35%, 39% 35%
+  );
+  animation: sparkleRotate 4s linear infinite;
+}
+
+@keyframes sparkleRotate {
+  to { transform: rotate(360deg); }
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 40px var(--glow), 0 0 80px var(--glow);
+  margin-bottom: 1rem;
+}
+
+.hero-title .char {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.hero-title .char.revealed {
+  opacity: 1;
+}
+
+.hero-title .space {
+  width: 0.3em;
+  display: inline-block;
+}
+
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: 0.2em;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+
+.hero-tagline.visible {
+  opacity: 0.8;
+  transform: translateY(0);
+}
+
+.hero-cta {
+  margin-top: 3rem;
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 1rem 2.5rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+  animation: ctaGlow 2s ease-in-out infinite;
+}
+
+.hero-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 15px var(--glow), 0 0 30px transparent; }
+  50% { box-shadow: 0 0 25px var(--glow-strong), 0 0 50px var(--glow); }
+}
+
+.hero-cta:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* ============================================================
+   SECTIONS COMMON
+   ============================================================ */
+section {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  margin-top: 1rem;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.2;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   A PROPOS — TYPING REVEAL
+   ============================================================ */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.about-text p.typed {
+  opacity: 1;
+}
+
+.about-text .typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--gold);
+  vertical-align: text-bottom;
+  animation: blink 0.7s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.about-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.about-photo-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  color: var(--gold);
+  opacity: 0.4;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.about-photo::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  z-index: -1;
+  border-radius: 10px;
+  background: conic-gradient(from var(--border-angle, 0deg), var(--gold), transparent 40%, var(--gold));
+  animation: borderRotate 4s linear infinite;
+}
+
+@keyframes borderRotate {
+  to { --border-angle: 360deg; }
+}
+
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.about-photo::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.08), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ============================================================
+   PRESTATIONS — MORPHING CARDS
+   ============================================================ */
+.prestations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.prestation-card {
+  position: relative;
+  padding: 2.5rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 12px;
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+  cursor: none;
+}
+
+.prestation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.06), transparent);
+  transition: left 0.6s ease;
+}
+
+.prestation-card:hover::before {
+  left: 100%;
+}
+
+.prestation-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.03), rgba(255, 255, 255, 0.02));
+}
+
+.prestation-icon {
+  font-size: 3rem;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+  filter: drop-shadow(0 0 8px var(--glow));
+}
+
+.prestation-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.prestation-card p {
+  font-size: 0.9rem;
+  color: rgba(240, 236, 227, 0.6);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   EVENEMENTS — SLIDE IN
+   ============================================================ */
+.event-block {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  align-items: start;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.03), transparent 70%);
+  border-left: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 0 12px 12px 0;
+  opacity: 0;
+  transform: translateX(-60px) rotate(-1deg);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.event-block:nth-child(even) {
+  transform: translateX(60px) rotate(1deg);
+  border-left: none;
+  border-right: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 12px 0 0 12px;
+}
+
+.event-block.visible {
+  opacity: 1;
+  transform: translateX(0) rotate(0deg);
+}
+
+.event-icon {
+  font-size: 2.5rem;
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px var(--glow));
+}
+
+.event-block h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.event-block p {
+  font-size: 0.95rem;
+  color: rgba(240, 236, 227, 0.65);
+}
+
+/* ============================================================
+   REFERENCES — CONSTELLATION
+   ============================================================ */
+.constellation-wrapper {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  margin: 2rem 0;
+}
+
+.constellation-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: constellationRotate 120s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes constellationRotate {
+  to { transform: rotate(360deg); }
+}
+
+.constellation-svg line {
+  stroke: var(--gold);
+  stroke-width: 0.5;
+  opacity: 0.15;
+  transition: opacity 0.4s ease, stroke-width 0.4s ease;
+}
+
+.constellation-svg line.glow {
+  opacity: 0.6;
+  stroke-width: 1.5;
+}
+
+.constellation-node {
+  position: absolute;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: rgba(240, 236, 227, 0.5);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+  cursor: none;
+  transform: translate(-50%, -50%);
+}
+
+.constellation-node:hover {
+  color: var(--gold);
+  transform: translate(-50%, -50%) scale(1.15);
+  text-shadow: 0 0 12px var(--glow-strong);
+}
+
+.constellation-node::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  margin-top: -12px;
+  opacity: 0.6;
+}
+
+/* ============================================================
+   TEMOIGNAGES — DECRYPT REVEAL
+   ============================================================ */
+.testimonials {
+  text-align: center;
+}
+
+.testimonial-display {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  position: relative;
+}
+
+.testimonial-quote {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.8;
+  max-width: 700px;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.testimonial-quote::before {
+  content: '\201C';
+  font-family: var(--font-display);
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.3;
+  position: absolute;
+  top: -2rem;
+  left: -2rem;
+}
+
+.testimonial-author {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.testimonial-dots {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.testimonial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 215, 0, 0.2);
+  border: none;
+  cursor: none;
+  transition: background 0.3s;
+}
+
+.testimonial-dot.active {
+  background: var(--gold);
+}
+
+/* ============================================================
+   CONTACT — SPARK FORM
+   ============================================================ */
+.contact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  border-radius: 16px;
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: rgba(240, 236, 227, 0.5);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  cursor: none;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 15px var(--glow);
+}
+
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+  color: transparent;
+}
+
+.form-group .input-cursor {
+  position: absolute;
+  bottom: 14px;
+  left: 1rem;
+  width: 2px;
+  height: 1.1em;
+  background: var(--gold);
+  opacity: 0;
+  animation: blink 0.7s step-end infinite;
+  pointer-events: none;
+}
+
+.form-group input:focus ~ .input-cursor,
+.form-group textarea:focus ~ .input-cursor {
+  opacity: 1;
+}
+
+.form-spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: sparkFade 0.5s ease-out forwards;
+}
+
+@keyframes sparkFade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0) translateY(-15px); }
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--bg);
+  background: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  cursor: none;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-submit:hover {
+  background: transparent;
+  color: var(--gold);
+  box-shadow: 0 0 30px var(--glow);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.08);
+}
+
+.footer-magic {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  margin-bottom: 1.5rem;
+  cursor: none;
+}
+
+.footer-info {
+  font-size: 0.85rem;
+  color: rgba(240, 236, 227, 0.35);
+  line-height: 2;
+}
+
+.footer-info a {
+  color: rgba(240, 236, 227, 0.5);
+  transition: color 0.3s;
+}
+
+.footer-info a:hover { color: var(--gold); }
+
+/* ============================================================
+   SCROLL REVEAL BASE
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor { display: none; }
+  #particleCanvas { display: none; }
+
+  .nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(5, 5, 16, 0.96);
+    padding: 1.5rem;
+    gap: 1.2rem;
+  }
+  .nav-toggle { display: flex; }
+
+  .hero-title { letter-spacing: 0.08em; }
+
+  .about { grid-template-columns: 1fr; gap: 2rem; }
+  .about-photo { max-width: 280px; margin: 0 auto; }
+
+  .prestations-grid { grid-template-columns: 1fr 1fr; }
+
+  .event-block {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+    transform: translateY(30px) !important;
+    rotate: 0deg !important;
+  }
+  .event-block.visible { transform: translateY(0) !important; }
+
+  .constellation-wrapper { height: 400px; }
+  .constellation-node { font-size: 0.7rem; }
+
+  section { padding: 5rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .prestations-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo interactive">
+    <span class="nav-sparkle"></span>
+    Cote Magie
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" class="interactive">A propos</a></li>
+    <li><a href="#prestations" class="interactive">Prestations</a></li>
+    <li><a href="#events" class="interactive">Evenements</a></li>
+    <li><a href="#references" class="interactive">References</a></li>
+    <li><a href="#testimonials" class="interactive">Temoignages</a></li>
+    <li><a href="#contact" class="interactive">Contact</a></li>
+  </ul>
+  <button class="nav-toggle interactive" id="navToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" id="hero">
+  <h1 class="hero-title" id="heroTitle" data-text="COTE MAGIE"></h1>
+  <p class="hero-tagline" id="heroTagline">Francis Darcy &mdash; Magicien professionnel &middot; Issoudun</p>
+  <a href="#about" class="hero-cta interactive" id="heroCta">Decouvrir la magie &darr;</a>
+</section>
+
+<!-- ============================================================
+     A PROPOS
+     ============================================================ -->
+<div class="divider"></div>
+<section id="about">
+  <span class="section-label reveal">Qui suis-je</span>
+  <h2 class="section-title reveal">A propos</h2>
+  <div class="about">
+    <div class="about-text" id="aboutText">
+      <p class="type-reveal" data-text="Depuis plus de 20 ans, je parcours les scenes de France pour offrir des moments d'emerveillement et de mystere. La magie n'est pas un simple divertissement : c'est un art de l'impossible, une invitation a croire en l'extraordinaire.">
+      </p>
+      <p class="type-reveal" data-text="Close-up intime ou grand spectacle, chaque prestation est concue sur mesure pour votre evenement. Mon approche melange la precision technique, l'humour et la poesie pour creer une experience inoubliable.">
+      </p>
+      <p class="type-reveal" data-text="Base a Issoudun, je me deplace dans toute la France pour faire vivre la magie la ou vous le souhaitez.">
+      </p>
+    </div>
+    <div class="about-photo reveal">
+      <div class="about-photo-inner">Francis Darcy</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRESTATIONS
+     ============================================================ -->
+<div class="divider"></div>
+<section id="prestations">
+  <span class="section-label reveal">Ce que je propose</span>
+  <h2 class="section-title reveal">Prestations</h2>
+  <div class="prestations-grid">
+    <div class="prestation-card reveal interactive">
+      <span class="prestation-icon">&#10022;</span>
+      <h3>Close-up</h3>
+      <p>Magie de proximite au coeur de vos convives. Cartes, pieces, objets du quotidien se transforment entre vos mains.</p>
+    </div>
+    <div class="prestation-card reveal interactive">
+      <span class="prestation-icon">&spades;</span>
+      <h3>Spectacle de scene</h3>
+      <p>Un show complet, du mentalisme aux grandes illusions. Duree adaptable de 30 minutes a 1h30.</p>
+    </div>
+    <div class="prestation-card reveal interactive">
+      <span class="prestation-icon">&#9733;</span>
+      <h3>Mentalisme</h3>
+      <p>Lecture de pensees, predictions, influences. L'art de faire croire que tout est possible dans l'esprit humain.</p>
+    </div>
+    <div class="prestation-card reveal interactive">
+      <span class="prestation-icon">&#9670;</span>
+      <h3>Magie pour enfants</h3>
+      <p>Un spectacle colore et participatif adapte aux plus jeunes. Rires et emerveillement garantis.</p>
+    </div>
+    <div class="prestation-card reveal interactive">
+      <span class="prestation-icon">&#10047;</span>
+      <h3>Animations entreprise</h3>
+      <p>Team building, seminaires, lancements de produit. La magie au service de votre communication.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EVENEMENTS
+     ============================================================ -->
+<div class="divider"></div>
+<section id="events">
+  <span class="section-label reveal">Occasions</span>
+  <h2 class="section-title reveal">Evenements</h2>
+
+  <div class="event-block" data-slide="left">
+    <span class="event-icon">&#127905;</span>
+    <div>
+      <h3>Mariages</h3>
+      <p>Le close-up pendant le cocktail, le spectacle en soiree. Des souvenirs magiques pour le plus beau jour de votre vie. Prestation personnalisee avec les prenoms des maries integres dans les tours.</p>
+    </div>
+  </div>
+
+  <div class="event-block" data-slide="right">
+    <span class="event-icon">&#127878;</span>
+    <div>
+      <h3>Anniversaires & fetes privees</h3>
+      <p>Surprenez vos invites avec une animation unique. Du close-up deambulatoire au spectacle complet, chaque moment est pense pour emerveiller petits et grands.</p>
+    </div>
+  </div>
+
+  <div class="event-block" data-slide="left">
+    <span class="event-icon">&#127970;</span>
+    <div>
+      <h3>Evenements d'entreprise</h3>
+      <p>Soirees de gala, conventions, inaugurations. La magie comme vecteur de communication et d'emotion pour marquer les esprits de vos collaborateurs et clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     REFERENCES — CONSTELLATION
+     ============================================================ -->
+<div class="divider"></div>
+<section id="references">
+  <span class="section-label reveal">Ils m'ont fait confiance</span>
+  <h2 class="section-title reveal">References</h2>
+  <div class="constellation-wrapper reveal" id="constellation">
+    <!-- SVG lines + nodes injected by JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     TEMOIGNAGES — DECRYPT
+     ============================================================ -->
+<div class="divider"></div>
+<section id="testimonials" class="testimonials">
+  <span class="section-label reveal">Retours</span>
+  <h2 class="section-title reveal" style="text-align:center;">Temoignages</h2>
+  <div class="testimonial-display reveal" id="testimonialDisplay">
+    <p class="testimonial-quote" id="testimonialQuote"></p>
+    <span class="testimonial-author" id="testimonialAuthor"></span>
+  </div>
+  <div class="testimonial-dots" id="testimonialDots"></div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<div class="divider"></div>
+<section id="contact">
+  <span class="section-label reveal">Parlons magie</span>
+  <h2 class="section-title reveal" style="text-align:center;">Contact</h2>
+  <div class="contact-card reveal">
+    <form id="contactForm" onsubmit="return false;">
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" placeholder="Votre nom" class="interactive spark-input">
+        <span class="input-cursor"></span>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="votre@email.com" class="interactive spark-input">
+        <span class="input-cursor"></span>
+      </div>
+      <div class="form-group">
+        <label>Evenement</label>
+        <input type="text" placeholder="Mariage, anniversaire, entreprise..." class="interactive spark-input">
+        <span class="input-cursor"></span>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Decrivez votre evenement..." class="interactive spark-input"></textarea>
+        <span class="input-cursor"></span>
+      </div>
+      <button type="submit" class="btn-submit interactive" id="btnSubmit" data-text="Envoyer">Envoyer</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <p class="footer-magic interactive" id="footerMagic" data-text="La magie continue...">La magie continue...</p>
+  <div class="footer-info">
+    Francis Darcy &mdash; Cote Magie<br>
+    Issoudun, France<br>
+    <a href="tel:+33600000000" class="interactive">06 00 00 00 00</a> &middot;
+    <a href="mailto:contact@cotemagie.fr" class="interactive">contact@cotemagie.fr</a><br><br>
+    <small>&copy; 2026 Cote Magie. Tous droits reserves.</small>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ==========================================================
+     UTILITY: Detect mobile / touch
+     ========================================================== */
+  const isMobile = window.matchMedia('(max-width: 768px)').matches
+    || ('ontouchstart' in window);
+
+  /* ==========================================================
+     CUSTOM CURSOR
+     ========================================================== */
+  if (!isMobile) {
+    const cursor = document.getElementById('cursor');
+    let cx = -100, cy = -100, tx = -100, ty = -100;
+
+    document.addEventListener('mousemove', e => {
+      tx = e.clientX;
+      ty = e.clientY;
+    });
+
+    function updateCursor() {
+      cx += (tx - cx) * 0.15;
+      cy += (ty - cy) * 0.15;
+      cursor.style.transform = `translate(${cx - 10}px, ${cy - 10}px)`;
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    // Hover expand
+    document.querySelectorAll('.interactive').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Click burst
+    document.addEventListener('click', e => {
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'cursor-particle';
+        const angle = (Math.PI * 2 / 8) * i;
+        const dist = 30 + Math.random() * 20;
+        p.style.left = e.clientX + 'px';
+        p.style.top = e.clientY + 'px';
+        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 600);
+      }
+    });
+  }
+
+  /* ==========================================================
+     PARTICLE SYSTEM (Canvas)
+     ========================================================== */
+  if (!isMobile) {
+    const canvas = document.getElementById('particleCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    let mouseX = -9999, mouseY = -9999;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * W;
+        this.y = H + Math.random() * 100;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = -(0.3 + Math.random() * 0.7);
+        this.size = 1 + Math.random() * 2;
+        this.opacity = 0;
+        this.maxOpacity = 0.2 + Math.random() * 0.5;
+        this.life = 0;
+        this.maxLife = 200 + Math.random() * 300;
+        this.isGold = Math.random() > 0.3;
+      }
+      update() {
+        this.life++;
+        // Fade in/out
+        if (this.life < 40) {
+          this.opacity = (this.life / 40) * this.maxOpacity;
+        } else if (this.life > this.maxLife - 60) {
+          this.opacity = ((this.maxLife - this.life) / 60) * this.maxOpacity;
+        }
+        // Movement
+        this.x += this.vx + Math.sin(this.life * 0.02) * 0.15;
+        this.y += this.vy;
+        // Mouse repulsion
+        const dx = this.x - mouseX;
+        const dy = this.y - mouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          const force = (120 - dist) / 120 * 1.5;
+          this.x += (dx / dist) * force;
+          this.y += (dy / dist) * force;
+        }
+        // Recycle
+        if (this.life >= this.maxLife || this.y < -20) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        if (this.isGold) {
+          ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
+        } else {
+          ctx.fillStyle = `rgba(240, 236, 227, ${this.opacity * 0.7})`;
+        }
+        ctx.fill();
+      }
+    }
+
+    const particles = [];
+    for (let i = 0; i < 80; i++) {
+      const p = new Particle();
+      p.life = Math.random() * p.maxLife; // stagger
+      p.y = Math.random() * H;
+      particles.push(p);
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+  }
+
+  /* ==========================================================
+     TEXT SCRAMBLE CLASS
+     ========================================================== */
+  class ScrambleText {
+    constructor(el, options = {}) {
+      this.el = el;
+      this.chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
+      this.intervalMs = options.interval || 40;
+      this.text = options.text || el.getAttribute('data-text') || el.textContent;
+      this.onComplete = options.onComplete || null;
+    }
+
+    start() {
+      const len = this.text.length;
+      let resolved = 0;
+      const display = new Array(len).fill('');
+
+      // Initialize with random chars
+      for (let i = 0; i < len; i++) {
+        if (this.text[i] === ' ') {
+          display[i] = ' ';
+        } else {
+          display[i] = this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+      }
+
+      this.el.textContent = display.join('');
+
+      const interval = setInterval(() => {
+        // Cycle unresolved characters
+        for (let i = resolved; i < len; i++) {
+          if (this.text[i] === ' ') {
+            display[i] = ' ';
+          } else {
+            display[i] = this.chars[Math.floor(Math.random() * this.chars.length)];
+          }
+        }
+        // Resolve next character
+        if (resolved < len) {
+          display[resolved] = this.text[resolved];
+          resolved++;
+        }
+        this.el.textContent = display.join('');
+        if (resolved >= len) {
+          clearInterval(interval);
+          if (this.onComplete) this.onComplete();
+        }
+      }, this.intervalMs);
+
+      return this;
+    }
+  }
+
+  /* ==========================================================
+     HERO SCRAMBLE
+     ========================================================== */
+  const heroTitle = document.getElementById('heroTitle');
+  const heroText = heroTitle.getAttribute('data-text');
+  const heroTagline = document.getElementById('heroTagline');
+  const heroCta = document.getElementById('heroCta');
+
+  // Build spans
+  heroText.split('').forEach(ch => {
+    if (ch === ' ') {
+      const sp = document.createElement('span');
+      sp.className = 'space';
+      heroTitle.appendChild(sp);
+    } else {
+      const sp = document.createElement('span');
+      sp.className = 'char';
+      sp.textContent = ch;
+      heroTitle.appendChild(sp);
+    }
+  });
+
+  // Scramble each letter
+  const chars = heroTitle.querySelectorAll('.char');
+  const scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+  let heroRevealed = 0;
+
+  function scrambleHeroLetter(index) {
+    const span = chars[index];
+    const target = heroText.replace(/ /g, '')[index] || span.textContent;
+    let cycles = 0;
+    const maxCycles = 12 + Math.floor(Math.random() * 8);
+    span.style.opacity = '1';
+    const iv = setInterval(() => {
+      if (cycles < maxCycles) {
+        span.textContent = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+        cycles++;
+      } else {
+        span.textContent = target;
+        span.classList.add('revealed');
+        clearInterval(iv);
+        heroRevealed++;
+        if (heroRevealed >= chars.length) {
+          heroTagline.classList.add('visible');
+          heroCta.classList.add('visible');
+        }
+      }
+    }, 50);
+  }
+
+  // Stagger letter reveals
+  chars.forEach((_, i) => {
+    setTimeout(() => scrambleHeroLetter(i), i * 80);
+  });
+
+  /* ==========================================================
+     NAVIGATION
+     ========================================================== */
+  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  });
+
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+
+  // Close mobile nav on link click
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  /* ==========================================================
+     SCROLL REVEAL (IntersectionObserver)
+     ========================================================== */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ==========================================================
+     A PROPOS — TYPING REVEAL
+     ========================================================== */
+  const typeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.typed) {
+        entry.target.dataset.typed = 'true';
+        typeReveal(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.type-reveal').forEach(el => typeObserver.observe(el));
+
+  function typeReveal(el) {
+    const text = el.getAttribute('data-text');
+    el.textContent = '';
+    el.classList.add('typed');
+    const cursorSpan = document.createElement('span');
+    cursorSpan.className = 'typing-cursor';
+    el.appendChild(cursorSpan);
+
+    let i = 0;
+    const speed = 12; // fast typing
+    function type() {
+      if (i < text.length) {
+        el.insertBefore(document.createTextNode(text[i]), cursorSpan);
+        i++;
+        setTimeout(type, speed);
+      } else {
+        setTimeout(() => cursorSpan.remove(), 1500);
+      }
+    }
+    type();
+  }
+
+  /* ==========================================================
+     EVENTS — SLIDE IN
+     ========================================================== */
+  const eventObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('.event-block').forEach(el => eventObserver.observe(el));
+
+  /* ==========================================================
+     REFERENCES — CONSTELLATION
+     ========================================================== */
+  const clients = [
+    { name: 'Mairie d\'Issoudun', x: 20, y: 25 },
+    { name: 'Casino de Deauville', x: 72, y: 15 },
+    { name: 'Hotel Le Bristol', x: 45, y: 45 },
+    { name: 'Chateau de Valencay', x: 15, y: 65 },
+    { name: 'Comite des fetes', x: 80, y: 55 },
+    { name: 'Lions Club', x: 55, y: 78 },
+    { name: 'Rotary Club', x: 30, y: 85 },
+    { name: 'CCI du Berry', x: 65, y: 35 },
+    { name: 'Ordre des Medecins', x: 85, y: 80 },
+    { name: 'Chambre d\'Agriculture', x: 10, y: 45 },
+  ];
+
+  const constellationEl = document.getElementById('constellation');
+
+  // Create SVG for lines
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.classList.add('constellation-svg');
+  svg.setAttribute('viewBox', '0 0 100 100');
+  svg.setAttribute('preserveAspectRatio', 'none');
+  constellationEl.appendChild(svg);
+
+  // Connect nearby nodes (distance < 35)
+  const lines = [];
+  for (let i = 0; i < clients.length; i++) {
+    for (let j = i + 1; j < clients.length; j++) {
+      const dx = clients[i].x - clients[j].x;
+      const dy = clients[i].y - clients[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 40) {
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', clients[i].x);
+        line.setAttribute('y1', clients[i].y);
+        line.setAttribute('x2', clients[j].x);
+        line.setAttribute('y2', clients[j].y);
+        line.dataset.nodes = `${i},${j}`;
+        svg.appendChild(line);
+        lines.push({ el: line, a: i, b: j });
+      }
+    }
+  }
+
+  // Create node labels
+  clients.forEach((client, idx) => {
+    const node = document.createElement('span');
+    node.className = 'constellation-node interactive';
+    node.textContent = client.name;
+    node.style.left = client.x + '%';
+    node.style.top = client.y + '%';
+    node.dataset.index = idx;
+    constellationEl.appendChild(node);
+
+    node.addEventListener('mouseenter', () => {
+      lines.forEach(l => {
+        if (l.a === idx || l.b === idx) l.el.classList.add('glow');
+      });
+    });
+    node.addEventListener('mouseleave', () => {
+      lines.forEach(l => l.el.classList.remove('glow'));
+    });
+  });
+
+  /* ==========================================================
+     TESTIMONIALS — DECRYPT CYCLE
+     ========================================================== */
+  const testimonials = [
+    {
+      quote: 'Francis a transforme notre mariage en un moment ferique. Nos invites en parlent encore des mois apres. Une prestation d\'une elegance rare.',
+      author: 'Sophie & Marc — Mariage, Chateau de Valencay'
+    },
+    {
+      quote: 'Le mentalisme de Francis a laisse tout le monde sans voix. Meme les plus sceptiques ont ete bluffes. Un artiste hors pair.',
+      author: 'Philippe D. — Directeur, Lions Club Berry'
+    },
+    {
+      quote: 'Pour notre soiree de gala, Francis a su captiver 300 personnes pendant plus d\'une heure. Standing ovation a la fin du spectacle.',
+      author: 'Caroline M. — Evenementiel, CCI du Berry'
+    },
+    {
+      quote: 'Nos enfants etaient emerveilles, et nous aussi ! Le close-up pendant le cocktail etait un vrai moment de bonheur partage.',
+      author: 'Famille Bertrand — Anniversaire, Issoudun'
+    }
+  ];
+
+  const quoteEl = document.getElementById('testimonialQuote');
+  const authorEl = document.getElementById('testimonialAuthor');
+  const dotsEl = document.getElementById('testimonialDots');
+  let currentTestimonial = 0;
+  let testimonialInterval;
+
+  // Create dots
+  testimonials.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'testimonial-dot interactive' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => showTestimonial(i));
+    dotsEl.appendChild(dot);
+  });
+
+  function showTestimonial(idx) {
+    currentTestimonial = idx;
+    // Update dots
+    dotsEl.querySelectorAll('.testimonial-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+    // Scramble quote
+    const t = testimonials[idx];
+    new ScrambleText(quoteEl, { text: t.quote, interval: 25 }).start();
+    new ScrambleText(authorEl, { text: t.author, interval: 30 }).start();
+  }
+
+  // Observe testimonials section
+  const testimonialObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !testimonialInterval) {
+        showTestimonial(0);
+        testimonialInterval = setInterval(() => {
+          currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+          showTestimonial(currentTestimonial);
+        }, 6000);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  testimonialObserver.observe(document.getElementById('testimonialDisplay'));
+
+  /* ==========================================================
+     CONTACT — SPARK ON TYPING
+     ========================================================== */
+  document.querySelectorAll('.spark-input').forEach(input => {
+    input.addEventListener('input', function(e) {
+      if (isMobile) return;
+      const rect = this.getBoundingClientRect();
+      // Approximate cursor position
+      const spark = document.createElement('div');
+      spark.className = 'form-spark';
+      spark.style.left = (rect.left + Math.min(this.value.length * 8 + 16, rect.width - 16)) + 'px';
+      spark.style.top = (rect.top + rect.height / 2 + (Math.random() - 0.5) * 10) + 'px';
+      spark.style.position = 'fixed';
+      document.body.appendChild(spark);
+      setTimeout(() => spark.remove(), 500);
+    });
+  });
+
+  // Submit button scramble on hover
+  const btnSubmit = document.getElementById('btnSubmit');
+  btnSubmit.addEventListener('mouseenter', () => {
+    new ScrambleText(btnSubmit, { text: 'Envoyer ✨', interval: 35 }).start();
+  });
+  btnSubmit.addEventListener('mouseleave', () => {
+    btnSubmit.textContent = 'Envoyer';
+  });
+
+  /* ==========================================================
+     FOOTER — SCRAMBLE ON HOVER
+     ========================================================== */
+  const footerMagic = document.getElementById('footerMagic');
+  footerMagic.addEventListener('mouseenter', () => {
+    new ScrambleText(footerMagic, { text: footerMagic.getAttribute('data-text'), interval: 35 }).start();
+  });
+
+  /* ==========================================================
+     SMOOTH SCROLL FOR ANCHOR LINKS
+     ========================================================== */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  /* ==========================================================
+     RE-REGISTER INTERACTIVE ELEMENTS FOR CURSOR
+     (for dynamically visible elements)
+     ========================================================== */
+  if (!isMobile) {
+    const cursorEl = document.getElementById('cursor');
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest('.interactive')) {
+        cursorEl.classList.add('hover');
+      }
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('.interactive')) {
+        cursorEl.classList.remove('hover');
+      }
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
