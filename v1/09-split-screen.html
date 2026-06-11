@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Côté Magie — Francis Darcy | Magicien à Issoudun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ========================================
+   RESET & BASE
+   ======================================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0A0A0A;
+  --text: #EDEDED;
+  --text-muted: #999999;
+  --accent: #B8860B;
+  --accent-light: #D4A526;
+  --divider: #222222;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-light);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 3rem;
+}
+
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--text);
+  margin: 6px 0;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('https://static.wixstatic.com/media/da939b_a26173499cf94cb2a7a2ae90b799d4e5~mv2.jpg/v1/fill/w_1920,h_726,fp_0.50_0.50,q_85,enc_avif,quality_auto/da939b_a26173499cf94cb2a7a2ae90b799d4e5~mv2.jpg') center center / cover no-repeat;
+  filter: brightness(0.35);
+  transform: scale(1.05);
+  transition: transform 8s ease-out;
+}
+
+.hero.loaded .hero-bg {
+  transform: scale(1);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.hero-subtitle-top {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s 0.3s ease forwards;
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  line-height: 0.95;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1.2s 0.5s ease forwards;
+}
+
+.hero-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--accent);
+  margin: 2rem auto;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s ease forwards;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s 1s ease forwards;
+}
+
+.hero-cta {
+  display: inline-block;
+  padding: 1rem 3rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s 1.2s ease forwards;
+}
+
+.hero-cta:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.5s ease forwards;
+}
+
+.hero-scroll span {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s infinite;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ========================================
+   SPLIT LAYOUT BASE
+   ======================================== */
+.split-section {
+  display: flex;
+  min-height: 100vh;
+  border-top: 1px solid var(--divider);
+}
+
+.split-left {
+  position: relative;
+  width: 50%;
+  flex-shrink: 0;
+}
+
+.split-left-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.split-left-sticky img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.split-right {
+  width: 50%;
+  padding: 8rem 5rem;
+}
+
+/* ========================================
+   ABOUT SECTION
+   ======================================== */
+.about .split-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.about-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+}
+
+.about-heading {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+  line-height: 1.15;
+}
+
+.about-heading em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.about-text {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.9;
+  max-width: 520px;
+}
+
+.about-text p + p {
+  margin-top: 1.5rem;
+}
+
+.about-signature {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--divider);
+}
+
+.about-signature .name {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--text);
+}
+
+.about-signature .role {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+}
+
+/* ========================================
+   PRESTATIONS — SPLIT WITH IMAGE SWAP
+   ======================================== */
+.prestations .split-left-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.presta-image-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.presta-image-stack img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.presta-image-stack img.active {
+  opacity: 1;
+}
+
+.prestations .split-right {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.presta-intro {
+  margin-bottom: 6rem;
+}
+
+.presta-intro-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.presta-intro-heading {
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.presta-block {
+  padding: 5rem 0;
+  border-top: 1px solid var(--divider);
+  opacity: 0.3;
+  transition: opacity 0.6s ease;
+}
+
+.presta-block:first-of-type {
+  border-top: none;
+}
+
+.presta-block.in-view {
+  opacity: 1;
+}
+
+.presta-number {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+}
+
+.presta-title {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.presta-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  max-width: 480px;
+}
+
+.presta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.presta-tag {
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--divider);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-radius: 2px;
+}
+
+/* ========================================
+   EVENEMENTS — FULL WIDTH BREAK
+   ======================================== */
+.evenements {
+  padding: 8rem 3rem;
+  border-top: 1px solid var(--divider);
+}
+
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.event-card {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.event-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.8s ease;
+  filter: brightness(0.6);
+}
+
+.event-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.4);
+}
+
+.event-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.5rem;
+  background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 60%);
+}
+
+.event-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.event-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   REFERENCES MARQUEE
+   ======================================== */
+.references {
+  padding: 4rem 0;
+  border-top: 1px solid var(--divider);
+  border-bottom: 1px solid var(--divider);
+  overflow: hidden;
+}
+
+.marquee-wrapper {
+  position: relative;
+}
+
+.marquee-wrapper::before,
+.marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+}
+
+.marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 0 1.5rem;
+}
+
+.marquee-item {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.marquee-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ========================================
+   TEMOIGNAGES
+   ======================================== */
+.temoignages {
+  padding: 10rem 3rem;
+  border-bottom: 1px solid var(--divider);
+  text-align: center;
+  position: relative;
+}
+
+.temoignages .section-label {
+  margin-bottom: 4rem;
+}
+
+.testimonial-slider {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 280px;
+}
+
+.testimonial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.testimonial.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.testimonial-quote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 2.5rem;
+}
+
+.testimonial-quote::before {
+  content: '\201C';
+  display: block;
+  font-size: 4rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.testimonial-author {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.testimonial-author strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.testimonial-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.testimonial-btn {
+  background: none;
+  border: 1px solid var(--divider);
+  color: var(--text-muted);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.testimonial-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.testimonial-counter {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  min-width: 60px;
+  text-align: center;
+}
+
+.testimonial-counter .current {
+  color: var(--text);
+}
+
+/* ========================================
+   CONTACT — SPLIT
+   ======================================== */
+.contact {
+  display: flex;
+  min-height: 100vh;
+  border-top: 1px solid var(--divider);
+}
+
+.contact-left {
+  position: relative;
+  width: 45%;
+  overflow: hidden;
+}
+
+.contact-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.contact-left-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem;
+  background: linear-gradient(to right, rgba(10,10,10,0.7), transparent);
+}
+
+.contact-left-overlay h2 {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+
+.contact-left-overlay p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  max-width: 360px;
+}
+
+.contact-info {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.contact-info-item .icon {
+  width: 20px;
+  text-align: center;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.contact-right {
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
+}
+
+.contact-form {
+  width: 100%;
+  max-width: 520px;
+}
+
+.contact-form-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.form-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--divider);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.75rem 0;
+  outline: none;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  padding-right: 1.5rem;
+}
+
+.form-group select option {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-submit {
+  display: inline-block;
+  padding: 1.1rem 3.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  transition: all 0.4s ease;
+  margin-top: 1rem;
+}
+
+.form-submit:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer {
+  padding: 3rem;
+  border-top: 1px solid var(--divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: #555;
+}
+
+/* ========================================
+   REVEAL ANIMATIONS
+   ======================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ========================================
+   MOBILE RESPONSIVE
+   ======================================== */
+@media (max-width: 1024px) {
+  .split-right {
+    padding: 5rem 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Nav */
+  .nav {
+    padding: 1rem 1.5rem;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(10, 10, 10, 0.97);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    z-index: 999;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .nav-toggle {
+    display: block;
+    z-index: 1001;
+  }
+
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  /* Hero */
+  .hero-title {
+    font-size: clamp(2.5rem, 12vw, 5rem);
+  }
+
+  /* Split sections go vertical */
+  .split-section,
+  .contact {
+    flex-direction: column;
+  }
+
+  .split-left,
+  .split-right,
+  .contact-left,
+  .contact-right {
+    width: 100%;
+  }
+
+  .split-left-sticky {
+    position: relative;
+    height: 60vh;
+  }
+
+  .split-right {
+    padding: 4rem 1.5rem;
+  }
+
+  .about .split-right {
+    min-height: auto;
+  }
+
+  /* Prestations mobile */
+  .presta-image-stack {
+    height: 60vh;
+  }
+
+  .presta-block {
+    padding: 3rem 0;
+  }
+
+  /* Events */
+  .evenements {
+    padding: 5rem 1.5rem;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .event-card {
+    aspect-ratio: 4/3;
+  }
+
+  /* Contact */
+  .contact-left {
+    height: 50vh;
+  }
+
+  .contact-left-overlay {
+    padding: 2.5rem;
+  }
+
+  .contact-right {
+    padding: 3rem 1.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Temoignages */
+  .temoignages {
+    padding: 5rem 1.5rem;
+  }
+
+  .testimonial-quote {
+    font-size: 1.3rem;
+  }
+
+  /* Footer */
+  .footer {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 3rem 1.5rem;
+  }
+}
+
+/* ========================================
+   PROPOSAL BADGE
+   ======================================== */
+.proposal-badge {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-weight: 700;
+  z-index: 9999;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<!-- PROPOSAL BADGE -->
+<div class="proposal-badge">Proposition 09 — Split Screen</div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">Cote Magie</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">A propos</a></li>
+    <li><a href="#prestations">Prestations</a></li>
+    <li><a href="#evenements">Evenements</a></li>
+    <li><a href="#temoignages">Avis</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- ====================================
+     HERO
+     ==================================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-subtitle-top">Francis Darcy &mdash; Magicien professionnel</div>
+    <h1 class="hero-title">COTE<br>MAGIE</h1>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Issoudun &bull; Centre-Val de Loire</p>
+    <a href="#contact" class="hero-cta">Reservez votre moment magique</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Decouvrir</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ====================================
+     ABOUT — SPLIT SECTION 1
+     ==================================== -->
+<section class="split-section about" id="about">
+  <div class="split-left">
+    <div class="split-left-sticky">
+      <img src="https://static.wixstatic.com/media/da939b_de131428a0654a80a6dafe41cff4358e~mv2.jpg/v1/fill/w_564,h_1130,al_c,q_85,enc_avif,quality_auto/beau%20gosse_edited.jpg" alt="Francis Darcy — Portrait" loading="lazy">
+    </div>
+  </div>
+  <div class="split-right">
+    <div class="reveal">
+      <span class="about-label">A propos</span>
+      <h2 class="about-heading">L'art de creer<br>l'<em>impossible</em></h2>
+      <div class="about-text">
+        <p>
+          Depuis plus de 20 ans, Francis Darcy enchante les publics de tous ages avec une magie elegante, interactive et profondement humaine. Base a Issoudun, au coeur du Berry, il se deplace dans toute la region Centre-Val de Loire et au-dela.
+        </p>
+        <p>
+          Close-up intimiste, spectacles de scene, animations pour enfants ou ateliers pedagogiques&nbsp;: chaque prestation est sur mesure, pensee pour s'inscrire parfaitement dans votre evenement et laisser un souvenir imperissable.
+        </p>
+        <p>
+          Sa philosophie&nbsp;? La magie n'est pas une succession de tours, c'est une experience partagee. Un moment suspendu ou l'emerveillement unit les regards et ou le rire devient le plus beau des applaudissements.
+        </p>
+      </div>
+      <div class="about-signature">
+        <div class="name">Francis Darcy</div>
+        <div class="role">Magicien professionnel &bull; Cote Magie</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     PRESTATIONS — SPLIT SECTION 2
+     ==================================== -->
+<section class="split-section prestations" id="prestations">
+  <div class="split-left">
+    <div class="split-left-sticky">
+      <div class="presta-image-stack" id="prestaStack">
+        <img src="https://static.wixstatic.com/media/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg/v1/fill/w_800,h_800,q_90,enc_avif,quality_auto/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg" alt="Close-up" class="active" data-presta="closeup">
+        <img src="https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg" alt="Spectacles Enfants" data-presta="enfants">
+        <img src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg" alt="Magie pour Aines" data-presta="aines">
+        <img src="https://static.wixstatic.com/media/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg/v1/fill/w_600,h_600,fp_0.63_0.4,q_90,enc_avif,quality_auto/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg" alt="Sculpture de ballons" data-presta="ballons">
+        <img src="https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg" alt="Ateliers magie" data-presta="atelier">
+      </div>
+    </div>
+  </div>
+  <div class="split-right">
+    <div class="presta-intro reveal">
+      <span class="presta-intro-label">Prestations</span>
+      <h2 class="presta-intro-heading">Un spectacle pour<br>chaque occasion</h2>
+    </div>
+
+    <!-- Close-up -->
+    <div class="presta-block" data-target="closeup">
+      <span class="presta-number">01</span>
+      <h3 class="presta-title">Close-up &amp; Magie de Table</h3>
+      <p class="presta-desc">
+        La magie se passe dans vos mains. Francis circule entre vos convives et realise des miracles a quelques centimetres de leurs yeux. Cartes, pieces, objets empruntes&nbsp;: l'impossible se produit au creux de vos paumes. Ideal pour les cocktails, diners de gala et soirees privees.
+      </p>
+      <div class="presta-tags">
+        <span class="presta-tag">Cocktails</span>
+        <span class="presta-tag">Diners</span>
+        <span class="presta-tag">Soirees VIP</span>
+      </div>
+    </div>
+
+    <!-- Enfants -->
+    <div class="presta-block" data-target="enfants">
+      <span class="presta-number">02</span>
+      <h3 class="presta-title">Spectacles Enfants</h3>
+      <p class="presta-desc">
+        Un univers colore et interactif ou les enfants deviennent les heros de l'histoire. Rires garantis, participation maximale et yeux ecarquilles sont au programme. Adapte a tous les ages, du tout-petit au pre-ado. Chaque spectacle dure entre 30 et 50 minutes.
+      </p>
+      <div class="presta-tags">
+        <span class="presta-tag">Anniversaires</span>
+        <span class="presta-tag">Ecoles</span>
+        <span class="presta-tag">Centres de loisirs</span>
+      </div>
+    </div>
+
+    <!-- Aines -->
+    <div class="presta-block" data-target="aines">
+      <span class="presta-number">03</span>
+      <h3 class="presta-title">Magie pour les Aines</h3>
+      <p class="presta-desc">
+        Des moments de partage et d'emerveillement dans les maisons de retraite et EHPAD. Francis adapte ses tours pour privilegier l'interaction douce, la nostalgie joyeuse et la stimulation cognitive. Un spectacle qui touche le coeur autant que l'esprit.
+      </p>
+      <div class="presta-tags">
+        <span class="presta-tag">EHPAD</span>
+        <span class="presta-tag">Residences seniors</span>
+        <span class="presta-tag">Associations</span>
+      </div>
+    </div>
+
+    <!-- Ballons -->
+    <div class="presta-block" data-target="ballons">
+      <span class="presta-number">04</span>
+      <h3 class="presta-title">Sculpture de Ballons</h3>
+      <p class="presta-desc">
+        Animaux fantastiques, epees de chevaliers, couronnes de princesse&nbsp;: sous les doigts agiles de Francis, de simples ballons se transforment en oeuvres ephemeres qui font la joie des petits et des grands. Une animation coloree et festive, parfaite en complement d'un spectacle.
+      </p>
+      <div class="presta-tags">
+        <span class="presta-tag">Fetes</span>
+        <span class="presta-tag">Marches de Noel</span>
+        <span class="presta-tag">Kermesses</span>
+      </div>
+    </div>
+
+    <!-- Ateliers -->
+    <div class="presta-block" data-target="atelier">
+      <span class="presta-number">05</span>
+      <h3 class="presta-title">Ateliers Magie</h3>
+      <p class="presta-desc">
+        Apprenez les secrets du magicien ! Francis transmet sa passion a travers des ateliers pedagogiques ou chaque participant repart avec de vrais tours dans les mains. Pour les centres de loisirs, les team-buildings, les anniversaires ou les evenements culturels.
+      </p>
+      <div class="presta-tags">
+        <span class="presta-tag">Team-building</span>
+        <span class="presta-tag">Stages enfants</span>
+        <span class="presta-tag">Evenements culturels</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     EVENEMENTS
+     ==================================== -->
+<section class="evenements" id="evenements">
+  <span class="section-label reveal">Evenements</span>
+  <h2 class="section-heading reveal">Pour chaque moment de vie</h2>
+  <div class="events-grid">
+    <div class="event-card reveal reveal-delay-1">
+      <img src="https://static.wixstatic.com/media/da939b_6bcece77bb174880a05a8afe0b7b51f1~mv2.jpg/v1/fill/w_800,h_520,al_c,q_80,enc_avif,quality_auto/da939b_6bcece77bb174880a05a8afe0b7b51f1~mv2.jpg" alt="Soirees et Galas" loading="lazy">
+      <div class="event-overlay">
+        <h3 class="event-title">Soirees &amp; Galas</h3>
+        <span class="event-subtitle">Close-up, scene, mentalisme</span>
+      </div>
+    </div>
+    <div class="event-card reveal reveal-delay-2">
+      <img src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Mariages" loading="lazy">
+      <div class="event-overlay">
+        <h3 class="event-title">Mariages</h3>
+        <span class="event-subtitle">Vin d'honneur, table en table</span>
+      </div>
+    </div>
+    <div class="event-card reveal reveal-delay-3">
+      <img src="https://static.wixstatic.com/media/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg" alt="Fetes et evenements" loading="lazy">
+      <div class="event-overlay">
+        <h3 class="event-title">Fetes &amp; Evenements</h3>
+        <span class="event-subtitle">Anniversaires, CE, festivals</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     REFERENCES — MARQUEE
+     ==================================== -->
+<section class="references">
+  <div class="marquee-wrapper">
+    <div class="marquee-track" id="marqueeTrack">
+      <div class="marquee-content">
+        <span class="marquee-item">Mairie d'Issoudun</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Casino de Chatelaillon</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Hotels Mercure</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Comites d'entreprise Michelin</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Lions Club Berry</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Salon du Mariage Chateauroux</span><span class="marquee-dot"></span>
+        <span class="marquee-item">EHPAD Les Music'Aines</span><span class="marquee-dot"></span>
+        <span class="marquee-item">La Poste Centre-Val de Loire</span><span class="marquee-dot"></span>
+        <span class="marquee-item">MJC Issoudun</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Rotary Club Chateauroux</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Federation Francaise de Magie</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Galeries Lafayette Bourges</span><span class="marquee-dot"></span>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-content">
+        <span class="marquee-item">Mairie d'Issoudun</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Casino de Chatelaillon</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Hotels Mercure</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Comites d'entreprise Michelin</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Lions Club Berry</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Salon du Mariage Chateauroux</span><span class="marquee-dot"></span>
+        <span class="marquee-item">EHPAD Les Music'Aines</span><span class="marquee-dot"></span>
+        <span class="marquee-item">La Poste Centre-Val de Loire</span><span class="marquee-dot"></span>
+        <span class="marquee-item">MJC Issoudun</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Rotary Club Chateauroux</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Federation Francaise de Magie</span><span class="marquee-dot"></span>
+        <span class="marquee-item">Galeries Lafayette Bourges</span><span class="marquee-dot"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================
+     TEMOIGNAGES
+     ==================================== -->
+<section class="temoignages" id="temoignages">
+  <span class="section-label">Temoignages</span>
+
+  <div class="testimonial-slider" id="testimonialSlider">
+    <div class="testimonial active">
+      <div class="testimonial-quote">
+        Francis a sublime notre mariage. Pendant le vin d'honneur, nos invites etaient absolument captives. Certains en parlent encore des mois apres. Un artiste d'une elegance rare.
+      </div>
+      <div class="testimonial-author"><strong>Sophie &amp; Marc</strong> &mdash; Mariage a Chateauroux</div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-quote">
+        Nous faisons appel a Francis chaque annee pour notre soiree de gala. Sa magie de close-up est tout simplement bluffante. Le professionnalisme a l'etat pur.
+      </div>
+      <div class="testimonial-author"><strong>Laurent D.</strong> &mdash; Lions Club Berry</div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-quote">
+        Les residents ont vecu un moment extraordinaire. Les sourires, les rires, l'emerveillement... Francis a ce don rare de toucher toutes les generations avec la meme delicatesse.
+      </div>
+      <div class="testimonial-author"><strong>Marie-Claire P.</strong> &mdash; Directrice EHPAD</div>
+    </div>
+    <div class="testimonial">
+      <div class="testimonial-quote">
+        L'anniversaire de notre fils restera grave dans les memoires. Les enfants etaient surexcites, mais Francis maitrise son public a la perfection. Magie + ballons = combinaison imbattable.
+      </div>
+      <div class="testimonial-author"><strong>Nathalie R.</strong> &mdash; Anniversaire enfant, Issoudun</div>
+    </div>
+  </div>
+
+  <div class="testimonial-nav">
+    <button class="testimonial-btn" id="prevTest" aria-label="Precedent">&#8592;</button>
+    <div class="testimonial-counter">
+      <span class="current" id="testCurrent">01</span> / <span id="testTotal">04</span>
+    </div>
+    <button class="testimonial-btn" id="nextTest" aria-label="Suivant">&#8594;</button>
+  </div>
+</section>
+
+<!-- ====================================
+     CONTACT — SPLIT
+     ==================================== -->
+<section class="contact" id="contact">
+  <div class="contact-left">
+    <img src="https://static.wixstatic.com/media/da939b_7a2262236e8045c7a234afdcbfe407b0~mv2.jpg/v1/fill/w_1920,h_592,fp_0.50_0.50,q_85,enc_avif,quality_auto/da939b_7a2262236e8045c7a234afdcbfe407b0~mv2.jpg" alt="Francis Darcy" loading="lazy">
+    <div class="contact-left-overlay">
+      <h2>Parlons de<br>votre projet</h2>
+      <p>Chaque evenement est unique. Decrivez-moi le votre et je vous proposerai une prestation sur mesure, adaptee a vos envies et a votre budget.</p>
+      <div class="contact-info">
+        <div class="contact-info-item">
+          <span class="icon">&#9742;</span>
+          <span>06 XX XX XX XX</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="icon">&#9993;</span>
+          <span>contact@cotemagie.fr</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="icon">&#9872;</span>
+          <span>Issoudun (36) &mdash; Deplacements toute France</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <form class="contact-form" onsubmit="return false;">
+      <span class="contact-form-label">Demande de devis</span>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">Prenom</label>
+          <input type="text" id="fname" name="fname" placeholder="Votre prenom" required>
+        </div>
+        <div class="form-group">
+          <label for="lname">Nom</label>
+          <input type="text" id="lname" name="lname" placeholder="Votre nom">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Telephone</label>
+          <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="event">Type d'evenement</label>
+        <select id="event" name="event">
+          <option value="" disabled selected>Selectionnez...</option>
+          <option value="mariage">Mariage</option>
+          <option value="anniversaire">Anniversaire</option>
+          <option value="entreprise">Evenement d'entreprise</option>
+          <option value="gala">Soiree / Gala</option>
+          <option value="ehpad">EHPAD / Maison de retraite</option>
+          <option value="ecole">Ecole / Centre de loisirs</option>
+          <option value="atelier">Atelier magie</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="date">Date souhaitee</label>
+          <input type="date" id="date" name="date">
+        </div>
+        <div class="form-group">
+          <label for="guests">Nombre d'invites</label>
+          <input type="text" id="guests" name="guests" placeholder="ex : 50-100">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Votre message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Decrivez votre evenement, vos envies..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Envoyer ma demande</button>
+    </form>
+  </div>
+</section>
+
+<!-- ====================================
+     FOOTER
+     ==================================== -->
+<footer class="footer">
+  <div class="footer-brand">Cote Magie</div>
+  <ul class="footer-links">
+    <li><a href="#about">A propos</a></li>
+    <li><a href="#prestations">Prestations</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2024 Cote Magie &mdash; Francis Darcy. Tous droits reserves.</div>
+</footer>
+
+<!-- ====================================
+     JAVASCRIPT
+     ==================================== -->
+<script>
+(function() {
+  'use strict';
+
+  // -------------------------------------------
+  // Hero load animation
+  // -------------------------------------------
+  window.addEventListener('load', function() {
+    document.querySelector('.hero').classList.add('loaded');
+  });
+
+  // -------------------------------------------
+  // Navbar scroll effect
+  // -------------------------------------------
+  const nav = document.getElementById('nav');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY;
+    if (scrollY > 80) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+    lastScroll = scrollY;
+  }, { passive: true });
+
+  // -------------------------------------------
+  // Mobile nav toggle
+  // -------------------------------------------
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', function() {
+    navToggle.classList.toggle('active');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+
+  // Close mobile menu on link click
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navToggle.classList.remove('active');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // -------------------------------------------
+  // Reveal on scroll
+  // -------------------------------------------
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // -------------------------------------------
+  // Prestations: Image swap via IntersectionObserver
+  // -------------------------------------------
+  const prestaBlocks = document.querySelectorAll('.presta-block[data-target]');
+  const prestaImages = document.querySelectorAll('#prestaStack img[data-presta]');
+
+  function setActivePrestaImage(targetId) {
+    prestaImages.forEach(function(img) {
+      if (img.dataset.presta === targetId) {
+        img.classList.add('active');
+      } else {
+        img.classList.remove('active');
+      }
+    });
+  }
+
+  const prestaObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        // Highlight the text block
+        entry.target.classList.add('in-view');
+        // Swap the image
+        var target = entry.target.dataset.target;
+        setActivePrestaImage(target);
+      } else {
+        entry.target.classList.remove('in-view');
+      }
+    });
+  }, {
+    threshold: 0.35,
+    rootMargin: '-10% 0px -10% 0px'
+  });
+
+  prestaBlocks.forEach(function(block) {
+    prestaObserver.observe(block);
+  });
+
+  // -------------------------------------------
+  // Testimonials slider
+  // -------------------------------------------
+  const testimonials = document.querySelectorAll('.testimonial');
+  const prevBtn = document.getElementById('prevTest');
+  const nextBtn = document.getElementById('nextTest');
+  const currentEl = document.getElementById('testCurrent');
+  const totalEl = document.getElementById('testTotal');
+  let currentIndex = 0;
+  const total = testimonials.length;
+
+  totalEl.textContent = String(total).padStart(2, '0');
+
+  function showTestimonial(index) {
+    testimonials.forEach(function(t, i) {
+      t.classList.toggle('active', i === index);
+    });
+    currentEl.textContent = String(index + 1).padStart(2, '0');
+  }
+
+  prevBtn.addEventListener('click', function() {
+    currentIndex = (currentIndex - 1 + total) % total;
+    showTestimonial(currentIndex);
+  });
+
+  nextBtn.addEventListener('click', function() {
+    currentIndex = (currentIndex + 1) % total;
+    showTestimonial(currentIndex);
+  });
+
+  // Auto-advance every 6 seconds
+  var autoSlide = setInterval(function() {
+    currentIndex = (currentIndex + 1) % total;
+    showTestimonial(currentIndex);
+  }, 6000);
+
+  // Pause auto-advance on hover
+  var slider = document.getElementById('testimonialSlider');
+  slider.addEventListener('mouseenter', function() { clearInterval(autoSlide); });
+  slider.addEventListener('mouseleave', function() {
+    autoSlide = setInterval(function() {
+      currentIndex = (currentIndex + 1) % total;
+      showTestimonial(currentIndex);
+    }, 6000);
+  });
+
+  // -------------------------------------------
+  // Smooth scroll for anchor links
+  // -------------------------------------------
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
