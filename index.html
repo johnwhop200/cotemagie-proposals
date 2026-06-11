@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Côté Magie — Propositions de Design</title>
+<title>Côté Magie — Propositions de Design (Mobile-First)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -13,9 +13,10 @@
   --surface: #141414;
   --border: #222;
   --text: #F4EADE;
-  --text-dim: #8A7968;
+  --text-dim: #B0A290;
   --gold: #C69B3C;
   --gold-dim: rgba(198,155,60,0.2);
+  --green: #34D399;
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
@@ -24,51 +25,51 @@ body {
   color: var(--text);
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  min-height: 100vh;
+  min-height: 100svh;
 }
 .hero {
   text-align: center;
-  padding: 6rem 2rem 4rem;
+  padding: 4rem 1.25rem 3rem;
   background: radial-gradient(ellipse at 50% 30%, rgba(198,155,60,0.08) 0%, transparent 60%);
 }
 .hero h1 {
   font-family: 'Cinzel', serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  letter-spacing: 0.15em;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  letter-spacing: 0.12em;
   color: var(--gold);
-  margin-bottom: 0.5rem;
-}
-.hero p {
-  font-size: 1.1rem;
-  color: var(--text-dim);
-  max-width: 600px;
-  margin: 0 auto;
+  margin-bottom: 0.3rem;
 }
 .hero .subtitle {
   font-family: 'Cinzel', serif;
   font-size: 1rem;
-  letter-spacing: 0.1em;
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
   color: var(--text);
   opacity: 0.7;
 }
-.hero .count {
+.hero p {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto;
+}
+.badge-new {
   display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.5rem 1.5rem;
-  border: 1px solid var(--gold-dim);
+  margin-top: 1.2rem;
+  padding: 0.4rem 1.2rem;
+  border: 1px solid var(--green);
   border-radius: 100px;
-  font-size: 0.85rem;
-  color: var(--gold);
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  color: var(--green);
+  letter-spacing: 0.04em;
 }
 .grid {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
 }
 .card {
   background: var(--surface);
@@ -82,74 +83,73 @@ body {
   flex-direction: column;
 }
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: var(--gold);
-  box-shadow: 0 12px 40px rgba(198,155,60,0.1);
+  box-shadow: 0 8px 30px rgba(198,155,60,0.1);
 }
 .card-visual {
-  height: 200px;
+  height: 160px;
   position: relative;
   overflow: hidden;
 }
 .card-visual .badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
   background: var(--gold);
   color: #000;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 100px;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 .card-body {
-  padding: 1.5rem;
+  padding: 1.2rem;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 .card-number {
   font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--gold);
-  letter-spacing: 0.1em;
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.2rem;
 }
 .card-title {
   font-family: 'Cinzel', serif;
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.15rem;
+  margin-bottom: 0.4rem;
   color: var(--text);
 }
 .card-desc {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-dim);
   line-height: 1.5;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
   flex: 1;
 }
 .card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 .tag {
-  font-size: 0.7rem;
-  padding: 3px 8px;
+  font-size: 0.65rem;
+  padding: 2px 7px;
   border-radius: 100px;
   border: 1px solid var(--border);
   color: var(--text-dim);
-  letter-spacing: 0.03em;
 }
 .tag.gold { border-color: var(--gold-dim); color: var(--gold); }
 .card-cta {
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.2rem;
   border-top: 1px solid var(--border);
   font-family: 'Cinzel', serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   color: var(--gold);
   text-align: center;
   transition: background 0.3s ease;
@@ -157,17 +157,12 @@ body {
 .card:hover .card-cta { background: var(--gold-dim); }
 footer {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 3rem 1.25rem;
   color: var(--text-dim);
   font-size: 0.8rem;
 }
 footer span { color: var(--gold); }
-@media (max-width: 720px) {
-  .grid { grid-template-columns: 1fr; padding: 1rem; }
-  .hero { padding: 4rem 1.5rem 3rem; }
-}
 
-/* Visual backgrounds per card */
 .v-theatre { background: linear-gradient(135deg, #050505 0%, #1a1000 50%, #0a0a0a 100%); }
 .v-cartes { background: linear-gradient(135deg, #0D0D0D 0%, #1B3A4B 50%, #0D0D0D 100%); }
 .v-scroll { background: linear-gradient(135deg, #0A0A0A 0%, #1A0A2E 50%, #0A0A0A 100%); }
@@ -178,19 +173,6 @@ footer span { color: var(--gold); }
 .v-polaroid { background: linear-gradient(135deg, #F5F0E8 0%, #e8dcc8 50%, #F5F0E8 100%); }
 .v-aurora { background: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 30%, #0a2a3e 60%, #0a0a2e 100%); }
 
-/* Floating particles on visual */
-.card-visual::after {
-  content: '✦';
-  position: absolute;
-  font-size: 1.5rem;
-  color: var(--gold);
-  opacity: 0.15;
-  bottom: 15px;
-  right: 20px;
-}
-.v-polaroid::after { color: #8B6914; }
-
-/* Card visual center text */
 .card-visual .preview-title {
   position: absolute;
   inset: 0;
@@ -198,13 +180,21 @@ footer span { color: var(--gold); }
   align-items: center;
   justify-content: center;
   font-family: 'Cinzel', serif;
-  font-size: 1.8rem;
-  letter-spacing: 0.2em;
+  font-size: 1.6rem;
+  letter-spacing: 0.15em;
   color: rgba(244,234,222,0.3);
   text-align: center;
   padding: 1rem;
 }
 .v-polaroid .preview-title { color: rgba(44,36,23,0.2); }
+
+@media (min-width: 540px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+  .grid { grid-template-columns: repeat(3, 1fr); padding: 2rem; }
+  .hero { padding: 5rem 2rem 4rem; }
+}
 </style>
 </head>
 <body>
@@ -212,8 +202,8 @@ footer span { color: var(--gold); }
 <div class="hero">
   <h1>CÔTÉ MAGIE</h1>
   <div class="subtitle">Francis Darcy — Magicien</div>
-  <p>Propositions de design pour le nouveau site cotemagie.fr. Cliquez sur une proposition pour la voir en plein écran.</p>
-  <div class="count">9 propositions</div>
+  <p>9&nbsp;propositions de design mobile-first pour le nouveau site cotemagie.fr. Chaque proposition utilise les vraies photos et est optimisée smartphone.</p>
+  <div class="badge-new">V2 — Mobile-First · Juin 2026</div>
 </div>
 
 <div class="grid">
@@ -221,174 +211,179 @@ footer span { color: var(--gold); }
   <a class="card" href="01-theatre-noir.html">
     <div class="card-visual v-theatre">
       <div class="preview-title">CÔTÉ MAGIE</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 01</div>
       <div class="card-title">Théâtre Noir</div>
-      <div class="card-desc">Expérience cinématique sombre avec spotlight CSS, particules flottantes dorées et marquee double rang pour les références.</div>
+      <div class="card-desc">Cinématique sombre avec spotlight CSS, particules dorées flottantes et marquee double rang pour les références.</div>
       <div class="card-tags">
-        <span class="tag">Sombre</span>
-        <span class="tag">Cinématique</span>
+        <span class="tag gold">Photos réelles</span>
+        <span class="tag">Spotlight</span>
         <span class="tag">Particules CSS</span>
         <span class="tag">Marquee</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="02-cartes-eventail.html">
     <div class="card-visual v-cartes">
       <div class="preview-title">♠ ♥ ♦ ♣</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 02</div>
-      <div class="card-title">Cartes & Éventail</div>
-      <div class="card-desc">Métaphore complète des cartes à jouer. Fan animé en CSS 3D, flip cards au hover, symboles de poker partout.</div>
+      <div class="card-title">Cartes &amp; Éventail</div>
+      <div class="card-desc">Métaphore cartes à jouer. Éventail 3D en CSS, flip cards au tap sur mobile, symboles élégants.</div>
       <div class="card-tags">
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">Cartes 3D</span>
-        <span class="tag">Flip hover</span>
+        <span class="tag">Tap-to-flip</span>
         <span class="tag">CSS Transforms</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="03-scroll-narratif.html">
     <div class="card-visual v-scroll">
       <div class="preview-title">CHAPITRE I</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 03</div>
       <div class="card-title">Scroll Narratif</div>
-      <div class="card-desc">Storytelling par chapitres. Sticky scrollytelling, timeline verticale, compteurs animés, formulaire parchemin.</div>
+      <div class="card-desc">Storytelling par chapitres. Timeline verticale, compteurs animés, formulaire parchemin. Parfait pour le scroll mobile.</div>
       <div class="card-tags">
-        <span class="tag">Violet mystique</span>
-        <span class="tag">Chapitres sticky</span>
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">Timeline</span>
+        <span class="tag">Chapitres</span>
         <span class="tag">Compteurs</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="07-immersif-interactif.html">
     <div class="card-visual v-immersif">
       <div class="preview-title">✦ ✦ ✦</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 07</div>
       <div class="card-title">Immersif Interactif</div>
-      <div class="card-desc">Le plus technique. Particules Canvas avec répulsion souris, text scramble, curseur custom doré, sparks au clic.</div>
+      <div class="card-desc">Le plus technique. Particules Canvas avec répulsion tactile, text scramble, 30 particules mobile / 80 desktop.</div>
       <div class="card-tags">
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">Canvas API</span>
         <span class="tag">Text Scramble</span>
-        <span class="tag">Curseur custom</span>
-        <span class="tag">Sparks</span>
+        <span class="tag">Touch</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="08-rideau-rouge.html">
     <div class="card-visual v-rideau">
       <div class="preview-title">🎭</div>
-      <div class="badge">AVEC PHOTOS</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 08</div>
       <div class="card-title">Rideau Rouge</div>
-      <div class="card-desc">Théâtre classique. Rideau CSS rouge qui s'ouvre au chargement, photos plein cadre, galerie masonry, parallax.</div>
+      <div class="card-desc">Théâtre classique. Rideau CSS velours qui s'ouvre au chargement, galerie masonry, parallax desktop.</div>
       <div class="card-tags">
-        <span class="tag gold">Vraies photos</span>
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">Rideau animé</span>
         <span class="tag">Masonry</span>
-        <span class="tag">Parallax</span>
+        <span class="tag">Velours</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="09-split-screen.html">
     <div class="card-visual v-split">
       <div class="preview-title">◧</div>
-      <div class="badge">AVEC PHOTOS</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 09</div>
       <div class="card-title">Split Screen</div>
-      <div class="card-desc">Lookbook luxe. Image sticky à gauche qui change quand tu scrolles les prestations à droite. Très élégant.</div>
+      <div class="card-desc">Lookbook luxe. Image sticky à gauche sur desktop, flux vertical photo-dominant sur mobile. Très élégant.</div>
       <div class="card-tags">
-        <span class="tag gold">Vraies photos</span>
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">Split sticky</span>
-        <span class="tag">Image swap</span>
         <span class="tag">Lookbook</span>
+        <span class="tag">Minimal</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="10-spotlight-reveal.html">
     <div class="card-visual v-spotlight">
       <div class="preview-title">🔦</div>
-      <div class="badge">AVEC PHOTOS</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 10</div>
       <div class="card-title">Spotlight Reveal</div>
-      <div class="card-desc">Le site est un tour de magie. Le curseur est une lampe torche qui révèle les photos cachées dans le noir.</div>
+      <div class="card-desc">Le site est un tour de magie. Lampe torche tactile sur le hero, révélation automatique au scroll sur mobile.</div>
       <div class="card-tags">
-        <span class="tag gold">Vraies photos</span>
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">CSS Mask</span>
-        <span class="tag">Curseur spotlight</span>
+        <span class="tag">Touch spotlight</span>
         <span class="tag">Reveal</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="11-polaroid-souvenirs.html">
     <div class="card-visual v-polaroid">
       <div class="preview-title">📸</div>
-      <div class="badge">AVEC PHOTOS</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 11</div>
-      <div class="card-title">Polaroid & Souvenirs</div>
-      <div class="card-desc">Scrapbook nostalgique. Photos style polaroid avec rotations aléatoires, écriture manuscrite Caveat, fond parchemin.</div>
+      <div class="card-title">Polaroid &amp; Souvenirs</div>
+      <div class="card-desc">Scrapbook nostalgique Lo-Fi. Polaroids inclinés avec scotch, écriture manuscrite Caveat, galerie swipeable.</div>
       <div class="card-tags">
-        <span class="tag gold">Vraies photos</span>
-        <span class="tag">Polaroids CSS</span>
+        <span class="tag gold">Photos réelles</span>
+        <span class="tag">Polaroids</span>
         <span class="tag">Handwriting</span>
-        <span class="tag">Nostalgique</span>
+        <span class="tag">Lo-Fi</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
   <a class="card" href="12-aurora-mystique.html">
     <div class="card-visual v-aurora">
       <div class="preview-title">✧ AURORA ✧</div>
-      <div class="badge">AVEC PHOTOS</div>
+      <div class="badge">MOBILE-FIRST</div>
     </div>
     <div class="card-body">
       <div class="card-number">PROPOSITION 12</div>
       <div class="card-title">Aurora Mystique</div>
-      <div class="card-desc">Fond aurora animé (3 bulles CSS qui dérivent) + cartes glassmorphism givrées. Ambiance onirique et mystique.</div>
+      <div class="card-desc">Fond aurora animé CSS (3 blobs dérivent), cartes glassmorphism givrées, ambiance onirique et mystique.</div>
       <div class="card-tags">
-        <span class="tag gold">Vraies photos</span>
+        <span class="tag gold">Photos réelles</span>
         <span class="tag">Aurora CSS</span>
         <span class="tag">Glassmorphism</span>
         <span class="tag">Onirique</span>
       </div>
     </div>
-    <div class="card-cta">VOIR LA PROPOSITION →</div>
+    <div class="card-cta">VOIR SUR MOBILE →</div>
   </a>
 
 </div>
 
 <footer>
-  <p>Propositions de design pour <span>cotemagie.fr</span> — Juin 2025</p>
-  <p style="margin-top:0.5rem;">Créé par Jeremy pour Francis Darcy</p>
+  <p>Propositions de design mobile-first pour <span>cotemagie.fr</span> — Juin 2026</p>
+  <p style="margin-top:0.4rem;">Créé par Jérémy pour Francis Darcy · V2 Mobile-First</p>
 </footer>
 
 </body>

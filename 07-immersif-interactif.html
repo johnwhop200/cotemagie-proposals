@@ -2,1630 +2,297 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Côté Magie — Francis Darcy | Magicien Issoudun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Côté Magie — Francis Darcy, magicien professionnel à Issoudun</title>
+<meta name="description" content="Magicien professionnel depuis 25 ans : close-up, spectacles enfants, EHPAD, ballons, ateliers. Issoudun & Centre-Val de Loire. Devis gratuit.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   CSS CUSTOM PROPERTIES
-   ============================================================ */
-:root {
-  --bg: #050510;
-  --text: #F0ECE3;
-  --gold: #FFD700;
-  --glow: #FFD70033;
-  --glow-strong: #FFD70066;
-  --glow-max: #FFD700AA;
-  --font-display: 'Cinzel Decorative', cursive;
-  --font-heading: 'Cinzel', serif;
-  --font-body: 'Inter', sans-serif;
-}
-
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold) var(--bg);
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-weight: 300;
-  line-height: 1.7;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-a { color: var(--gold); text-decoration: none; }
-img { max-width: 100%; display: block; }
-
-::selection {
-  background: var(--gold);
-  color: var(--bg);
-}
-
-/* ============================================================
-   CUSTOM CURSOR
-   ============================================================ */
-.cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border 0.3s ease;
-  mix-blend-mode: screen;
-}
-
-.cursor.hover {
-  width: 50px;
-  height: 50px;
-  background: transparent;
-  border: 2px solid var(--gold);
-}
-
-.cursor-particle {
-  position: fixed;
-  width: 4px;
-  height: 4px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  animation: cursorBurst 0.6s ease-out forwards;
-}
-
-@keyframes cursorBurst {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0) translate(var(--tx), var(--ty));
-  }
-}
-
-/* ============================================================
-   PARTICLE CANVAS
-   ============================================================ */
-#particleCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 1.2rem 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  transition: background 0.4s ease;
-}
-
-.nav.scrolled {
-  background: rgba(5, 5, 16, 0.92);
-  backdrop-filter: blur(12px);
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-}
-
-.nav-sparkle {
-  width: 24px;
-  height: 24px;
-  position: relative;
-  display: inline-block;
-}
-
-.nav-sparkle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--gold);
-  clip-path: polygon(
-    50% 0%, 61% 35%, 98% 35%, 68% 57%,
-    79% 91%, 50% 70%, 21% 91%, 32% 57%,
-    2% 35%, 39% 35%
-  );
-  animation: sparkleRotate 4s linear infinite;
-}
-
-@keyframes sparkleRotate {
-  to { transform: rotate(360deg); }
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
-
-.nav-links a {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  color: var(--text);
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: var(--gold);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  cursor: none;
-  padding: 4px;
-}
-
-.nav-toggle span {
-  width: 24px;
-  height: 2px;
-  background: var(--gold);
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 6.5rem);
-  font-weight: 900;
-  color: var(--gold);
-  letter-spacing: 0.15em;
-  text-shadow: 0 0 40px var(--glow), 0 0 80px var(--glow);
-  margin-bottom: 1rem;
-}
-
-.hero-title .char {
-  display: inline-block;
-  opacity: 0;
-  transition: opacity 0.1s;
-}
-
-.hero-title .char.revealed {
-  opacity: 1;
-}
-
-.hero-title .space {
-  width: 0.3em;
-  display: inline-block;
-}
-
-.hero-tagline {
-  font-family: var(--font-heading);
-  font-size: clamp(1rem, 2.5vw, 1.4rem);
-  font-weight: 400;
-  color: var(--text);
-  letter-spacing: 0.2em;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
-}
-
-.hero-tagline.visible {
-  opacity: 0.8;
-  transform: translateY(0);
-}
-
-.hero-cta {
-  margin-top: 3rem;
-  display: inline-block;
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  padding: 1rem 2.5rem;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
-  animation: ctaGlow 2s ease-in-out infinite;
-}
-
-.hero-cta.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 0 15px var(--glow), 0 0 30px transparent; }
-  50% { box-shadow: 0 0 25px var(--glow-strong), 0 0 50px var(--glow); }
-}
-
-.hero-cta:hover {
-  background: var(--gold);
-  color: var(--bg);
-}
-
-/* ============================================================
-   SECTIONS COMMON
-   ============================================================ */
-section {
-  padding: 8rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.section-label {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  opacity: 0.6;
-}
-
-.section-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
-  color: var(--text);
-  margin-bottom: 3rem;
-  position: relative;
-}
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 2px;
-  background: var(--gold);
-  margin-top: 1rem;
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.2;
-  margin: 0 auto;
-}
-
-/* ============================================================
-   A PROPOS — TYPING REVEAL
-   ============================================================ */
-.about {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
-.about-text p {
-  font-size: 1.05rem;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.about-text p.typed {
-  opacity: 1;
-}
-
-.about-text .typing-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.1em;
-  background: var(--gold);
-  vertical-align: text-bottom;
-  animation: blink 0.7s step-end infinite;
-  margin-left: 2px;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-.about-photo {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3/4;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.about-photo-inner {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  color: var(--gold);
-  opacity: 0.4;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-}
-
-.about-photo::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  z-index: -1;
-  border-radius: 10px;
-  background: conic-gradient(from var(--border-angle, 0deg), var(--gold), transparent 40%, var(--gold));
-  animation: borderRotate 4s linear infinite;
-}
-
-@keyframes borderRotate {
-  to { --border-angle: 360deg; }
-}
-
-@property --border-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.about-photo::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.08), transparent);
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 200%; }
-}
-
-/* ============================================================
-   PRESTATIONS — MORPHING CARDS
-   ============================================================ */
-.prestations-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-.prestation-card {
-  position: relative;
-  padding: 2.5rem 1.5rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 215, 0, 0.1);
-  border-radius: 12px;
-  text-align: center;
-  overflow: hidden;
-  transition: transform 0.4s ease, border-color 0.4s ease;
-  cursor: none;
-}
-
-.prestation-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.06), transparent);
-  transition: left 0.6s ease;
-}
-
-.prestation-card:hover::before {
-  left: 100%;
-}
-
-.prestation-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(255, 215, 0, 0.4);
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.03), rgba(255, 255, 255, 0.02));
-}
-
-.prestation-icon {
-  font-size: 3rem;
-  color: var(--gold);
-  margin-bottom: 1rem;
-  display: block;
-  filter: drop-shadow(0 0 8px var(--glow));
-}
-
-.prestation-card h3 {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  color: var(--text);
-  margin-bottom: 0.8rem;
-  letter-spacing: 0.05em;
-}
-
-.prestation-card p {
-  font-size: 0.9rem;
-  color: rgba(240, 236, 227, 0.6);
-  line-height: 1.6;
-}
-
-/* ============================================================
-   EVENEMENTS — SLIDE IN
-   ============================================================ */
-.event-block {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2rem;
-  align-items: start;
-  padding: 2.5rem;
-  margin-bottom: 2rem;
-  background: radial-gradient(ellipse at center, rgba(255, 215, 0, 0.03), transparent 70%);
-  border-left: 2px solid rgba(255, 215, 0, 0.2);
-  border-radius: 0 12px 12px 0;
-  opacity: 0;
-  transform: translateX(-60px) rotate(-1deg);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.event-block:nth-child(even) {
-  transform: translateX(60px) rotate(1deg);
-  border-left: none;
-  border-right: 2px solid rgba(255, 215, 0, 0.2);
-  border-radius: 12px 0 0 12px;
-}
-
-.event-block.visible {
-  opacity: 1;
-  transform: translateX(0) rotate(0deg);
-}
-
-.event-icon {
-  font-size: 2.5rem;
-  color: var(--gold);
-  filter: drop-shadow(0 0 6px var(--glow));
-}
-
-.event-block h3 {
-  font-family: var(--font-heading);
-  font-size: 1.3rem;
-  margin-bottom: 0.6rem;
-}
-
-.event-block p {
-  font-size: 0.95rem;
-  color: rgba(240, 236, 227, 0.65);
-}
-
-/* ============================================================
-   REFERENCES — CONSTELLATION
-   ============================================================ */
-.constellation-wrapper {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  margin: 2rem 0;
-}
-
-.constellation-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  animation: constellationRotate 120s linear infinite;
-  transform-origin: center center;
-}
-
-@keyframes constellationRotate {
-  to { transform: rotate(360deg); }
-}
-
-.constellation-svg line {
-  stroke: var(--gold);
-  stroke-width: 0.5;
-  opacity: 0.15;
-  transition: opacity 0.4s ease, stroke-width 0.4s ease;
-}
-
-.constellation-svg line.glow {
-  opacity: 0.6;
-  stroke-width: 1.5;
-}
-
-.constellation-node {
-  position: absolute;
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  color: rgba(240, 236, 227, 0.5);
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-  transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
-  cursor: none;
-  transform: translate(-50%, -50%);
-}
-
-.constellation-node:hover {
-  color: var(--gold);
-  transform: translate(-50%, -50%) scale(1.15);
-  text-shadow: 0 0 12px var(--glow-strong);
-}
-
-.constellation-node::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: var(--gold);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  margin-top: -12px;
-  opacity: 0.6;
-}
-
-/* ============================================================
-   TEMOIGNAGES — DECRYPT REVEAL
-   ============================================================ */
-.testimonials {
-  text-align: center;
-}
-
-.testimonial-display {
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem;
-  position: relative;
-}
-
-.testimonial-quote {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  font-style: italic;
-  line-height: 1.8;
-  max-width: 700px;
-  color: var(--text);
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.testimonial-quote::before {
-  content: '\201C';
-  font-family: var(--font-display);
-  font-size: 4rem;
-  color: var(--gold);
-  opacity: 0.3;
-  position: absolute;
-  top: -2rem;
-  left: -2rem;
-}
-
-.testimonial-author {
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-}
-
-.testimonial-dots {
-  display: flex;
-  gap: 0.6rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.testimonial-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 215, 0, 0.2);
-  border: none;
-  cursor: none;
-  transition: background 0.3s;
-}
-
-.testimonial-dot.active {
-  background: var(--gold);
-}
-
-/* ============================================================
-   CONTACT — SPARK FORM
-   ============================================================ */
-.contact-card {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 3rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 215, 0, 0.15);
-  border-radius: 16px;
-  position: relative;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.form-group label {
-  font-family: var(--font-heading);
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  color: rgba(240, 236, 227, 0.5);
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 215, 0, 0.1);
-  border-radius: 8px;
-  padding: 0.9rem 1rem;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  cursor: none;
-}
-
-.form-group textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 15px var(--glow);
-}
-
-.form-group input:focus::placeholder,
-.form-group textarea:focus::placeholder {
-  color: transparent;
-}
-
-.form-group .input-cursor {
-  position: absolute;
-  bottom: 14px;
-  left: 1rem;
-  width: 2px;
-  height: 1.1em;
-  background: var(--gold);
-  opacity: 0;
-  animation: blink 0.7s step-end infinite;
-  pointer-events: none;
-}
-
-.form-group input:focus ~ .input-cursor,
-.form-group textarea:focus ~ .input-cursor {
-  opacity: 1;
-}
-
-.form-spark {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: var(--gold);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: sparkFade 0.5s ease-out forwards;
-}
-
-@keyframes sparkFade {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0) translateY(-15px); }
-}
-
-.btn-submit {
-  width: 100%;
-  padding: 1rem;
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  letter-spacing: 0.15em;
-  color: var(--bg);
-  background: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 8px;
-  cursor: none;
-  transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-submit:hover {
-  background: transparent;
-  color: var(--gold);
-  box-shadow: 0 0 30px var(--glow);
-}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer {
-  text-align: center;
-  padding: 4rem 2rem 2rem;
-  border-top: 1px solid rgba(255, 215, 0, 0.08);
-}
-
-.footer-magic {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  color: var(--gold);
-  letter-spacing: 0.15em;
-  margin-bottom: 1.5rem;
-  cursor: none;
-}
-
-.footer-info {
-  font-size: 0.85rem;
-  color: rgba(240, 236, 227, 0.35);
-  line-height: 2;
-}
-
-.footer-info a {
-  color: rgba(240, 236, 227, 0.5);
-  transition: color 0.3s;
-}
-
-.footer-info a:hover { color: var(--gold); }
-
-/* ============================================================
-   SCROLL REVEAL BASE
-   ============================================================ */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================================
-   MOBILE
-   ============================================================ */
-@media (max-width: 768px) {
-  body { cursor: auto; }
-  .cursor { display: none; }
-  #particleCanvas { display: none; }
-
-  .nav { padding: 1rem 1.5rem; }
-  .nav-links { display: none; }
-  .nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: rgba(5, 5, 16, 0.96);
-    padding: 1.5rem;
-    gap: 1.2rem;
-  }
-  .nav-toggle { display: flex; }
-
-  .hero-title { letter-spacing: 0.08em; }
-
-  .about { grid-template-columns: 1fr; gap: 2rem; }
-  .about-photo { max-width: 280px; margin: 0 auto; }
-
-  .prestations-grid { grid-template-columns: 1fr 1fr; }
-
-  .event-block {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1.5rem;
-    transform: translateY(30px) !important;
-    rotate: 0deg !important;
-  }
-  .event-block.visible { transform: translateY(0) !important; }
-
-  .constellation-wrapper { height: 400px; }
-  .constellation-node { font-size: 0.7rem; }
-
-  section { padding: 5rem 1.5rem; }
-}
-
-@media (max-width: 480px) {
-  .prestations-grid { grid-template-columns: 1fr; }
+:root{--night:#050510;--night2:#0a0a2e;--gold:#C69B3C;--gold2:#E0B85C;--ink:#F4EADE;--mut:#B0A290;--card:rgba(255,255,255,.04)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--night);color:var(--ink);font:400 16px/1.6 Inter,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:Cinzel,serif;color:var(--gold);line-height:1.15}
+h2{font-size:clamp(26px,6vw,40px);margin-bottom:.5em}
+p{max-width:65ch}
+img{display:block;max-width:100%;height:auto}
+section{padding:72px 20px;position:relative}
+.wrap{max-width:1100px;margin:0 auto}
+a{color:var(--gold2)}
+/* ---- Boutons ---- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 26px;border-radius:999px;font:600 16px Inter,sans-serif;text-decoration:none;transition:transform .25s,box-shadow .25s;cursor:pointer;border:0}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0a14;box-shadow:0 4px 24px rgba(198,155,60,.35)}
+.btn-line{border:1px solid var(--gold);color:var(--gold2);background:rgba(5,5,16,.5)}
+.btn:hover{transform:translateY(-2px)}
+:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+/* ---- Hero ---- */
+.hero{min-height:100svh;display:flex;align-items:center;padding:96px 20px 56px;background:radial-gradient(ellipse at 50% 0%,var(--night2) 0%,var(--night) 70%)}
+#stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .wrap{position:relative;z-index:2;display:flex;flex-direction:column;gap:32px;width:100%}
+.hero-kicker{font:600 13px/1 Inter,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2)}
+.hero h1{font-size:clamp(38px,10vw,76px);letter-spacing:.06em;min-height:1.2em;color:var(--ink)}
+.hero h1 .g{color:var(--gold)}
+.hero-sub{font-size:18px;color:var(--ink);max-width:34ch}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
+.hero-img{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(198,155,60,.35);box-shadow:0 24px 60px rgba(0,0,0,.6);max-width:340px}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,16,.55),transparent 45%)}
+/* ---- Sections ---- */
+.about{background:linear-gradient(180deg,var(--night),var(--night2) 120%)}
+.about p{color:var(--ink);margin-bottom:1em}
+.about .since{font-family:Cinzel,serif;color:var(--gold2);font-size:18px}
+.cards{display:grid;gap:20px;margin-top:36px}
+.card{background:var(--card);border:1px solid rgba(198,155,60,.22);border-radius:16px;overflow:hidden;backdrop-filter:blur(4px)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.card div{padding:20px}
+.card h3{font-size:20px;margin-bottom:8px}
+.card p{font-size:15.5px;color:var(--ink)}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+.gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid rgba(198,155,60,.18)}
+.refs{background:var(--night2)}
+.refs p{color:var(--ink)}
+.logos{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:32px}
+.logos li{list-style:none;background:#f7f3ec;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:14px;min-height:84px}
+.logos img{max-height:54px;width:auto;max-width:100%;object-fit:contain}
+/* ---- Contact ---- */
+.contact form{display:grid;gap:18px;margin-top:32px;max-width:560px}
+label{font:600 14px Inter,sans-serif;color:var(--gold2);display:grid;gap:7px}
+input,select,textarea{width:100%;min-height:48px;padding:12px 16px;border-radius:12px;border:1px solid rgba(198,155,60,.4);background:rgba(255,255,255,.05);color:var(--ink);font:400 16px Inter,sans-serif}
+textarea{min-height:120px;resize:vertical}
+select option{color:#111}
+.assure{font-size:14.5px;color:var(--mut)}
+footer{padding:48px 20px 110px;border-top:1px solid rgba(198,155,60,.25);text-align:center;font-size:15px;color:var(--mut)}
+footer strong{color:var(--gold2);font-family:Cinzel,serif;font-size:18px;display:block;margin-bottom:8px}
+/* ---- FAB ---- */
+.fab{position:fixed;right:16px;bottom:16px;z-index:50;display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0a0a14;font:600 16px Inter,sans-serif;text-decoration:none;box-shadow:0 8px 28px rgba(198,155,60,.5);opacity:0;transform:translateY(80px);transition:opacity .35s,transform .35s;pointer-events:none}
+.fab.on{opacity:1;transform:none;pointer-events:auto}
+/* ---- Reveals ---- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  #stars{display:none}
+  .btn,.fab{transition:none}
+}
+@media (min-width:768px){
+  section{padding:96px 32px}
+  .hero .wrap{flex-direction:row;align-items:center;justify-content:space-between}
+  .hero-img{max-width:380px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .gal{grid-template-columns:repeat(3,1fr)}
+  .logos{grid-template-columns:repeat(4,1fr)}
+}
+@media (min-width:1100px){
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .logos{grid-template-columns:repeat(5,1fr)}
 }
 </style>
 </head>
 <body>
 
-<!-- CUSTOM CURSOR -->
-<div class="cursor" id="cursor"></div>
-
-<!-- PARTICLE CANVAS -->
-<canvas id="particleCanvas"></canvas>
-
-<!-- ============================================================
-     NAVIGATION
-     ============================================================ -->
-<nav class="nav" id="nav">
-  <a href="#hero" class="nav-logo interactive">
-    <span class="nav-sparkle"></span>
-    Cote Magie
-  </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#about" class="interactive">A propos</a></li>
-    <li><a href="#prestations" class="interactive">Prestations</a></li>
-    <li><a href="#events" class="interactive">Evenements</a></li>
-    <li><a href="#references" class="interactive">References</a></li>
-    <li><a href="#testimonials" class="interactive">Temoignages</a></li>
-    <li><a href="#contact" class="interactive">Contact</a></li>
-  </ul>
-  <button class="nav-toggle interactive" id="navToggle" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- ============================================================
-     HERO
-     ============================================================ -->
-<section class="hero" id="hero">
-  <h1 class="hero-title" id="heroTitle" data-text="COTE MAGIE"></h1>
-  <p class="hero-tagline" id="heroTagline">Francis Darcy &mdash; Magicien professionnel &middot; Issoudun</p>
-  <a href="#about" class="hero-cta interactive" id="heroCta">Decouvrir la magie &darr;</a>
-</section>
-
-<!-- ============================================================
-     A PROPOS
-     ============================================================ -->
-<div class="divider"></div>
-<section id="about">
-  <span class="section-label reveal">Qui suis-je</span>
-  <h2 class="section-title reveal">A propos</h2>
-  <div class="about">
-    <div class="about-text" id="aboutText">
-      <p class="type-reveal" data-text="Depuis plus de 20 ans, je parcours les scenes de France pour offrir des moments d'emerveillement et de mystere. La magie n'est pas un simple divertissement : c'est un art de l'impossible, une invitation a croire en l'extraordinaire.">
-      </p>
-      <p class="type-reveal" data-text="Close-up intime ou grand spectacle, chaque prestation est concue sur mesure pour votre evenement. Mon approche melange la precision technique, l'humour et la poesie pour creer une experience inoubliable.">
-      </p>
-      <p class="type-reveal" data-text="Base a Issoudun, je me deplace dans toute la France pour faire vivre la magie la ou vous le souhaitez.">
-      </p>
+<!-- HERO -->
+<header class="hero" id="hero">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <p class="hero-kicker">Francis Darcy — magicien professionnel</p>
+      <h1 id="title" data-text="CÔTÉ MAGIE">CÔTÉ <span class="g">MAGIE</span></h1>
+      <p class="hero-sub">25&nbsp;ans de magie de proximité pour vos mariages, anniversaires et événements d'entreprise, à Issoudun et dans tout le Centre-Val de Loire.</p>
+      <div class="hero-ctas" style="margin-top:28px">
+        <a class="btn btn-gold" href="#contact">Demander un devis</a>
+        <a class="btn btn-line" href="tel:0672118229">06&nbsp;72&nbsp;11&nbsp;82&nbsp;29</a>
+      </div>
     </div>
-    <div class="about-photo reveal">
-      <div class="about-photo-inner">Francis Darcy</div>
+    <div class="hero-img">
+      <img src="https://static.wixstatic.com/media/da939b_de131428a0654a80a6dafe41cff4358e~mv2.jpg/v1/fill/w_564,h_1130,al_c,q_85,enc_avif,quality_auto/beau%20gosse_edited.jpg" alt="Francis Darcy, magicien professionnel, en portrait" width="564" height="1130" fetchpriority="high">
     </div>
+  </div>
+</header>
+
+<main>
+<!-- À PROPOS -->
+<section class="about">
+  <div class="wrap rv">
+    <h2>L'art de l'émerveillement</h2>
+    <p class="since">Plus de 25&nbsp;ans d'expérience</p>
+    <p>Magicien professionnel basé à Issoudun, dans l'Indre, Francis Darcy fait naître l'étonnement au plus près de vos invités&nbsp;: une carte qui change de main, un objet qui s'évapore, un sourire qui s'élargit.</p>
+    <p>Artiste de scène et de proximité, il intervient auprès des particuliers comme des entreprises&nbsp;— mariages, comités d'entreprise, séminaires, écoles, EHPAD et fêtes de village&nbsp;— dans tout le Centre-Val de Loire et au-delà.</p>
   </div>
 </section>
 
-<!-- ============================================================
-     PRESTATIONS
-     ============================================================ -->
-<div class="divider"></div>
+<!-- PRESTATIONS -->
 <section id="prestations">
-  <span class="section-label reveal">Ce que je propose</span>
-  <h2 class="section-title reveal">Prestations</h2>
-  <div class="prestations-grid">
-    <div class="prestation-card reveal interactive">
-      <span class="prestation-icon">&#10022;</span>
-      <h3>Close-up</h3>
-      <p>Magie de proximite au coeur de vos convives. Cartes, pieces, objets du quotidien se transforment entre vos mains.</p>
-    </div>
-    <div class="prestation-card reveal interactive">
-      <span class="prestation-icon">&spades;</span>
-      <h3>Spectacle de scene</h3>
-      <p>Un show complet, du mentalisme aux grandes illusions. Duree adaptable de 30 minutes a 1h30.</p>
-    </div>
-    <div class="prestation-card reveal interactive">
-      <span class="prestation-icon">&#9733;</span>
-      <h3>Mentalisme</h3>
-      <p>Lecture de pensees, predictions, influences. L'art de faire croire que tout est possible dans l'esprit humain.</p>
-    </div>
-    <div class="prestation-card reveal interactive">
-      <span class="prestation-icon">&#9670;</span>
-      <h3>Magie pour enfants</h3>
-      <p>Un spectacle colore et participatif adapte aux plus jeunes. Rires et emerveillement garantis.</p>
-    </div>
-    <div class="prestation-card reveal interactive">
-      <span class="prestation-icon">&#10047;</span>
-      <h3>Animations entreprise</h3>
-      <p>Team building, seminaires, lancements de produit. La magie au service de votre communication.</p>
+  <div class="wrap">
+    <h2 class="rv">Prestations</h2>
+    <p class="rv">Cinq univers, une même promesse&nbsp;: la magie là où on ne l'attend pas.</p>
+    <div class="cards">
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg/v1/fill/w_600,h_600,al_c,q_80,enc_avif,quality_auto/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg" alt="Tour de cartes en close-up" width="600" height="600" loading="lazy">
+        <div><h3>Close-up &amp; magie de proximité</h3><p>De table en table, au cœur de vos invités&nbsp;: mariages, cocktails, soirées d'entreprise.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80,enc_avif,quality_auto/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg" alt="Enfants émerveillés pendant un spectacle de magie" width="600" height="450" loading="lazy">
+        <div><h3>Spectacles enfants</h3><p>Anniversaires, arbres de Noël, écoles et centres de loisirs&nbsp;: un spectacle participatif et joyeux.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg" alt="Séance de magie auprès des aînés" width="600" height="444" loading="lazy">
+        <div><h3>Magie pour les aînés</h3><p>EHPAD, maisons de retraite et clubs seniors&nbsp;: une magie douce, complice et accessible.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg/v1/fill/w_600,h_514,al_c,q_80,enc_avif,quality_auto/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg" alt="Sculptures sur ballons colorées" width="600" height="514" loading="lazy">
+        <div><h3>Sculpture sur ballons</h3><p>Animations, fêtes et événements&nbsp;: des créations en ballons qui font briller les yeux.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg" alt="Atelier d'initiation à la magie" width="600" height="600" loading="lazy">
+        <div><h3>Ateliers de magie</h3><p>Initiation pour écoles, centres aérés et team building&nbsp;: apprenez vos premiers tours.</p></div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     EVENEMENTS
-     ============================================================ -->
-<div class="divider"></div>
-<section id="events">
-  <span class="section-label reveal">Occasions</span>
-  <h2 class="section-title reveal">Evenements</h2>
-
-  <div class="event-block" data-slide="left">
-    <span class="event-icon">&#127905;</span>
-    <div>
-      <h3>Mariages</h3>
-      <p>Le close-up pendant le cocktail, le spectacle en soiree. Des souvenirs magiques pour le plus beau jour de votre vie. Prestation personnalisee avec les prenoms des maries integres dans les tours.</p>
-    </div>
-  </div>
-
-  <div class="event-block" data-slide="right">
-    <span class="event-icon">&#127878;</span>
-    <div>
-      <h3>Anniversaires & fetes privees</h3>
-      <p>Surprenez vos invites avec une animation unique. Du close-up deambulatoire au spectacle complet, chaque moment est pense pour emerveiller petits et grands.</p>
-    </div>
-  </div>
-
-  <div class="event-block" data-slide="left">
-    <span class="event-icon">&#127970;</span>
-    <div>
-      <h3>Evenements d'entreprise</h3>
-      <p>Soirees de gala, conventions, inaugurations. La magie comme vecteur de communication et d'emotion pour marquer les esprits de vos collaborateurs et clients.</p>
+<!-- GALERIE -->
+<section>
+  <div class="wrap">
+    <h2 class="rv">En images</h2>
+    <div class="gal rv">
+      <img src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Close-up lors d'un mariage" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg" alt="Animation magique en fête de village" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg" alt="Spectacle de magie pour enfants" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_26e13ea1458a46199e9e896327d752af~mv2.jpg/v1/fill/w_600,h_599,q_90,enc_avif,quality_auto/da939b_26e13ea1458a46199e9e896327d752af~mv2.jpg" alt="Sculpture sur ballons en animation" width="600" height="599" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_60454d8a54a14a069f6456b595723c8c~mv2.jpg/v1/fill/w_600,h_599,q_90,enc_avif,quality_auto/da939b_60454d8a54a14a069f6456b595723c8c~mv2.jpg" alt="Atelier de magie avec les participants" width="600" height="599" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg/v1/fill/w_800,h_800,q_90,enc_avif,quality_auto/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg" alt="Tour de magie de proximité" width="800" height="800" loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     REFERENCES — CONSTELLATION
-     ============================================================ -->
-<div class="divider"></div>
-<section id="references">
-  <span class="section-label reveal">Ils m'ont fait confiance</span>
-  <h2 class="section-title reveal">References</h2>
-  <div class="constellation-wrapper reveal" id="constellation">
-    <!-- SVG lines + nodes injected by JS -->
+<!-- RÉFÉRENCES -->
+<section class="refs">
+  <div class="wrap">
+    <h2 class="rv">Ils ont fait confiance à Côté Magie</h2>
+    <p class="rv">Entreprises, collectivités et associations du Centre-Val de Loire et d'ailleurs.</p>
+    <ul class="logos rv">
+      <li><img src="https://static.wixstatic.com/media/da939b_c207ed4b23eb40b6a5e8e61edea44603~mv2.jpg/v1/fill/w_334,h_70,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement.jpg" alt="Logo Safran" width="334" height="70" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_b3be16a22ebe482fb704aab37284518d~mv2.jpg/v1/fill/w_340,h_104,al_c,q_80,enc_avif,quality_auto/logo%20(1).jpg" alt="Logo RATP" width="340" height="104" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_f351404a9bb04edaba34a2df6ef08fe4~mv2.jpg/v1/fill/w_300,h_170,al_c,q_80,enc_avif,quality_auto/Carrefour-Embleme.jpg" alt="Logo Carrefour" width="300" height="170" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_52f5de2d70c7423d8077d10042bc5fb1~mv2.jpg/v1/fill/w_400,h_120,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement%20(3).jpg" alt="Logo Leclerc" width="400" height="120" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_a45abab35c6d43e497398f1c517ae419~mv2.jpeg/v1/fill/w_400,h_120,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement%20(2).jpeg" alt="Logo Kiabi" width="400" height="120" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_19fd979e779046bbbbff195f74e80e2e~mv2.jpg/v1/fill/w_250,h_250,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement-_1_.jpg" alt="Logo Zodiac Aerospace" width="250" height="250" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_64c60cad1f994264a13091e37f51834a~mv2.jpg/v1/fill/w_250,h_250,al_c,q_80,enc_avif,quality_auto/images.jpg" alt="Logo CPAM" width="250" height="250" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_545bc93ef97a43328e6120cf19e6a377~mv2.jpg/v1/crop/x_30,y_27,w_496,h_378/fill/w_300,h_228,al_c,q_80,enc_avif,quality_auto/Logo-laposte.jpg" alt="Logo La Poste" width="300" height="228" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_100528415979468ba226489834973f77~mv2.jpg/v1/fill/w_200,h_250,al_c,q_80,enc_avif,quality_auto/logo-issoudun_edited.jpg" alt="Logo Ville d'Issoudun" width="200" height="250" loading="lazy"></li>
+      <li><img src="https://static.wixstatic.com/media/da939b_6d20b9fe7f864ac49b8142ee28679d7c~mv2.jpg/v1/crop/x_75,y_84,w_1469,h_891/fill/w_300,h_182,al_c,q_80,enc_avif,quality_auto/new_logo.jpg" alt="Logo Ville de Déols" width="300" height="182" loading="lazy"></li>
+    </ul>
   </div>
 </section>
 
-<!-- ============================================================
-     TEMOIGNAGES — DECRYPT
-     ============================================================ -->
-<div class="divider"></div>
-<section id="testimonials" class="testimonials">
-  <span class="section-label reveal">Retours</span>
-  <h2 class="section-title reveal" style="text-align:center;">Temoignages</h2>
-  <div class="testimonial-display reveal" id="testimonialDisplay">
-    <p class="testimonial-quote" id="testimonialQuote"></p>
-    <span class="testimonial-author" id="testimonialAuthor"></span>
-  </div>
-  <div class="testimonial-dots" id="testimonialDots"></div>
-</section>
-
-<!-- ============================================================
-     CONTACT
-     ============================================================ -->
-<div class="divider"></div>
-<section id="contact">
-  <span class="section-label reveal">Parlons magie</span>
-  <h2 class="section-title reveal" style="text-align:center;">Contact</h2>
-  <div class="contact-card reveal">
-    <form id="contactForm" onsubmit="return false;">
-      <div class="form-group">
-        <label>Nom</label>
-        <input type="text" placeholder="Votre nom" class="interactive spark-input">
-        <span class="input-cursor"></span>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="votre@email.com" class="interactive spark-input">
-        <span class="input-cursor"></span>
-      </div>
-      <div class="form-group">
-        <label>Evenement</label>
-        <input type="text" placeholder="Mariage, anniversaire, entreprise..." class="interactive spark-input">
-        <span class="input-cursor"></span>
-      </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea placeholder="Decrivez votre evenement..." class="interactive spark-input"></textarea>
-        <span class="input-cursor"></span>
-      </div>
-      <button type="submit" class="btn-submit interactive" id="btnSubmit" data-text="Envoyer">Envoyer</button>
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap rv">
+    <h2>Demander un devis</h2>
+    <p>Parlez-nous de votre événement&nbsp;: nous revenons vers vous très vite.</p>
+    <form action="mailto:cotemagie@gmail.com" method="post" enctype="text/plain">
+      <label>Votre nom
+        <input type="text" name="nom" autocomplete="name" required>
+      </label>
+      <label>Téléphone ou e-mail
+        <input type="text" name="contact" inputmode="tel" autocomplete="tel" required>
+      </label>
+      <label>Type d'événement
+        <select name="evenement" required>
+          <option value="" selected disabled>Choisir…</option>
+          <option>Mariage</option><option>Anniversaire</option>
+          <option>Entreprise / séminaire</option><option>EHPAD / seniors</option>
+          <option>École / centre de loisirs</option><option>Fête de village</option>
+          <option>Autre</option>
+        </select>
+      </label>
+      <label>Votre message
+        <textarea name="message" required></textarea>
+      </label>
+      <button class="btn btn-gold" type="submit">Envoyer</button>
+      <p class="assure">Réponse sous 24&nbsp;h — devis gratuit. Ou par téléphone&nbsp;: <a href="tel:0672118229">06&nbsp;72&nbsp;11&nbsp;82&nbsp;29</a></p>
     </form>
   </div>
 </section>
+</main>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
-<footer class="footer">
-  <p class="footer-magic interactive" id="footerMagic" data-text="La magie continue...">La magie continue...</p>
-  <div class="footer-info">
-    Francis Darcy &mdash; Cote Magie<br>
-    Issoudun, France<br>
-    <a href="tel:+33600000000" class="interactive">06 00 00 00 00</a> &middot;
-    <a href="mailto:contact@cotemagie.fr" class="interactive">contact@cotemagie.fr</a><br><br>
-    <small>&copy; 2026 Cote Magie. Tous droits reserves.</small>
-  </div>
+<footer>
+  <strong>Côté Magie — Francis Darcy</strong>
+  3 rue Serge Cligman, 36100 Issoudun<br>
+  <a href="tel:0672118229">06&nbsp;72&nbsp;11&nbsp;82&nbsp;29</a> · <a href="mailto:cotemagie@gmail.com">cotemagie@gmail.com</a>
 </footer>
 
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
+<a class="fab" id="fab" href="tel:0672118229" aria-label="Appeler Côté Magie au 06 72 11 82 29">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.5-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+  Appeler
+</a>
+
 <script>
-(function() {
-  'use strict';
+(function(){
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero=document.getElementById('hero'),fab=document.getElementById('fab');
 
-  /* ==========================================================
-     UTILITY: Detect mobile / touch
-     ========================================================== */
-  const isMobile = window.matchMedia('(max-width: 768px)').matches
-    || ('ontouchstart' in window);
+  /* FAB : visible après le hero */
+  new IntersectionObserver(function(e){
+    fab.classList.toggle('on',!e[0].isIntersecting);
+  },{threshold:.1}).observe(hero);
 
-  /* ==========================================================
-     CUSTOM CURSOR
-     ========================================================== */
-  if (!isMobile) {
-    const cursor = document.getElementById('cursor');
-    let cx = -100, cy = -100, tx = -100, ty = -100;
+  /* Reveals au scroll */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
 
-    document.addEventListener('mousemove', e => {
-      tx = e.clientX;
-      ty = e.clientY;
-    });
+  if(reduced)return; /* ni scramble ni particules : titre statique */
 
-    function updateCursor() {
-      cx += (tx - cx) * 0.15;
-      cy += (ty - cy) * 0.15;
-      cursor.style.transform = `translate(${cx - 10}px, ${cy - 10}px)`;
-      requestAnimationFrame(updateCursor);
+  /* Scramble du titre (~1 s) */
+  var h1=document.getElementById('title'),txt=h1.dataset.text,chars='✦◆ABCDEFGHIKMNOPRSTUVX★';
+  var t0=null;
+  function scr(ts){
+    if(!t0)t0=ts;
+    var p=Math.min((ts-t0)/1000,1),out='';
+    for(var i=0;i<txt.length;i++){
+      if(txt[i]===' '){out+=' ';continue;}
+      out+=(i/txt.length<p)?txt[i]:chars[Math.random()*chars.length|0];
     }
-    updateCursor();
-
-    // Hover expand
-    document.querySelectorAll('.interactive').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-
-    // Click burst
-    document.addEventListener('click', e => {
-      for (let i = 0; i < 8; i++) {
-        const p = document.createElement('div');
-        p.className = 'cursor-particle';
-        const angle = (Math.PI * 2 / 8) * i;
-        const dist = 30 + Math.random() * 20;
-        p.style.left = e.clientX + 'px';
-        p.style.top = e.clientY + 'px';
-        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
-        p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 600);
-      }
-    });
+    h1.textContent=out;
+    if(p<1)requestAnimationFrame(scr);
+    else h1.innerHTML='CÔTÉ <span class="g">MAGIE</span>';
   }
+  requestAnimationFrame(scr);
 
-  /* ==========================================================
-     PARTICLE SYSTEM (Canvas)
-     ========================================================== */
-  if (!isMobile) {
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    let W, H;
-    let mouseX = -9999, mouseY = -9999;
-
-    function resize() {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+  /* Particules or — hero uniquement, repoussées au pointer/touch */
+  var cv=document.getElementById('stars'),cx=cv.getContext('2d');
+  var N=matchMedia('(min-width: 768px)').matches?80:30;
+  var pts=[],W,H,run=false,raf=0,px=-999,py=-999;
+  function size(){W=cv.width=hero.offsetWidth;H=cv.height=hero.offsetHeight;}
+  size();addEventListener('resize',size);
+  for(var i=0;i<N;i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.6+.6,a:Math.random()*.5+.3});
+  hero.addEventListener('pointermove',function(e){var b=cv.getBoundingClientRect();px=e.clientX-b.left;py=e.clientY-b.top;},{passive:true});
+  hero.addEventListener('pointerleave',function(){px=py=-999;});
+  function tick(){
+    if(!run)return;
+    cx.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){
+      var p=pts[i],dx=p.x-px,dy=p.y-py,d2=dx*dx+dy*dy;
+      if(d2<8100){var d=Math.sqrt(d2)||1,f=(90-d)/90*.9;p.vx+=dx/d*f;p.vy+=dy/d*f;}
+      p.vx*=.96;p.vy*=.96;p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);
+      cx.fillStyle='rgba(198,155,60,'+p.a+')';cx.fill();
     }
-    resize();
-    window.addEventListener('resize', resize);
-
-    document.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * W;
-        this.y = H + Math.random() * 100;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = -(0.3 + Math.random() * 0.7);
-        this.size = 1 + Math.random() * 2;
-        this.opacity = 0;
-        this.maxOpacity = 0.2 + Math.random() * 0.5;
-        this.life = 0;
-        this.maxLife = 200 + Math.random() * 300;
-        this.isGold = Math.random() > 0.3;
-      }
-      update() {
-        this.life++;
-        // Fade in/out
-        if (this.life < 40) {
-          this.opacity = (this.life / 40) * this.maxOpacity;
-        } else if (this.life > this.maxLife - 60) {
-          this.opacity = ((this.maxLife - this.life) / 60) * this.maxOpacity;
-        }
-        // Movement
-        this.x += this.vx + Math.sin(this.life * 0.02) * 0.15;
-        this.y += this.vy;
-        // Mouse repulsion
-        const dx = this.x - mouseX;
-        const dy = this.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const force = (120 - dist) / 120 * 1.5;
-          this.x += (dx / dist) * force;
-          this.y += (dy / dist) * force;
-        }
-        // Recycle
-        if (this.life >= this.maxLife || this.y < -20) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        if (this.isGold) {
-          ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
-        } else {
-          ctx.fillStyle = `rgba(240, 236, 227, ${this.opacity * 0.7})`;
-        }
-        ctx.fill();
-      }
-    }
-
-    const particles = [];
-    for (let i = 0; i < 80; i++) {
-      const p = new Particle();
-      p.life = Math.random() * p.maxLife; // stagger
-      p.y = Math.random() * H;
-      particles.push(p);
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
+    raf=requestAnimationFrame(tick);
   }
-
-  /* ==========================================================
-     TEXT SCRAMBLE CLASS
-     ========================================================== */
-  class ScrambleText {
-    constructor(el, options = {}) {
-      this.el = el;
-      this.chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
-      this.intervalMs = options.interval || 40;
-      this.text = options.text || el.getAttribute('data-text') || el.textContent;
-      this.onComplete = options.onComplete || null;
-    }
-
-    start() {
-      const len = this.text.length;
-      let resolved = 0;
-      const display = new Array(len).fill('');
-
-      // Initialize with random chars
-      for (let i = 0; i < len; i++) {
-        if (this.text[i] === ' ') {
-          display[i] = ' ';
-        } else {
-          display[i] = this.chars[Math.floor(Math.random() * this.chars.length)];
-        }
-      }
-
-      this.el.textContent = display.join('');
-
-      const interval = setInterval(() => {
-        // Cycle unresolved characters
-        for (let i = resolved; i < len; i++) {
-          if (this.text[i] === ' ') {
-            display[i] = ' ';
-          } else {
-            display[i] = this.chars[Math.floor(Math.random() * this.chars.length)];
-          }
-        }
-        // Resolve next character
-        if (resolved < len) {
-          display[resolved] = this.text[resolved];
-          resolved++;
-        }
-        this.el.textContent = display.join('');
-        if (resolved >= len) {
-          clearInterval(interval);
-          if (this.onComplete) this.onComplete();
-        }
-      }, this.intervalMs);
-
-      return this;
-    }
+  function setRun(v){
+    if(v&&!run){run=true;raf=requestAnimationFrame(tick);}
+    else if(!v&&run){run=false;cancelAnimationFrame(raf);}
   }
-
-  /* ==========================================================
-     HERO SCRAMBLE
-     ========================================================== */
-  const heroTitle = document.getElementById('heroTitle');
-  const heroText = heroTitle.getAttribute('data-text');
-  const heroTagline = document.getElementById('heroTagline');
-  const heroCta = document.getElementById('heroCta');
-
-  // Build spans
-  heroText.split('').forEach(ch => {
-    if (ch === ' ') {
-      const sp = document.createElement('span');
-      sp.className = 'space';
-      heroTitle.appendChild(sp);
-    } else {
-      const sp = document.createElement('span');
-      sp.className = 'char';
-      sp.textContent = ch;
-      heroTitle.appendChild(sp);
-    }
+  /* rAF stoppé hors écran ou onglet caché */
+  new IntersectionObserver(function(e){setRun(e[0].isIntersecting&&!document.hidden);}).observe(hero);
+  document.addEventListener('visibilitychange',function(){
+    setRun(!document.hidden&&hero.getBoundingClientRect().bottom>0);
   });
-
-  // Scramble each letter
-  const chars = heroTitle.querySelectorAll('.char');
-  const scrambleChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-  let heroRevealed = 0;
-
-  function scrambleHeroLetter(index) {
-    const span = chars[index];
-    const target = heroText.replace(/ /g, '')[index] || span.textContent;
-    let cycles = 0;
-    const maxCycles = 12 + Math.floor(Math.random() * 8);
-    span.style.opacity = '1';
-    const iv = setInterval(() => {
-      if (cycles < maxCycles) {
-        span.textContent = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-        cycles++;
-      } else {
-        span.textContent = target;
-        span.classList.add('revealed');
-        clearInterval(iv);
-        heroRevealed++;
-        if (heroRevealed >= chars.length) {
-          heroTagline.classList.add('visible');
-          heroCta.classList.add('visible');
-        }
-      }
-    }, 50);
-  }
-
-  // Stagger letter reveals
-  chars.forEach((_, i) => {
-    setTimeout(() => scrambleHeroLetter(i), i * 80);
-  });
-
-  /* ==========================================================
-     NAVIGATION
-     ========================================================== */
-  const nav = document.getElementById('nav');
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
-  });
-
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-
-  // Close mobile nav on link click
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
-
-  /* ==========================================================
-     SCROLL REVEAL (IntersectionObserver)
-     ========================================================== */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-  /* ==========================================================
-     A PROPOS — TYPING REVEAL
-     ========================================================== */
-  const typeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.dataset.typed) {
-        entry.target.dataset.typed = 'true';
-        typeReveal(entry.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  document.querySelectorAll('.type-reveal').forEach(el => typeObserver.observe(el));
-
-  function typeReveal(el) {
-    const text = el.getAttribute('data-text');
-    el.textContent = '';
-    el.classList.add('typed');
-    const cursorSpan = document.createElement('span');
-    cursorSpan.className = 'typing-cursor';
-    el.appendChild(cursorSpan);
-
-    let i = 0;
-    const speed = 12; // fast typing
-    function type() {
-      if (i < text.length) {
-        el.insertBefore(document.createTextNode(text[i]), cursorSpan);
-        i++;
-        setTimeout(type, speed);
-      } else {
-        setTimeout(() => cursorSpan.remove(), 1500);
-      }
-    }
-    type();
-  }
-
-  /* ==========================================================
-     EVENTS — SLIDE IN
-     ========================================================== */
-  const eventObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll('.event-block').forEach(el => eventObserver.observe(el));
-
-  /* ==========================================================
-     REFERENCES — CONSTELLATION
-     ========================================================== */
-  const clients = [
-    { name: 'Mairie d\'Issoudun', x: 20, y: 25 },
-    { name: 'Casino de Deauville', x: 72, y: 15 },
-    { name: 'Hotel Le Bristol', x: 45, y: 45 },
-    { name: 'Chateau de Valencay', x: 15, y: 65 },
-    { name: 'Comite des fetes', x: 80, y: 55 },
-    { name: 'Lions Club', x: 55, y: 78 },
-    { name: 'Rotary Club', x: 30, y: 85 },
-    { name: 'CCI du Berry', x: 65, y: 35 },
-    { name: 'Ordre des Medecins', x: 85, y: 80 },
-    { name: 'Chambre d\'Agriculture', x: 10, y: 45 },
-  ];
-
-  const constellationEl = document.getElementById('constellation');
-
-  // Create SVG for lines
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.classList.add('constellation-svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('preserveAspectRatio', 'none');
-  constellationEl.appendChild(svg);
-
-  // Connect nearby nodes (distance < 35)
-  const lines = [];
-  for (let i = 0; i < clients.length; i++) {
-    for (let j = i + 1; j < clients.length; j++) {
-      const dx = clients[i].x - clients[j].x;
-      const dy = clients[i].y - clients[j].y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 40) {
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', clients[i].x);
-        line.setAttribute('y1', clients[i].y);
-        line.setAttribute('x2', clients[j].x);
-        line.setAttribute('y2', clients[j].y);
-        line.dataset.nodes = `${i},${j}`;
-        svg.appendChild(line);
-        lines.push({ el: line, a: i, b: j });
-      }
-    }
-  }
-
-  // Create node labels
-  clients.forEach((client, idx) => {
-    const node = document.createElement('span');
-    node.className = 'constellation-node interactive';
-    node.textContent = client.name;
-    node.style.left = client.x + '%';
-    node.style.top = client.y + '%';
-    node.dataset.index = idx;
-    constellationEl.appendChild(node);
-
-    node.addEventListener('mouseenter', () => {
-      lines.forEach(l => {
-        if (l.a === idx || l.b === idx) l.el.classList.add('glow');
-      });
-    });
-    node.addEventListener('mouseleave', () => {
-      lines.forEach(l => l.el.classList.remove('glow'));
-    });
-  });
-
-  /* ==========================================================
-     TESTIMONIALS — DECRYPT CYCLE
-     ========================================================== */
-  const testimonials = [
-    {
-      quote: 'Francis a transforme notre mariage en un moment ferique. Nos invites en parlent encore des mois apres. Une prestation d\'une elegance rare.',
-      author: 'Sophie & Marc — Mariage, Chateau de Valencay'
-    },
-    {
-      quote: 'Le mentalisme de Francis a laisse tout le monde sans voix. Meme les plus sceptiques ont ete bluffes. Un artiste hors pair.',
-      author: 'Philippe D. — Directeur, Lions Club Berry'
-    },
-    {
-      quote: 'Pour notre soiree de gala, Francis a su captiver 300 personnes pendant plus d\'une heure. Standing ovation a la fin du spectacle.',
-      author: 'Caroline M. — Evenementiel, CCI du Berry'
-    },
-    {
-      quote: 'Nos enfants etaient emerveilles, et nous aussi ! Le close-up pendant le cocktail etait un vrai moment de bonheur partage.',
-      author: 'Famille Bertrand — Anniversaire, Issoudun'
-    }
-  ];
-
-  const quoteEl = document.getElementById('testimonialQuote');
-  const authorEl = document.getElementById('testimonialAuthor');
-  const dotsEl = document.getElementById('testimonialDots');
-  let currentTestimonial = 0;
-  let testimonialInterval;
-
-  // Create dots
-  testimonials.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'testimonial-dot interactive' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => showTestimonial(i));
-    dotsEl.appendChild(dot);
-  });
-
-  function showTestimonial(idx) {
-    currentTestimonial = idx;
-    // Update dots
-    dotsEl.querySelectorAll('.testimonial-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === idx);
-    });
-    // Scramble quote
-    const t = testimonials[idx];
-    new ScrambleText(quoteEl, { text: t.quote, interval: 25 }).start();
-    new ScrambleText(authorEl, { text: t.author, interval: 30 }).start();
-  }
-
-  // Observe testimonials section
-  const testimonialObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !testimonialInterval) {
-        showTestimonial(0);
-        testimonialInterval = setInterval(() => {
-          currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-          showTestimonial(currentTestimonial);
-        }, 6000);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  testimonialObserver.observe(document.getElementById('testimonialDisplay'));
-
-  /* ==========================================================
-     CONTACT — SPARK ON TYPING
-     ========================================================== */
-  document.querySelectorAll('.spark-input').forEach(input => {
-    input.addEventListener('input', function(e) {
-      if (isMobile) return;
-      const rect = this.getBoundingClientRect();
-      // Approximate cursor position
-      const spark = document.createElement('div');
-      spark.className = 'form-spark';
-      spark.style.left = (rect.left + Math.min(this.value.length * 8 + 16, rect.width - 16)) + 'px';
-      spark.style.top = (rect.top + rect.height / 2 + (Math.random() - 0.5) * 10) + 'px';
-      spark.style.position = 'fixed';
-      document.body.appendChild(spark);
-      setTimeout(() => spark.remove(), 500);
-    });
-  });
-
-  // Submit button scramble on hover
-  const btnSubmit = document.getElementById('btnSubmit');
-  btnSubmit.addEventListener('mouseenter', () => {
-    new ScrambleText(btnSubmit, { text: 'Envoyer ✨', interval: 35 }).start();
-  });
-  btnSubmit.addEventListener('mouseleave', () => {
-    btnSubmit.textContent = 'Envoyer';
-  });
-
-  /* ==========================================================
-     FOOTER — SCRAMBLE ON HOVER
-     ========================================================== */
-  const footerMagic = document.getElementById('footerMagic');
-  footerMagic.addEventListener('mouseenter', () => {
-    new ScrambleText(footerMagic, { text: footerMagic.getAttribute('data-text'), interval: 35 }).start();
-  });
-
-  /* ==========================================================
-     SMOOTH SCROLL FOR ANCHOR LINKS
-     ========================================================== */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  /* ==========================================================
-     RE-REGISTER INTERACTIVE ELEMENTS FOR CURSOR
-     (for dynamically visible elements)
-     ========================================================== */
-  if (!isMobile) {
-    const cursorEl = document.getElementById('cursor');
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest('.interactive')) {
-        cursorEl.classList.add('hover');
-      }
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest('.interactive')) {
-        cursorEl.classList.remove('hover');
-      }
-    });
-  }
-
 })();
 </script>
 </body>

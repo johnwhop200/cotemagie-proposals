@@ -2,1398 +2,281 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Côté Magie — Francis Darcy | Magicien à Issoudun</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Côté Magie — Francis Darcy, magicien à Issoudun</title>
+<meta name="description" content="Francis Darcy, magicien professionnel à Issoudun. Close-up, spectacles enfants, magie pour les aînés, ballons, ateliers. Devis gratuit : 06 72 11 82 29.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ============================================
-   CSS CUSTOM PROPERTIES
-   ============================================ */
-:root {
-  --bg: #050505;
-  --text: #F4EADE;
-  --gold: #C69B3C;
-  --gold-dim: rgba(198, 155, 60, 0.3);
-  --gold-glow: rgba(198, 155, 60, 0.6);
-  --crimson: #8B0000;
-  --font-heading: 'Cinzel', serif;
-  --font-body: 'Inter', sans-serif;
-}
-
-/* ============================================
-   RESET & BASE
-   ============================================ */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  line-height: 1.7;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-a {
-  color: var(--gold);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: var(--crimson);
-}
-
-img {
-  max-width: 100%;
-  display: block;
-}
-
-/* ============================================
-   UTILITIES
-   ============================================ */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.section-title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: var(--gold);
-}
-
-.section-title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 2px;
-  background: var(--gold);
-  margin: 1rem auto 0;
-}
-
-/* ============================================
-   FLOATING PARTICLES (CSS-ONLY)
-   ============================================ */
-.particles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: var(--gold);
-  border-radius: 50%;
-  opacity: 0;
-  animation: particleFloat linear infinite;
-}
-
-.particle:nth-child(1)  { left: 10%; animation-duration: 12s; animation-delay: 0s; }
-.particle:nth-child(2)  { left: 20%; animation-duration: 15s; animation-delay: 2s; }
-.particle:nth-child(3)  { left: 35%; animation-duration: 10s; animation-delay: 4s; }
-.particle:nth-child(4)  { left: 50%; animation-duration: 18s; animation-delay: 1s; }
-.particle:nth-child(5)  { left: 65%; animation-duration: 14s; animation-delay: 3s; }
-.particle:nth-child(6)  { left: 78%; animation-duration: 11s; animation-delay: 5s; }
-.particle:nth-child(7)  { left: 88%; animation-duration: 16s; animation-delay: 0.5s; }
-.particle:nth-child(8)  { left: 5%;  animation-duration: 13s; animation-delay: 6s; }
-.particle:nth-child(9)  { left: 42%; animation-duration: 17s; animation-delay: 2.5s; }
-.particle:nth-child(10) { left: 92%; animation-duration: 12s; animation-delay: 4.5s; }
-.particle:nth-child(11) { left: 15%; animation-duration: 19s; animation-delay: 1.5s; }
-.particle:nth-child(12) { left: 55%; animation-duration: 14s; animation-delay: 3.5s; }
-
-@keyframes particleFloat {
-  0% {
-    transform: translateY(100vh) scale(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 0.4;
-  }
-  90% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: translateY(-20vh) scale(1);
-    opacity: 0;
-  }
-}
-
-/* ============================================
-   1. HERO
-   ============================================ */
-.hero {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background:
-    radial-gradient(ellipse 40% 50% at 50% 45%, rgba(198, 155, 60, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 25% 35% at 50% 45%, rgba(198, 155, 60, 0.05) 0%, transparent 60%),
-    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
-    var(--bg);
-  overflow: hidden;
-}
-
-.hero__title {
-  font-family: var(--font-heading);
-  font-size: clamp(3.5rem, 10vw, 7.5rem);
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text);
-  z-index: 2;
-  line-height: 1.1;
-  text-indent: 0.3em; /* balance letter-spacing */
-}
-
-.hero__subtitle {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  letter-spacing: 0.1em;
-  color: var(--gold);
-  margin-top: 1.5rem;
-  z-index: 2;
-  opacity: 0.85;
-}
-
-.hero__cta {
-  display: inline-block;
-  margin-top: 3rem;
-  padding: 1rem 2.5rem;
-  font-family: var(--font-heading);
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  background: transparent;
-  border: 2px solid transparent;
-  position: relative;
-  z-index: 2;
-  cursor: pointer;
-  transition: color 0.3s ease, background 0.3s ease;
-  text-decoration: none;
-}
-
-.hero__cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 2px solid var(--gold);
-  animation: shimmerBorder 3s linear infinite;
-}
-
-@keyframes shimmerBorder {
-  0% {
-    border-color: var(--gold-dim);
-    box-shadow: 0 0 8px var(--gold-dim);
-  }
-  50% {
-    border-color: var(--gold);
-    box-shadow: 0 0 20px var(--gold-dim), 0 0 40px rgba(198, 155, 60, 0.1);
-  }
-  100% {
-    border-color: var(--gold-dim);
-    box-shadow: 0 0 8px var(--gold-dim);
-  }
-}
-
-.hero__cta:hover {
-  background: var(--gold);
-  color: var(--bg);
-}
-
-.hero__cta:hover::before {
-  border-color: var(--gold);
-  box-shadow: 0 0 30px var(--gold-glow);
-}
-
-.hero__scroll-hint {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-  opacity: 0.4;
-  animation: scrollBounce 2s ease-in-out infinite;
-}
-
-.hero__scroll-hint svg {
-  width: 24px;
-  height: 24px;
-  stroke: var(--gold);
-}
-
-@keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
-
-/* ============================================
-   2. NAVIGATION
-   ============================================ */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2.5rem;
-  background: rgba(5, 5, 5, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(198, 155, 60, 0.1);
-  transform: translateY(-100%);
-  transition: transform 0.5s ease;
-}
-
-.navbar.visible {
-  transform: translateY(0);
-}
-
-.navbar__link {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.7;
-  transition: opacity 0.3s ease, color 0.3s ease;
-  font-variant: small-caps;
-}
-
-.navbar__link:hover {
-  opacity: 1;
-  color: var(--gold);
-}
-
-/* Mobile hamburger */
-.navbar__toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  position: absolute;
-  right: 1.5rem;
-}
-
-.navbar__toggle span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--gold);
-  margin: 5px 0;
-  transition: 0.3s;
-}
-
-.navbar__brand {
-  display: none;
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  letter-spacing: 0.15em;
-  color: var(--gold);
-  position: absolute;
-  left: 1.5rem;
-}
-
-/* ============================================
-   3. A PROPOS (SPLIT SCREEN)
-   ============================================ */
-.about {
-  padding: 8rem 5% 6rem;
-}
-
-.about__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  align-items: center;
-}
-
-.about__image-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.about__image {
-  width: clamp(250px, 22vw, 380px);
-  height: clamp(250px, 22vw, 380px);
-  border-radius: 50%;
-  border: 3px solid var(--gold);
-  background:
-    radial-gradient(circle at 40% 35%, rgba(198, 155, 60, 0.1) 0%, transparent 60%),
-    linear-gradient(135deg, #0a0a0a 0%, #111 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  color: var(--gold-dim);
-  text-transform: uppercase;
-}
-
-.about__text p {
-  margin-bottom: 1.5rem;
-  font-weight: 300;
-  font-size: 1.05rem;
-  opacity: 0.85;
-}
-
-.about__quote {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: clamp(1.2rem, 2.5vw, 1.75rem);
-  line-height: 1.6;
-  padding-left: 1.5rem;
-  border-left: 3px solid var(--gold);
-  margin: 2.5rem 0;
-  color: var(--text);
-}
-
-/* ============================================
-   4. PRESTATIONS (HORIZONTAL SCROLL CARDS)
-   ============================================ */
-.prestations {
-  padding: 6rem 0;
-}
-
-.prestations__strip {
-  display: flex;
-  gap: 1.5rem;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 2rem 5%;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.prestations__strip::-webkit-scrollbar {
-  display: none;
-}
-
-.prestation-card {
-  flex: 0 0 280px;
-  aspect-ratio: 2 / 3;
-  background: var(--bg);
-  border: 1px solid var(--gold-dim);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1.5rem;
-  scroll-snap-align: center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-  position: relative;
-  cursor: default;
-}
-
-.prestation-card::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border: 1px solid transparent;
-  transition: border-color 0.4s ease;
-  pointer-events: none;
-}
-
-.prestation-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--gold);
-  box-shadow: 0 0 30px rgba(198, 155, 60, 0.15), 0 10px 40px rgba(0, 0, 0, 0.5);
-}
-
-.prestation-card__icon {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-.prestation-card__title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: 1rem;
-}
-
-.prestation-card__desc {
-  font-size: 0.85rem;
-  font-weight: 300;
-  opacity: 0.6;
-  line-height: 1.6;
-}
-
-/* Scroll hint arrows */
-.prestations__hint {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold-dim);
-  font-family: var(--font-heading);
-}
-
-/* ============================================
-   5. EVENEMENTS (FULL-WIDTH BANDS)
-   ============================================ */
-.events {
-  padding: 4rem 0;
-}
-
-.event-band {
-  position: relative;
-  height: 50vh;
-  min-height: 300px;
-  display: flex;
-  align-items: center;
-  padding: 0 8%;
-  overflow: hidden;
-  cursor: default;
-}
-
-.event-band__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.event-band:nth-child(1) .event-band__bg {
-  background:
-    linear-gradient(135deg, rgba(198, 155, 60, 0.05) 0%, transparent 50%),
-    repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(198, 155, 60, 0.02) 40px, rgba(198, 155, 60, 0.02) 80px),
-    #080808;
-}
-
-.event-band:nth-child(2) .event-band__bg {
-  background:
-    linear-gradient(-45deg, rgba(139, 0, 0, 0.08) 0%, transparent 50%),
-    repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(139, 0, 0, 0.03) 40px, rgba(139, 0, 0, 0.03) 80px),
-    #070707;
-}
-
-.event-band:nth-child(3) .event-band__bg {
-  background:
-    linear-gradient(90deg, rgba(198, 155, 60, 0.06) 0%, transparent 40%),
-    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(198, 155, 60, 0.02) 60px, rgba(198, 155, 60, 0.02) 120px),
-    #060606;
-}
-
-.event-band__overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 5, 5, 0.7);
-  transition: background 0.5s ease;
-  z-index: 1;
-}
-
-.event-band:hover .event-band__overlay {
-  background: rgba(5, 5, 5, 0.4);
-}
-
-.event-band__content {
-  position: relative;
-  z-index: 2;
-  max-width: 600px;
-}
-
-.event-band__label {
-  font-family: var(--font-heading);
-  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.75rem;
-}
-
-.event-band__title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
-
-.event-band__desc {
-  font-weight: 300;
-  font-size: 1rem;
-  opacity: 0.7;
-  max-width: 450px;
-  line-height: 1.7;
-}
-
-/* ============================================
-   6. REFERENCES (INFINITE MARQUEE)
-   ============================================ */
-.references {
-  padding: 5rem 0 4rem;
-  overflow: hidden;
-}
-
-.marquee-row {
-  display: flex;
-  width: max-content;
-  margin-bottom: 1rem;
-}
-
-.marquee-row--top {
-  animation: marqueeLeft 30s linear infinite;
-}
-
-.marquee-row--bottom {
-  animation: marqueeRight 35s linear infinite;
-}
-
-@keyframes marqueeLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes marqueeRight {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-
-.marquee-row span {
-  font-family: var(--font-heading);
-  font-size: clamp(0.85rem, 1.8vw, 1.2rem);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  white-space: nowrap;
-  padding: 0.75rem 2rem;
-  opacity: 0.6;
-  transition: opacity 0.3s;
-}
-
-.marquee-row:hover span {
-  animation-play-state: paused;
-}
-
-.marquee-row span::after {
-  content: '·';
-  margin-left: 2rem;
-  color: var(--gold-dim);
-}
-
-/* ============================================
-   7. TEMOIGNAGES
-   ============================================ */
-.testimonials {
-  padding: 6rem 5%;
-  text-align: center;
-  position: relative;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.testimonial-wrap {
-  position: relative;
-  max-width: 800px;
-  margin: 3rem auto 0;
-  min-height: 350px;
-  overflow: hidden;
-}
-
-.testimonial {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-  padding: 1rem;
-}
-
-.testimonial.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.testimonial__quote-mark {
-  font-family: Georgia, serif;
-  font-size: clamp(3rem, 6vw, 5rem);
-  color: var(--gold);
-  opacity: 0.2;
-  line-height: 0.8;
-  margin-bottom: 0.5rem;
-  user-select: none;
-}
-
-.testimonial__text {
-  font-family: var(--font-heading);
-  font-style: italic;
-  font-size: clamp(1rem, 2vw, 1.5rem);
-  line-height: 1.6;
-  max-width: 650px;
-  color: var(--text);
-}
-
-.testimonial__author {
-  margin-top: 2rem;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.7;
-}
-
-.testimonial-dots {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-.testimonial-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold-dim);
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
-  padding: 0;
-}
-
-.testimonial-dot.active {
-  background: var(--gold);
-  transform: scale(1.3);
-}
-
-/* ============================================
-   8. CONTACT (SPLIT SCREEN)
-   ============================================ */
-.contact {
-  padding: 6rem 5%;
-}
-
-.contact__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.contact__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.8;
-}
-
-.form-group input,
-.form-group textarea {
-  background: rgba(244, 234, 222, 0.04);
-  border: 1px solid var(--gold-dim);
-  padding: 0.9rem 1rem;
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  outline: none;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 15px rgba(198, 155, 60, 0.1);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 140px;
-}
-
-.form-submit {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 1rem 2rem;
-  background: transparent;
-  border: 2px solid var(--gold);
-  color: var(--gold);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: color 0.3s ease, background 0.3s ease;
-  align-self: flex-start;
-}
-
-.form-submit::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(198, 155, 60, 0.15), transparent);
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-.form-submit:hover {
-  background: var(--gold);
-  color: var(--bg);
-}
-
-.contact__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2.5rem;
-}
-
-.contact__info-block h3 {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 0.5rem;
-}
-
-.contact__info-block p,
-.contact__info-block a {
-  font-weight: 300;
-  font-size: 1rem;
-  opacity: 0.8;
-  line-height: 1.8;
-}
-
-.contact__info-block a {
-  opacity: 0.8;
-  color: var(--text);
-}
-
-.contact__info-block a:hover {
-  color: var(--gold);
-  opacity: 1;
-}
-
-/* ============================================
-   9. FOOTER
-   ============================================ */
-.footer {
-  padding: 3rem 5%;
-  text-align: center;
-  border-top: 1px solid rgba(198, 155, 60, 0.1);
-}
-
-.footer__text {
-  font-family: var(--font-heading);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  opacity: 0.4;
-}
-
-.footer__socials {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-.footer__social {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--gold-dim);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.3s ease, background 0.3s ease;
-}
-
-.footer__social:hover {
-  border-color: var(--gold);
-  background: rgba(198, 155, 60, 0.1);
-}
-
-.footer__social svg {
-  width: 14px;
-  height: 14px;
-  fill: var(--gold);
-  opacity: 0.6;
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-@media (max-width: 900px) {
-  .about__grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    text-align: center;
-  }
-
-  .about__image-wrap {
-    order: -1;
-  }
-
-  .about__quote {
-    text-align: left;
-  }
-
-  .contact__grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .event-band {
-    height: auto;
-    min-height: 40vh;
-    padding: 3rem 6%;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 0;
-    padding: 0.75rem 1.5rem;
-    align-items: flex-start;
-  }
-
-  .navbar__brand {
-    display: block;
-    position: static;
-    padding: 0.5rem 0;
-  }
-
-  .navbar__toggle {
-    display: block;
-    position: absolute;
-    right: 1.5rem;
-    top: 0.75rem;
-  }
-
-  .navbar__links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.4s ease;
-    width: 100%;
-  }
-
-  .navbar__links.open {
-    max-height: 300px;
-    padding: 0.5rem 0 1rem;
-  }
-
-  .navbar__link {
-    display: block;
-    padding: 0.5rem 0;
-    font-size: 0.7rem;
-  }
-
-  .hero__title {
-    letter-spacing: 0.15em;
-    text-indent: 0.15em;
-  }
-
-  .prestation-card {
-    flex: 0 0 240px;
-  }
-
-  .testimonial__text {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero__title {
-    letter-spacing: 0.1em;
-    text-indent: 0.1em;
-  }
-
-  .prestation-card {
-    flex: 0 0 220px;
-    aspect-ratio: 3 / 4;
-  }
-
-  .section-title {
-    font-size: 1.3rem;
-  }
+:root{--noir:#0A0A0A;--surface:#141414;--or:#C69B3C;--or-clair:#E0B85C;--creme:#F4EADE;--sec:#B0A290}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--creme);font-family:Inter,sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Cinzel,serif;color:var(--or);line-height:1.15}
+h2{font-size:clamp(26px,6vw,40px);margin-bottom:.5em}
+p{max-width:65ch}
+img{display:block;max-width:100%;height:auto}
+a{color:var(--or-clair)}
+:focus-visible{outline:2px solid var(--or-clair);outline-offset:3px}
+section{padding:72px 20px}
+.wrap{max-width:1100px;margin:0 auto}
+.kicker{font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:var(--sec);margin-bottom:12px}
+
+/* ---- Hero : spotlight ---- */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px 20px 80px;overflow:hidden;
+background:radial-gradient(ellipse 90% 60% at 50% 18%,rgba(198,155,60,.22),rgba(198,155,60,.06) 45%,transparent 70%),var(--noir)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 120% 80% at 50% 110%,transparent 55%,rgba(0,0,0,.65));pointer-events:none}
+.hero>*{position:relative;z-index:2}
+.hero .kicker{color:var(--or-clair)}
+.hero h1{font-size:clamp(40px,11vw,86px);font-weight:700;letter-spacing:.08em;text-shadow:0 0 40px rgba(198,155,60,.35)}
+.hero .tagline{font-size:clamp(17px,4.5vw,22px);margin-top:10px}
+.hero .sub{color:var(--sec);font-size:15px;margin-top:6px}
+.portrait{width:min(58vw,220px);margin:28px auto 30px;border:1px solid rgba(198,155,60,.45);border-radius:140px 140px 12px 12px;overflow:hidden;box-shadow:0 0 60px rgba(198,155,60,.18)}
+.ctas{display:flex;flex-direction:column;gap:14px;width:100%;max-width:340px;margin-top:6px}
+.btn{display:flex;align-items:center;justify-content:center;min-height:52px;padding:14px 28px;border:0;border-radius:6px;font:600 17px Inter,sans-serif;text-decoration:none;cursor:pointer;transition:transform .2s}
+.btn-or{background:linear-gradient(135deg,var(--or),var(--or-clair));color:#181000;box-shadow:0 4px 24px rgba(198,155,60,.35)}
+.btn-ghost{border:1px solid rgba(198,155,60,.6);color:var(--or-clair);background:rgba(10,10,10,.4)}
+.btn:hover{transform:translateY(-2px)}
+
+/* ---- Particules dorées CSS-only ---- */
+.p{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--or-clair);box-shadow:0 0 8px 2px rgba(224,184,92,.5);opacity:0;animation:float 9s linear infinite;z-index:1}
+@keyframes float{0%{transform:translateY(20px) scale(.6);opacity:0}15%{opacity:.85}60%{opacity:.5}100%{transform:translateY(-78svh) translateX(24px) scale(1);opacity:0}}
+.p:nth-child(1){left:8%;bottom:10%}.p:nth-child(2){left:18%;bottom:4%;animation-delay:2.2s;width:3px;height:3px}
+.p:nth-child(3){left:30%;bottom:12%;animation-delay:4.5s}.p:nth-child(4){left:44%;bottom:2%;animation-delay:1.3s;width:4px;height:4px}
+.p:nth-child(5){left:56%;bottom:9%;animation-delay:6.1s}.p:nth-child(6){left:66%;bottom:5%;animation-delay:3.4s;width:3px;height:3px}
+.p:nth-child(7){left:76%;bottom:13%;animation-delay:5.2s}.p:nth-child(8){left:86%;bottom:6%;animation-delay:.8s;width:4px;height:4px}
+.p:nth-child(9){left:50%;bottom:16%;animation-delay:7.4s;width:3px;height:3px}.p:nth-child(10){left:93%;bottom:14%;animation-delay:8.1s}
+
+/* ---- Sections ---- */
+.about{background:var(--surface)}
+.about .grid{display:grid;gap:32px}
+.about p{margin-bottom:1em}
+.stat{font-family:Cinzel,serif;font-size:clamp(48px,12vw,72px);color:var(--or);line-height:1}
+.stat-label{color:var(--sec);font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+.cards{display:grid;gap:24px}
+.card{background:var(--surface);border:1px solid rgba(198,155,60,.18);border-radius:10px;overflow:hidden}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.card .body{padding:22px}
+.card h3{font-size:20px;margin-bottom:8px}
+.card p{color:var(--sec);font-size:15.5px}
+.galerie{background:var(--surface)}
+.ggrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.ggrid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px}
+
+/* ---- Marquee références (double rangée) ---- */
+.refs{overflow:hidden;text-align:center}
+.mq{display:flex;gap:18px;width:max-content;margin-bottom:18px}
+.mq-a{animation:mq 36s linear infinite}
+.mq-b{animation:mq 36s linear infinite reverse}
+.refs:hover .mq,.refs:focus-within .mq{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.logo{flex:0 0 auto;width:128px;height:72px;background:#FBF7F0;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:10px}
+.logo img{max-width:100%;max-height:100%;object-fit:contain}
+.refs>p{margin:6px auto 28px;color:var(--sec)}
+
+/* ---- Contact ---- */
+.contact{background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(198,155,60,.1),transparent 60%),var(--surface)}
+form{max-width:520px;margin:0 auto;display:grid;gap:16px;text-align:left}
+label{font-size:14px;font-weight:600;letter-spacing:.05em;color:var(--or-clair);display:block;margin-bottom:6px}
+input,select,textarea{width:100%;min-height:50px;padding:13px 16px;background:var(--noir);border:1px solid rgba(198,155,60,.35);border-radius:6px;color:var(--creme);font:inherit;font-size:16px}
+textarea{min-height:120px;resize:vertical}
+.reassure{text-align:center;color:var(--sec);font-size:15px;margin:0 auto}
+footer{padding:48px 20px 110px;text-align:center;border-top:1px solid rgba(198,155,60,.2)}
+footer .logo-txt{font-family:Cinzel,serif;color:var(--or);font-size:22px;letter-spacing:.12em}
+footer p{margin:8px auto 0;color:var(--sec);font-size:15px}
+
+/* ---- FAB appel ---- */
+.fab{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:10px;min-height:52px;padding:14px 22px;border-radius:999px;background:linear-gradient(135deg,var(--or),var(--or-clair));color:#181000;font-weight:600;text-decoration:none;box-shadow:0 6px 28px rgba(0,0,0,.6),0 0 24px rgba(198,155,60,.35);
+opacity:0;transform:translateY(80px);transition:opacity .35s,transform .35s;pointer-events:none}
+.fab.on{opacity:1;transform:none;pointer-events:auto}
+.fab svg{width:18px;height:18px}
+
+/* ---- Reveals ---- */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+
+@media (min-width:768px){
+  section{padding:96px 32px}
+  .ctas{flex-direction:row;max-width:none;justify-content:center}
+  .btn{min-width:230px}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .ggrid{grid-template-columns:repeat(3,1fr)}
+  .about .grid{grid-template-columns:1fr auto;align-items:center}
+}
+@media (min-width:1100px){.cards{grid-template-columns:repeat(3,1fr)}}
+@media (prefers-reduced-motion:reduce){
+  .p{display:none}
+  .mq-a,.mq-b{animation:none;flex-wrap:wrap;width:100%;justify-content:center}
+  .mq .dup{display:none}
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
 
-<!-- ============================================
-     NAVIGATION
-     ============================================ -->
-<nav class="navbar" id="navbar">
-  <span class="navbar__brand">Côté Magie</span>
-  <button class="navbar__toggle" id="navToggle" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="navbar__links" id="navLinks">
-    <a href="#spectacles" class="navbar__link">Spectacles</a>
-    <a href="#evenements" class="navbar__link">Événements</a>
-    <a href="#apropos" class="navbar__link">À Propos</a>
-    <a href="#contact" class="navbar__link">Contact</a>
+<header class="hero" id="hero">
+  <span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span>
+  <span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span><span class="p"></span>
+  <p class="kicker">Magie de scène &amp; de proximité</p>
+  <h1>CÔTÉ MAGIE</h1>
+  <p class="tagline">Francis Darcy — Magicien</p>
+  <div class="portrait">
+    <img src="https://static.wixstatic.com/media/da939b_de131428a0654a80a6dafe41cff4358e~mv2.jpg/v1/fill/w_564,h_1130,al_c,q_85,enc_avif,quality_auto/beau%20gosse_edited.jpg"
+         alt="Francis Darcy, magicien professionnel, en costume de scène" width="564" height="1130" fetchpriority="high">
   </div>
-</nav>
-
-<!-- ============================================
-     1. HERO
-     ============================================ -->
-<section class="hero" id="hero">
-  <div class="particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
+  <p class="sub">25&nbsp;ans d'expérience — Issoudun, Centre-Val de Loire et au-delà</p>
+  <div class="ctas">
+    <a class="btn btn-or" href="#contact">Demander un devis</a>
+    <a class="btn btn-ghost" href="tel:0672118229">06 72 11 82 29</a>
   </div>
+</header>
 
-  <h1 class="hero__title">Côté Magie</h1>
-  <p class="hero__subtitle">Francis Darcy — Magicien</p>
-  <a href="#apropos" class="hero__cta">Entrez dans la magie</a>
-
-  <div class="hero__scroll-hint">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-  </div>
-</section>
-
-<!-- ============================================
-     3. A PROPOS
-     ============================================ -->
 <section class="about" id="apropos">
-  <h2 class="section-title reveal">À Propos</h2>
-  <div class="about__grid">
-    <div class="about__image-wrap">
-      <div class="about__image reveal">
-        Photo
-      </div>
+  <div class="wrap grid">
+    <div class="rv">
+      <p class="kicker">À propos</p>
+      <h2>L'art de l'émerveillement, depuis 25&nbsp;ans</h2>
+      <p>Magicien professionnel installé à Issoudun, dans l'Indre, Francis Darcy met son savoir-faire au service de vos événements&nbsp;: mariages, anniversaires, comités d'entreprise, séminaires, fêtes de village, écoles et maisons de retraite.</p>
+      <p>De la magie de proximité, à quelques centimètres des yeux de vos invités, aux spectacles de scène, chaque prestation est conçue sur mesure — élégante, chaleureuse, inoubliable.</p>
     </div>
-    <div class="about__text">
-      <p class="reveal" style="transition-delay: 0.1s;">
-        Depuis plus de 20 ans, Francis Darcy enchante petits et grands avec ses spectacles de magie.
-        Basé à Issoudun, au cœur de l'Indre, il parcourt la France pour apporter émerveillement
-        et rires à chaque représentation.
-      </p>
-      <p class="reveal" style="transition-delay: 0.3s;">
-        Spécialiste du close-up et de la magie de scène, il adapte chaque prestation à son public —
-        des enfants émerveillés aux adultes incrédules, des fêtes familiales aux séminaires d'entreprise.
-      </p>
-      <blockquote class="about__quote reveal" style="transition-delay: 0.5s;">
-        « La magie, ce n'est pas tromper les yeux. C'est ouvrir l'esprit à l'impossible. »
-      </blockquote>
-      <p class="reveal" style="transition-delay: 0.7s;">
-        Membre actif de la communauté magique française, Francis ne cesse de perfectionner son art,
-        mêlant technique irréprochable, humour et poésie pour créer des moments inoubliables.
-      </p>
+    <div class="rv" style="text-align:center">
+      <div class="stat">25</div>
+      <div class="stat-label">ans d'expérience</div>
     </div>
   </div>
 </section>
 
-<!-- ============================================
-     4. PRESTATIONS
-     ============================================ -->
-<section class="prestations" id="spectacles">
-  <h2 class="section-title reveal">Prestations</h2>
-  <div class="prestations__strip">
-
-    <div class="prestation-card reveal">
-      <div class="prestation-card__icon">🃏</div>
-      <h3 class="prestation-card__title">Close-up</h3>
-      <p class="prestation-card__desc">Magie de proximité, entre vos mains. L'impossible se produit à quelques centimètres de vos yeux.</p>
-    </div>
-
-    <div class="prestation-card reveal" style="transition-delay: 0.1s;">
-      <div class="prestation-card__icon">✨</div>
-      <h3 class="prestation-card__title">Spectacles Enfants</h3>
-      <p class="prestation-card__desc">Rires, participation et émerveillement garantis. Un spectacle pensé pour les plus jeunes.</p>
-    </div>
-
-    <div class="prestation-card reveal" style="transition-delay: 0.2s;">
-      <div class="prestation-card__icon">🎩</div>
-      <h3 class="prestation-card__title">Magie pour les Aînés</h3>
-      <p class="prestation-card__desc">Des moments de joie et de partage adaptés aux résidences et maisons de retraite.</p>
-    </div>
-
-    <div class="prestation-card reveal" style="transition-delay: 0.3s;">
-      <div class="prestation-card__icon">🎈</div>
-      <h3 class="prestation-card__title">Sculpture de Ballons</h3>
-      <p class="prestation-card__desc">Animaux, épées, fleurs... Des créations colorées qui enchantent les enfants.</p>
-    </div>
-
-    <div class="prestation-card reveal" style="transition-delay: 0.4s;">
-      <div class="prestation-card__icon">🎭</div>
-      <h3 class="prestation-card__title">Ateliers Magie</h3>
-      <p class="prestation-card__desc">Apprenez les secrets du magicien. Ateliers ludiques pour enfants et adultes.</p>
-    </div>
-
-  </div>
-  <p class="prestations__hint reveal">← Glissez pour découvrir →</p>
-</section>
-
-<!-- ============================================
-     5. EVENEMENTS
-     ============================================ -->
-<section class="events" id="evenements">
-  <h2 class="section-title reveal">Événements</h2>
-
-  <div class="event-band reveal">
-    <div class="event-band__bg"></div>
-    <div class="event-band__overlay"></div>
-    <div class="event-band__content">
-      <span class="event-band__label">Spectacle & Animation</span>
-      <h3 class="event-band__title">Événements Publics</h3>
-      <p class="event-band__desc">Fêtes municipales, festivals, arbres de Noël, inaugurations... La magie s'invite dans vos événements publics.</p>
-    </div>
-  </div>
-
-  <div class="event-band reveal">
-    <div class="event-band__bg"></div>
-    <div class="event-band__overlay"></div>
-    <div class="event-band__content">
-      <span class="event-band__label">Moments Uniques</span>
-      <h3 class="event-band__title">Événements Privés</h3>
-      <p class="event-band__desc">Anniversaires, mariages, baptêmes, soirées entre amis... Chaque fête mérite sa part de magie.</p>
-    </div>
-  </div>
-
-  <div class="event-band reveal">
-    <div class="event-band__bg"></div>
-    <div class="event-band__overlay"></div>
-    <div class="event-band__content">
-      <span class="event-band__label">Team Building & Séminaires</span>
-      <h3 class="event-band__title">Événements d'Entreprise</h3>
-      <p class="event-band__desc">Soirées de gala, lancements de produit, incentive... La magie fédère et marque les esprits.</p>
+<section id="prestations">
+  <div class="wrap">
+    <p class="kicker rv">Prestations</p>
+    <h2 class="rv">Cinq façons de faire entrer la magie</h2>
+    <div class="cards">
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg/v1/fill/w_600,h_600,al_c,q_80,enc_avif,quality_auto/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg"
+             alt="Tour de cartes en close-up devant les invités" width="600" height="600" loading="lazy">
+        <div class="body"><h3>Close-up &amp; magie de proximité</h3>
+        <p>De table en table, au plus près des invités&nbsp;: mariages, cocktails, soirées d'entreprise.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80,enc_avif,quality_auto/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg"
+             alt="Enfants émerveillés pendant un spectacle de magie" width="600" height="450" loading="lazy">
+        <div class="body"><h3>Spectacles enfants</h3>
+        <p>Anniversaires, arbres de Noël, écoles et centres de loisirs&nbsp;: un spectacle participatif et joyeux.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg"
+             alt="Animation de magie auprès des aînés en maison de retraite" width="600" height="444" loading="lazy">
+        <div class="body"><h3>Magie pour les aînés</h3>
+        <p>EHPAD, maisons de retraite, clubs seniors&nbsp;: une parenthèse de douceur et de souvenirs.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg/v1/fill/w_600,h_514,al_c,q_80,enc_avif,quality_auto/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg"
+             alt="Sculptures sur ballons colorées" width="600" height="514" loading="lazy">
+        <div class="body"><h3>Sculpture sur ballons</h3>
+        <p>Animations, fêtes et événements&nbsp;: des créations en ballons qui font briller les yeux.</p></div>
+      </article>
+      <article class="card rv">
+        <img src="https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg"
+             alt="Atelier d'initiation à la magie" width="600" height="600" loading="lazy">
+        <div class="body"><h3>Ateliers de magie</h3>
+        <p>Initiation pour écoles, centres aérés et team building&nbsp;: chacun repart avec ses premiers tours.</p></div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ============================================
-     6. REFERENCES (INFINITE MARQUEE)
-     ============================================ -->
-<section class="references" id="references">
-  <h2 class="section-title reveal">Ils nous font confiance</h2>
-
-  <div class="marquee-row marquee-row--top">
-    <span>Safran</span>
-    <span>RATP</span>
-    <span>Carrefour</span>
-    <span>Leclerc</span>
-    <span>KIA</span>
-    <span>La Poste</span>
-    <span>Zodiac</span>
-    <span>Ville d'Issoudun</span>
-    <!-- duplicate for seamless loop -->
-    <span>Safran</span>
-    <span>RATP</span>
-    <span>Carrefour</span>
-    <span>Leclerc</span>
-    <span>KIA</span>
-    <span>La Poste</span>
-    <span>Zodiac</span>
-    <span>Ville d'Issoudun</span>
-  </div>
-
-  <div class="marquee-row marquee-row--bottom">
-    <span>CPAM</span>
-    <span>SETE</span>
-    <span>Familles Rurales</span>
-    <span>Initiative Indre</span>
-    <span>ASBF</span>
-    <span>La Ruche</span>
-    <span>La Méli</span>
-    <span>Transports Coquelet</span>
-    <!-- duplicate for seamless loop -->
-    <span>CPAM</span>
-    <span>SETE</span>
-    <span>Familles Rurales</span>
-    <span>Initiative Indre</span>
-    <span>ASBF</span>
-    <span>La Ruche</span>
-    <span>La Méli</span>
-    <span>Transports Coquelet</span>
+<section class="galerie" id="galerie">
+  <div class="wrap">
+    <p class="kicker rv">Galerie</p>
+    <h2 class="rv">En scène, en images</h2>
+    <div class="ggrid rv">
+      <img src="https://static.wixstatic.com/media/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg/v1/fill/w_800,h_800,q_90,enc_avif,quality_auto/da939b_16f7041e8a2e4b75a72afb893a68cbe4~mv2.jpg" alt="Close-up, jeu de cartes en main" width="800" height="800" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Magie close-up lors d'un mariage" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_32f7487dcfaa434fac5acd8d5a780b92~mv2.jpg" alt="Animation magique en fête de village" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg" alt="Spectacle de magie pour enfants" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg/v1/fill/w_600,h_600,fp_0.63_0.4,q_90,enc_avif,quality_auto/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg" alt="Sculpture sur ballons en animation" width="600" height="600" loading="lazy">
+      <img src="https://static.wixstatic.com/media/da939b_d022c92ab706476482bdea23b20616f7~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_d022c92ab706476482bdea23b20616f7~mv2.jpg" alt="Créations en ballons multicolores" width="600" height="600" loading="lazy">
+    </div>
   </div>
 </section>
 
-<!-- ============================================
-     7. TEMOIGNAGES
-     ============================================ -->
-<section class="testimonials" id="temoignages">
-  <h2 class="section-title reveal">Témoignages</h2>
-
-  <div class="testimonial-wrap">
-    <div class="testimonial active" data-index="0">
-      <div class="testimonial__quote-mark">"</div>
-      <p class="testimonial__text">Francis a enchanté notre mariage. Nos invités en parlent encore des mois après. Un vrai professionnel avec un sens du spectacle incroyable.</p>
-      <span class="testimonial__author">— Marie & Thomas, Châteauroux</span>
-    </div>
-
-    <div class="testimonial" data-index="1">
-      <div class="testimonial__quote-mark">"</div>
-      <p class="testimonial__text">Notre arbre de Noël n'a jamais eu autant de succès. Les enfants étaient fascinés, les parents aussi. Merci Francis !</p>
-      <span class="testimonial__author">— Comité d'entreprise Safran</span>
-    </div>
-
-    <div class="testimonial" data-index="2">
-      <div class="testimonial__quote-mark">"</div>
-      <p class="testimonial__text">Une prestation close-up d'une finesse remarquable. Nos clients ont été bluffés. Francis a su créer exactement l'ambiance que nous recherchions.</p>
-      <span class="testimonial__author">— Direction Marketing, KIA Centre</span>
-    </div>
+<section class="refs" id="references">
+  <p class="kicker rv">Références</p>
+  <h2 class="rv">Ils ont fait confiance à Côté Magie</h2>
+  <p class="rv">Entreprises, collectivités et associations, dans tout le Centre-Val de Loire et au-delà.</p>
+  <div class="mq mq-a" aria-label="Logos clients, première rangée">
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_c207ed4b23eb40b6a5e8e61edea44603~mv2.jpg/v1/fill/w_334,h_70,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement.jpg" alt="Safran" width="334" height="70" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_b3be16a22ebe482fb704aab37284518d~mv2.jpg/v1/fill/w_340,h_104,al_c,q_80,enc_avif,quality_auto/logo%20(1).jpg" alt="RATP" width="340" height="104" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_f351404a9bb04edaba34a2df6ef08fe4~mv2.jpg/v1/fill/w_300,h_170,al_c,q_80,enc_avif,quality_auto/Carrefour-Embleme.jpg" alt="Carrefour" width="300" height="170" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_52f5de2d70c7423d8077d10042bc5fb1~mv2.jpg/v1/fill/w_400,h_120,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement%20(3).jpg" alt="E.Leclerc" width="400" height="120" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_a45abab35c6d43e497398f1c517ae419~mv2.jpeg/v1/fill/w_400,h_120,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement%20(2).jpeg" alt="Kiabi" width="400" height="120" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_19fd979e779046bbbbff195f74e80e2e~mv2.jpg/v1/fill/w_250,h_250,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement-_1_.jpg" alt="Zodiac Aerospace" width="250" height="250" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_c207ed4b23eb40b6a5e8e61edea44603~mv2.jpg/v1/fill/w_334,h_70,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement.jpg" alt="" width="334" height="70" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_b3be16a22ebe482fb704aab37284518d~mv2.jpg/v1/fill/w_340,h_104,al_c,q_80,enc_avif,quality_auto/logo%20(1).jpg" alt="" width="340" height="104" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_f351404a9bb04edaba34a2df6ef08fe4~mv2.jpg/v1/fill/w_300,h_170,al_c,q_80,enc_avif,quality_auto/Carrefour-Embleme.jpg" alt="" width="300" height="170" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_52f5de2d70c7423d8077d10042bc5fb1~mv2.jpg/v1/fill/w_400,h_120,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement%20(3).jpg" alt="" width="400" height="120" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_a45abab35c6d43e497398f1c517ae419~mv2.jpeg/v1/fill/w_400,h_120,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement%20(2).jpeg" alt="" width="400" height="120" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_19fd979e779046bbbbff195f74e80e2e~mv2.jpg/v1/fill/w_250,h_250,al_c,q_80,enc_avif,quality_auto/t%C3%A9l%C3%A9chargement-_1_.jpg" alt="" width="250" height="250" loading="lazy"></span>
   </div>
-
-  <div class="testimonial-dots">
-    <button class="testimonial-dot active" data-index="0" aria-label="Témoignage 1"></button>
-    <button class="testimonial-dot" data-index="1" aria-label="Témoignage 2"></button>
-    <button class="testimonial-dot" data-index="2" aria-label="Témoignage 3"></button>
+  <div class="mq mq-b" aria-label="Logos clients, seconde rangée">
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_64c60cad1f994264a13091e37f51834a~mv2.jpg/v1/fill/w_250,h_250,al_c,q_80,enc_avif,quality_auto/images.jpg" alt="CPAM" width="250" height="250" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_545bc93ef97a43328e6120cf19e6a377~mv2.jpg/v1/crop/x_30,y_27,w_496,h_378/fill/w_300,h_228,al_c,q_80,enc_avif,quality_auto/Logo-laposte.jpg" alt="La Poste" width="300" height="228" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_100528415979468ba226489834973f77~mv2.jpg/v1/fill/w_200,h_250,al_c,q_80,enc_avif,quality_auto/logo-issoudun_edited.jpg" alt="Ville d'Issoudun" width="200" height="250" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_6d20b9fe7f864ac49b8142ee28679d7c~mv2.jpg/v1/crop/x_75,y_84,w_1469,h_891/fill/w_300,h_182,al_c,q_80,enc_avif,quality_auto/new_logo.jpg" alt="Ville de Déols" width="300" height="182" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_f77bd67960594845bbe9731dd38303c8~mv2.jpg/v1/fill/w_300,h_276,al_c,q_80,enc_avif,quality_auto/logo_0_0.jpg" alt="Familles Rurales" width="300" height="276" loading="lazy"></span>
+    <span class="logo"><img src="https://static.wixstatic.com/media/da939b_3ab24c96ba194b8a92f8e662e0967edc~mv2.jpg/v1/fill/w_300,h_124,al_c,q_80,enc_avif,quality_auto/Capture-d%E2%80%99%C3%A9cran-2022-09-07-001451.jpg" alt="Initiative Indre" width="300" height="124" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_64c60cad1f994264a13091e37f51834a~mv2.jpg/v1/fill/w_250,h_250,al_c,q_80,enc_avif,quality_auto/images.jpg" alt="" width="250" height="250" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_545bc93ef97a43328e6120cf19e6a377~mv2.jpg/v1/crop/x_30,y_27,w_496,h_378/fill/w_300,h_228,al_c,q_80,enc_avif,quality_auto/Logo-laposte.jpg" alt="" width="300" height="228" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_100528415979468ba226489834973f77~mv2.jpg/v1/fill/w_200,h_250,al_c,q_80,enc_avif,quality_auto/logo-issoudun_edited.jpg" alt="" width="200" height="250" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_6d20b9fe7f864ac49b8142ee28679d7c~mv2.jpg/v1/crop/x_75,y_84,w_1469,h_891/fill/w_300,h_182,al_c,q_80,enc_avif,quality_auto/new_logo.jpg" alt="" width="300" height="182" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_f77bd67960594845bbe9731dd38303c8~mv2.jpg/v1/fill/w_300,h_276,al_c,q_80,enc_avif,quality_auto/logo_0_0.jpg" alt="" width="300" height="276" loading="lazy"></span>
+    <span class="logo dup" aria-hidden="true"><img src="https://static.wixstatic.com/media/da939b_3ab24c96ba194b8a92f8e662e0967edc~mv2.jpg/v1/fill/w_300,h_124,al_c,q_80,enc_avif,quality_auto/Capture-d%E2%80%99%C3%A9cran-2022-09-07-001451.jpg" alt="" width="300" height="124" loading="lazy"></span>
   </div>
 </section>
 
-<!-- ============================================
-     8. CONTACT
-     ============================================ -->
 <section class="contact" id="contact">
-  <h2 class="section-title reveal">Contact</h2>
-
-  <div class="contact__grid">
-    <form class="contact__form reveal" onsubmit="event.preventDefault(); alert('Formulaire envoyé ! (démo)');">
-      <div class="form-group">
-        <label for="name">Nom</label>
-        <input type="text" id="name" name="name" placeholder="Votre nom" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
-      </div>
-      <div class="form-group">
-        <label for="subject">Objet</label>
-        <input type="text" id="subject" name="subject" placeholder="Objet de votre demande">
-      </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" placeholder="Décrivez votre événement, la date souhaitée..." required></textarea>
-      </div>
-      <button type="submit" class="form-submit">Envoyer</button>
+  <div class="wrap" style="text-align:center">
+    <p class="kicker rv">Contact</p>
+    <h2 class="rv">Parlons de votre événement</h2>
+    <form class="rv" action="mailto:cotemagie@gmail.com" method="post" enctype="text/plain">
+      <div><label for="nom">Nom</label>
+      <input id="nom" name="nom" type="text" autocomplete="name" required></div>
+      <div><label for="tel">Téléphone</label>
+      <input id="tel" name="telephone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+      <div><label for="evt">Type d'événement</label>
+      <select id="evt" name="evenement" required>
+        <option value="">Choisissez…</option>
+        <option>Mariage</option><option>Anniversaire</option>
+        <option>Entreprise / CE / séminaire</option><option>Collectivité / école</option>
+        <option>EHPAD / maison de retraite</option><option>Fête de village</option><option>Autre</option>
+      </select></div>
+      <div><label for="msg">Message</label>
+      <textarea id="msg" name="message" placeholder="Date, lieu, nombre d'invités…"></textarea></div>
+      <button class="btn btn-or" type="submit">Envoyer</button>
+      <p class="reassure">Réponse sous 24&nbsp;h — devis gratuit. Ou par téléphone&nbsp;: <a href="tel:0672118229">06&nbsp;72&nbsp;11&nbsp;82&nbsp;29</a></p>
     </form>
-
-    <div class="contact__info reveal" style="transition-delay: 0.2s;">
-      <div class="contact__info-block">
-        <h3>Francis Darcy</h3>
-        <p>Magicien professionnel</p>
-      </div>
-      <div class="contact__info-block">
-        <h3>Adresse</h3>
-        <p>Issoudun, Indre (36)<br>Déplacements France entière</p>
-      </div>
-      <div class="contact__info-block">
-        <h3>Téléphone</h3>
-        <p><a href="tel:+33600000000">06 XX XX XX XX</a></p>
-      </div>
-      <div class="contact__info-block">
-        <h3>Email</h3>
-        <p><a href="mailto:contact@cotemagie.fr">contact@cotemagie.fr</a></p>
-      </div>
-    </div>
   </div>
 </section>
 
-<!-- ============================================
-     9. FOOTER
-     ============================================ -->
-<footer class="footer">
-  <p class="footer__text">&copy; 2025 Côté Magie — Francis Darcy</p>
-  <div class="footer__socials">
-    <a href="#" class="footer__social" aria-label="Facebook">
-      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-    </a>
-    <a href="#" class="footer__social" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
-    </a>
-    <a href="#" class="footer__social" aria-label="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#050505"/></svg>
-    </a>
-  </div>
+<footer>
+  <div class="logo-txt">CÔTÉ MAGIE</div>
+  <p>Francis Darcy — Magicien professionnel</p>
+  <p>3 rue Serge Cligman, 36100 Issoudun</p>
+  <p><a href="tel:0672118229">06 72 11 82 29</a> · <a href="mailto:cotemagie@gmail.com">cotemagie@gmail.com</a></p>
 </footer>
 
-<!-- ============================================
-     JAVASCRIPT
-     ============================================ -->
+<a class="fab" id="fab" href="tel:0672118229" aria-label="Appeler Francis Darcy au 06 72 11 82 29">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+  Appeler
+</a>
+
 <script>
-(function() {
-  'use strict';
-
-  // ---- NAVBAR VISIBILITY ON SCROLL ----
-  const navbar = document.getElementById('navbar');
-  const hero = document.getElementById('hero');
-
-  const heroObserver = new IntersectionObserver(
-    ([entry]) => {
-      navbar.classList.toggle('visible', !entry.isIntersecting);
-    },
-    { threshold: 0.1 }
-  );
-  heroObserver.observe(hero);
-
-  // ---- MOBILE NAV TOGGLE ----
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-
-  // Close mobile nav on link click
-  navLinks.querySelectorAll('.navbar__link').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-    });
-  });
-
-  // ---- SCROLL REVEAL (IntersectionObserver) ----
-  const revealElements = document.querySelectorAll('.reveal');
-
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    }
-  );
-
-  revealElements.forEach(el => revealObserver.observe(el));
-
-  // ---- TESTIMONIAL ROTATION ----
-  const testimonials = document.querySelectorAll('.testimonial');
-  const dots = document.querySelectorAll('.testimonial-dot');
-  let currentTestimonial = 0;
-  let testimonialInterval;
-
-  function showTestimonial(index) {
-    testimonials.forEach(t => t.classList.remove('active'));
-    dots.forEach(d => d.classList.remove('active'));
-    testimonials[index].classList.add('active');
-    dots[index].classList.add('active');
-    currentTestimonial = index;
-  }
-
-  function nextTestimonial() {
-    showTestimonial((currentTestimonial + 1) % testimonials.length);
-  }
-
-  function startAutoRotate() {
-    testimonialInterval = setInterval(nextTestimonial, 5000);
-  }
-
-  // Manual dot navigation
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      clearInterval(testimonialInterval);
-      showTestimonial(parseInt(dot.dataset.index));
-      startAutoRotate();
-    });
-  });
-
-  startAutoRotate();
-
-  // ---- SMOOTH SCROLL FOR ANCHOR LINKS ----
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-
-})();
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const fab=document.getElementById('fab');
+new IntersectionObserver(([e])=>fab.classList.toggle('on',!e.isIntersecting),{threshold:.05}).observe(document.getElementById('hero'));
 </script>
-
 </body>
 </html>
