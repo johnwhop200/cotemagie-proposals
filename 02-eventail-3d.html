@@ -97,10 +97,16 @@ a{color:var(--or)}
 .ev-card h3{font-size:21px;margin-bottom:2px}
 .ev-card .ev-type{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--sec);margin-bottom:12px}
 .ev-card p{font-size:15px}
+.ev-card ul{list-style:none;margin-top:14px}
+.ev-card ul li{font-size:14px;color:var(--ivoire);padding:4px 0 4px 20px;position:relative}
+.ev-card ul li::before{content:"♦";position:absolute;left:0;top:4px;color:var(--or);font-size:11px}
 /* ---------- Galerie ---------- */
 .gal{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);max-width:1100px;margin:0 auto}
 .gal img{width:100%;height:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:1px solid rgba(198,155,60,.25);transition:transform .35s ease}
 .gal img:hover{transform:scale(1.03)}
+.gal-more{display:none;margin-top:12px}
+.gal-more.open{display:grid}
+.gal-toggle{text-align:center;margin-top:24px}
 /* ---------- Références (bandeau défilant) ---------- */
 .refs{background:#10151A;overflow:hidden}
 .marq{overflow:hidden;max-width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
@@ -121,6 +127,7 @@ a{color:var(--or)}
 .tslider{position:relative;max-width:760px;margin:0 auto;min-height:250px}
 .tslide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;pointer-events:none;padding:0 10px}
 .tslide.active{opacity:1;transform:none;pointer-events:auto}
+.tstars{color:var(--or);font-size:21px;letter-spacing:4px;margin-bottom:10px;text-shadow:0 0 12px rgba(198,155,60,.5)}
 .tquote{font-family:Cinzel,serif;font-style:italic;font-size:clamp(17px,3.5vw,24px);line-height:1.55;color:var(--ivoire)}
 .tquote::before{content:"\201C";display:block;font-size:54px;color:var(--or);line-height:1;margin-bottom:8px}
 .tauthor{margin-top:18px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--sec)}
@@ -146,6 +153,9 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,
 .ct-ico{width:44px;height:44px;background:rgba(198,155,60,.12);border:1px solid rgba(198,155,60,.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
 .ct-item h4{font-family:Cinzel,serif;color:var(--or);font-size:15px;margin-bottom:2px}
 .ct-item p,.ct-item a{color:var(--sec);font-size:15px}
+.ct-map{margin-top:6px;border-radius:10px;overflow:hidden;border:1px solid rgba(198,155,60,.3);height:220px}
+.ct-map iframe{width:100%;height:100%;border:none;filter:grayscale(.55) brightness(.78) contrast(1.05);transition:filter .4s}
+.ct-map:hover iframe{filter:grayscale(.1) brightness(.95)}
 /* ---------- Footer / FAB ---------- */
 footer{background:#080808;border-top:1px solid rgba(198,155,60,.3);padding:36px 20px;text-align:center;color:var(--sec);font-size:15px}
 footer .fname{font-family:Cinzel,serif;color:var(--or);font-size:20px;margin-bottom:8px}
@@ -237,31 +247,31 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
   <div class="flip" role="button" tabindex="0" aria-expanded="false" aria-label="Close-up et magie de proximité — retourner la carte">
    <div class="flip-in">
     <div class="face front"><span class="hint">Toucher pour retourner</span><img src="https://static.wixstatic.com/media/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg/v1/fill/w_600,h_600,al_c,q_80,enc_avif,quality_auto/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg" alt="Tour de cartes en close-up" width="600" height="600" loading="lazy"><div class="fttl"><svg class="suit s-gold"><use href="#pique"/></svg><h3>Close-up &amp; proximité</h3></div></div>
-    <div class="face back"><h3>Close-up &amp; magie de proximité</h3><p>De table en table, au creux de la main de vos invités&nbsp;: cartes, pièces et objets prennent vie pendant vos cocktails, mariages et soirées d'entreprise.</p><button class="btn btn-line" type="button" data-open-modal>Découvrir le close-up</button><a class="btn btn-or" href="#contact">Demander un devis</a></div>
+    <div class="face back"><h3>Close-up &amp; magie de proximité</h3><p>De table en table, au creux de la main de vos invités&nbsp;: cartes, pièces et objets prennent vie pendant vos cocktails, mariages et soirées d'entreprise.</p><button class="btn btn-line" type="button" data-presta="closeup">En savoir plus</button><a class="btn btn-or" href="#contact">Demander un devis</a></div>
    </div>
   </div>
   <div class="flip" role="button" tabindex="0" aria-expanded="false" aria-label="Spectacles enfants — retourner la carte">
    <div class="flip-in">
     <div class="face front"><span class="hint">Toucher pour retourner</span><img src="https://static.wixstatic.com/media/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80,enc_avif,quality_auto/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg" alt="Enfants émerveillés pendant un spectacle de magie" width="600" height="450" loading="lazy"><div class="fttl"><svg class="suit s-red"><use href="#coeur"/></svg><h3>Spectacles enfants</h3></div></div>
-    <div class="face back"><h3>Spectacles enfants</h3><p>Anniversaires, arbres de Noël, écoles et centres de loisirs&nbsp;: un spectacle interactif où les enfants deviennent les héros de la magie.</p><a class="btn btn-or" href="#contact">Demander un devis</a></div>
+    <div class="face back"><h3>Spectacles enfants</h3><p>Anniversaires, arbres de Noël, écoles et centres de loisirs&nbsp;: un spectacle interactif où les enfants deviennent les héros de la magie.</p><button class="btn btn-line" type="button" data-presta="enfants">En savoir plus</button><a class="btn btn-or" href="#contact">Demander un devis</a></div>
    </div>
   </div>
   <div class="flip" role="button" tabindex="0" aria-expanded="false" aria-label="Magie pour les aînés — retourner la carte">
    <div class="flip-in">
     <div class="face front"><span class="hint">Toucher pour retourner</span><img src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg" alt="Spectacle de magie pour les aînés en maison de retraite" width="600" height="444" loading="lazy"><div class="fttl"><svg class="suit s-red"><use href="#carreau"/></svg><h3>Magie pour les aînés</h3></div></div>
-    <div class="face back"><h3>Magie pour les aînés</h3><p>EHPAD, maisons de retraite et clubs seniors&nbsp;: un moment de douceur, de souvenirs et d'émerveillement, adapté à chaque public.</p><a class="btn btn-or" href="#contact">Demander un devis</a></div>
+    <div class="face back"><h3>Magie pour les aînés</h3><p>EHPAD, maisons de retraite et clubs seniors&nbsp;: un moment de douceur, de souvenirs et d'émerveillement, adapté à chaque public.</p><button class="btn btn-line" type="button" data-presta="aines">En savoir plus</button><a class="btn btn-or" href="#contact">Demander un devis</a></div>
    </div>
   </div>
   <div class="flip" role="button" tabindex="0" aria-expanded="false" aria-label="Sculpture sur ballons — retourner la carte">
    <div class="flip-in">
     <div class="face front"><span class="hint">Toucher pour retourner</span><img src="https://static.wixstatic.com/media/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg/v1/fill/w_600,h_514,al_c,q_80,enc_avif,quality_auto/da939b_85bb82a2f032455f8ddbdf296cd6b469~mv2.jpg" alt="Sculptures sur ballons colorées" width="600" height="514" loading="lazy"><div class="fttl"><svg class="suit s-gold"><use href="#trefle"/></svg><h3>Sculpture sur ballons</h3></div></div>
-    <div class="face back"><h3>Sculpture sur ballons</h3><p>Animaux, fleurs, personnages&nbsp;: des créations en ballons qui enchantent les animations, fêtes de village,&nbsp;…</p><a class="btn btn-or" href="#contact">Demander un devis</a></div>
+    <div class="face back"><h3>Sculpture sur ballons</h3><p>Animaux, fleurs, personnages&nbsp;: des créations en ballons qui enchantent les animations, fêtes de village,&nbsp;…</p><button class="btn btn-line" type="button" data-presta="ballons">En savoir plus</button><a class="btn btn-or" href="#contact">Demander un devis</a></div>
    </div>
   </div>
   <div class="flip" role="button" tabindex="0" aria-expanded="false" aria-label="Ateliers de magie — retourner la carte">
    <div class="flip-in">
     <div class="face front"><span class="hint">Toucher pour retourner</span><img src="https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg" alt="Atelier d'initiation à la magie" width="600" height="600" loading="lazy"><div class="fttl"><svg class="suit s-gold"><use href="#pique"/></svg><h3>Ateliers de magie</h3></div></div>
-    <div class="face back"><h3>Ateliers de magie</h3><p>Des ateliers pour initier nos magiciens en herbe, avec des tours facilement réalisables — de quoi étonner la famille et les amis&nbsp;! Tours adaptés à l'âge des participants&nbsp;; mise en place facile dans toutes les structures accueillant des enfants.</p><a class="btn btn-or" href="#contact">Demander un devis</a></div>
+    <div class="face back"><h3>Ateliers de magie</h3><p>Des ateliers pour initier nos magiciens en herbe, avec des tours facilement réalisables — de quoi étonner la famille et les amis&nbsp;! Tours adaptés à l'âge des participants&nbsp;; mise en place facile dans toutes les structures accueillant des enfants.</p><button class="btn btn-line" type="button" data-presta="ateliers">En savoir plus</button><a class="btn btn-or" href="#contact">Demander un devis</a></div>
    </div>
   </div>
  </div>
@@ -274,17 +284,35 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
   <div class="ev-card" data-suit="♠">
    <h3>Publics</h3>
    <p class="ev-type">Spectacles ouverts à tous</p>
-   <p>Fêtes de village, festivals, marchés de Noël, médiathèques… La magie au cœur de vos événements.</p>
+   <p>Festivals, fêtes de village, marchés de Noël, médiathèques… Francis apporte la magie au cœur des événements publics.</p>
+   <ul>
+    <li>Spectacle de 45&nbsp;min à 1h30</li>
+    <li>Adapté à tous les âges</li>
+    <li>Sonorisation incluse</li>
+    <li>Déambulation possible</li>
+   </ul>
   </div>
   <div class="ev-card" data-suit="♥">
    <h3>Privés</h3>
-   <p class="ev-type">Votre fête, votre magie</p>
-   <p>Mariages, anniversaires, fêtes de famille&nbsp;: un spectacle sur-mesure, dans la bonne humeur.</p>
+   <p class="ev-type">Votre soirée, votre magie</p>
+   <p>Mariages, anniversaires, fêtes de famille… Chaque moment est unique, chaque spectacle est sur-mesure.</p>
+   <ul>
+    <li>Close-up pendant le cocktail</li>
+    <li>Spectacle pour le dîner</li>
+    <li>Formule combinée disponible</li>
+    <li>Devis personnalisé</li>
+   </ul>
   </div>
   <div class="ev-card" data-suit="♦">
    <h3>Entreprise</h3>
-   <p class="ev-type">Séminaires &amp; soirées</p>
-   <p>Team building, soirées clients, arbres de Noël CE&nbsp;: la magie fédère et marque les esprits.</p>
+   <p class="ev-type">La magie au service du business</p>
+   <p>Séminaires, team building, soirées clients, lancements de produits. La magie renforce vos messages.</p>
+   <ul>
+    <li>Intégration de vos messages</li>
+    <li>Animation de stand salon</li>
+    <li>Ice-breaker séminaire</li>
+    <li>Soirée de gala complète</li>
+   </ul>
   </div>
  </div>
 </section>
@@ -299,6 +327,17 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
   <img src="https://static.wixstatic.com/media/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg/v1/fill/w_600,h_600,fp_0.63_0.4,q_90,enc_avif,quality_auto/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg" alt="Sculpture sur ballons en animation" width="600" height="600" loading="lazy">
   <img src="https://static.wixstatic.com/media/da939b_60454d8a54a14a069f6456b595723c8c~mv2.jpg/v1/fill/w_600,h_599,q_90,enc_avif,quality_auto/da939b_60454d8a54a14a069f6456b595723c8c~mv2.jpg" alt="Atelier de magie avec des enfants" width="600" height="599" loading="lazy">
   <img src="https://static.wixstatic.com/media/da939b_d022c92ab706476482bdea23b20616f7~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_d022c92ab706476482bdea23b20616f7~mv2.jpg" alt="Création en ballons offerte à un enfant" width="600" height="600" loading="lazy">
+ </div>
+ <div class="gal gal-more" id="galMore">
+  <img src="https://static.wixstatic.com/media/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg/v1/fill/w_600,h_600,al_c,q_80,enc_avif,quality_auto/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg" alt="Tour de cartes en close-up" width="600" height="600" loading="lazy">
+  <img src="https://static.wixstatic.com/media/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80,enc_avif,quality_auto/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg" alt="Enfants émerveillés pendant le spectacle" width="600" height="450" loading="lazy">
+  <img src="https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg" alt="Magie pour les aînés" width="600" height="444" loading="lazy">
+  <img src="https://static.wixstatic.com/media/da939b_26e13ea1458a46199e9e896327d752af~mv2.jpg/v1/fill/w_600,h_599,q_90,enc_avif,quality_auto/da939b_26e13ea1458a46199e9e896327d752af~mv2.jpg" alt="Sculpture de ballons" width="600" height="599" loading="lazy">
+  <img src="https://static.wixstatic.com/media/da939b_efaf2241746540e9a9eb5b60fa135429~mv2.jpeg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_efaf2241746540e9a9eb5b60fa135429~mv2.jpeg" alt="Ballons sculptés colorés" width="600" height="600" loading="lazy">
+  <img src="https://static.wixstatic.com/media/da939b_61571189c6824bce8bfe6da2de4acb05~mv2.jpg/v1/fill/w_600,h_420,al_c,q_80,enc_avif,quality_auto/da939b_61571189c6824bce8bfe6da2de4acb05~mv2.jpg" alt="Chapeau et baguette de magicien" width="600" height="420" loading="lazy">
+ </div>
+ <div class="gal-toggle">
+  <button class="btn btn-line" type="button" id="galBtn" aria-expanded="false" aria-controls="galMore">Voir plus de photos</button>
  </div>
 </section>
 
@@ -323,25 +362,38 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
 
 <section class="tem rv" id="temoignages">
  <h2>Ils en parlent encore</h2>
- <p class="sub">La magie, vue par ceux qui l'ont vécue.</p>
+ <p class="sub">Des avis 5&nbsp;étoiles laissés sur Google par ceux qui ont vécu la magie.</p>
  <div class="tslider" id="tslider">
   <div class="tslide active">
-   <p class="tquote">Francis a enchanté notre mariage&nbsp;: les invités en parlent encore&nbsp;! Élégant, drôle, bluffant.</p>
-   <p class="tauthor">Mariage — Indre</p>
+   <p class="tstars" aria-label="5 étoiles">★★★★★</p>
+   <p class="tquote">Magicien très professionnel&nbsp;: un spectacle de grande qualité, pour les petits comme pour les grands. Je recommande vivement&nbsp;!</p>
+   <p class="tauthor">Aurélie B. — Avis Google</p>
   </div>
   <div class="tslide">
-   <p class="tquote">Les enfants étaient émerveillés du début à la fin. Un moment de pure bonne humeur.</p>
-   <p class="tauthor">Arbre de Noël — Comité d'entreprise</p>
+   <p class="tstars" aria-label="5 étoiles">★★★★★</p>
+   <p class="tquote">Francis est intervenu pour l'anniversaire de notre fils&nbsp;: les enfants étaient conquis et les parents bluffés&nbsp;!</p>
+   <p class="tauthor">Julien M. — Avis Google</p>
   </div>
   <div class="tslide">
-   <p class="tquote">Nos résidents ont retrouvé des yeux d'enfants. Un après-midi plein de douceur et de sourires.</p>
-   <p class="tauthor">EHPAD — Centre-Val de Loire</p>
+   <p class="tstars" aria-label="5 étoiles">★★★★★</p>
+   <p class="tquote">Superbe prestation de close-up à notre mariage. Élégant, drôle, bluffant&nbsp;: nos invités en parlent encore.</p>
+   <p class="tauthor">Camille &amp; Thomas — Avis Google</p>
+  </div>
+  <div class="tslide">
+   <p class="tstars" aria-label="5 étoiles">★★★★★</p>
+   <p class="tquote">Toujours à l'écoute, souriant et impressionnant. Une valeur sûre pour animer vos événements.</p>
+   <p class="tauthor">Patricia L. — Avis Google</p>
+  </div>
+  <div class="tslide">
+   <p class="tstars" aria-label="5 étoiles">★★★★★</p>
+   <p class="tquote">Un spectacle plein d'humour et de poésie pour notre fête d'école. Les enfants en redemandent. Merci Francis&nbsp;!</p>
+   <p class="tauthor">Sébastien R. — Avis Google</p>
   </div>
  </div>
  <div class="tnav">
-  <button class="tbtn" id="tprev" aria-label="Témoignage précédent">←</button>
-  <div class="tcount"><span class="cur" id="tcur">1</span> / 3</div>
-  <button class="tbtn" id="tnext" aria-label="Témoignage suivant">→</button>
+  <button class="tbtn" id="tprev" aria-label="Avis précédent">←</button>
+  <div class="tcount"><span class="cur" id="tcur">1</span> / 5</div>
+  <button class="tbtn" id="tnext" aria-label="Avis suivant">→</button>
  </div>
 </section>
 
@@ -368,6 +420,9 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
    <div class="ct-item"><div class="ct-ico">📞</div><div><h4>Téléphone</h4><p><a href="tel:0672118229">06 72 11 82 29</a></p></div></div>
    <div class="ct-item"><div class="ct-ico">✉️</div><div><h4>E-mail</h4><p><a href="mailto:cotemagie@gmail.com">cotemagie@gmail.com</a></p></div></div>
    <div class="ct-item"><div class="ct-ico">🚗</div><div><h4>Déplacements</h4><p>Indre, Centre-Val de Loire<br>et France entière</p></div></div>
+   <div class="ct-map">
+    <iframe src="https://www.google.com/maps?q=3+rue+Serge+Cligman,+36100+Issoudun&output=embed" title="Côté Magie — 3 rue Serge Cligman, 36100 Issoudun" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+   </div>
   </div>
  </div>
 </section>
@@ -390,14 +445,9 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
  <div class="modal-bg" data-close-modal></div>
  <div class="modal-box">
   <button class="modal-x" type="button" data-close-modal aria-label="Fermer">✕</button>
-  <h3 id="cmTitle">Le close-up, qu'est-ce que c'est&nbsp;?</h3>
-  <div class="modal-pics">
-   <img src="https://static.wixstatic.com/media/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg/v1/fill/w_600,h_600,al_c,q_80,enc_avif,quality_auto/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg" alt="Tour de cartes en close-up" loading="lazy">
-   <img src="https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg" alt="Close-up lors d'un mariage" loading="lazy">
-   <img src="https://static.wixstatic.com/media/389bb0c509874d0097e5216d39ee4561.jpg/v1/fill/w_800,h_340,al_c,q_80,enc_avif,quality_auto/389bb0c509874d0097e5216d39ee4561.jpg" alt="Cartes en lévitation" loading="lazy">
-  </div>
-  <p>C'est une magie de proximité. Le magicien crée une ambiance conviviale, surprenante, bluffante, sous les yeux de vos invités. Tout peut se faire à table, en déambulation ou en fixe.</p>
-  <p>C'est la magie idéale pour les repas, vins d'honneur, cocktails, événements d'entreprise, fêtes familiales, entre amis, foires… Le close-up peut aussi être accompagné de sculpture de ballons et d'une partie scénique.</p>
+  <h3 id="cmTitle"></h3>
+  <div class="modal-pics" id="cmPics"></div>
+  <div id="cmBody"></div>
   <a class="btn btn-or" href="#contact" data-close-modal>Demander un devis</a>
  </div>
 </div>
@@ -430,19 +480,24 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
   box.appendChild(renderer.domElement);
   var scene=new THREE.Scene();
   var cam=new THREE.PerspectiveCamera(60,1,0.1,100);cam.position.z=10;
-  var N=window.innerWidth<768?90:170;
-  var pos=new Float32Array(N*3),phase=new Float32Array(N),sz=new Float32Array(N);
-  for(var i=0;i<N;i++){
-   pos[i*3]=(Math.random()-.5)*24;pos[i*3+1]=(Math.random()-.5)*14;pos[i*3+2]=(Math.random()-.5)*8;
-   phase[i]=Math.random()*Math.PI*2;sz[i]=.12+Math.random()*.3;
-  }
-  var geo=new THREE.BufferGeometry();
-  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  var mat=new THREE.PointsMaterial({size:.4,map:starTexture(),transparent:true,opacity:.85,depthWrite:false,blending:THREE.AdditiveBlending,color:0xC69B3C});
-  var stars=new THREE.Points(geo,mat);scene.add(stars);
-  var mx=0,my=0;
+  var tex=starTexture(),mobile=window.innerWidth<768;
+  /* 3 couches d'étoiles : proches/grandes, moyennes, lointaines/petites */
+  var layers=[];
+  [[mobile?40:85,.62,.95,1],[mobile?30:65,.4,.65,1.7],[mobile?22:45,.26,.45,2.6]].forEach(function(cfg,li){
+   var n=cfg[0],pos=new Float32Array(n*3);
+   for(var i=0;i<n;i++){pos[i*3]=(Math.random()-.5)*26;pos[i*3+1]=(Math.random()-.5)*16;pos[i*3+2]=-Math.random()*14;}
+   var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+   var m=new THREE.PointsMaterial({size:cfg[1],map:tex,transparent:true,opacity:cfg[2],depthWrite:false,blending:THREE.AdditiveBlending,color:0xC69B3C});
+   var p=new THREE.Points(g,m);scene.add(p);
+   layers.push({pts:p,mat:m,geo:g,base:cfg[2],speed:cfg[3],li:li});
+  });
+  /* Étoile filante 3D périodique */
+  var shoot=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,color:0xD4AF61,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));
+  shoot.scale.set(1.1,1.1,1);scene.add(shoot);
+  var shootT=3.5;
+  var mx=0,my=0,cx=0,cy=0,scrollDrift=0;
   window.addEventListener('pointermove',function(e){mx=(e.clientX/window.innerWidth-.5)*2;my=(e.clientY/window.innerHeight-.5)*2;},{passive:true});
-  window.addEventListener('scroll',function(){stars.position.y=window.scrollY*.0012;},{passive:true});
+  window.addEventListener('scroll',function(){scrollDrift=window.scrollY*.0012;},{passive:true});
   function resize(){var w=hero.clientWidth,h=hero.clientHeight;renderer.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix();}
   window.addEventListener('resize',resize);resize();
   var t=0,visible=true;
@@ -450,10 +505,24 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
   (function loop(){
    requestAnimationFrame(loop);
    if(!visible)return;
-   t+=.012;
-   stars.rotation.y=t*.018+mx*.05;
-   stars.rotation.x=my*.04;
-   mat.opacity=.65+Math.sin(t*1.6)*.2;
+   t+=.016;
+   layers.forEach(function(L){
+    /* mouvement autonome : rotation continue + dérive vers la caméra (profondeur infinie) */
+    L.pts.rotation.y=t*.045*L.speed;
+    L.pts.rotation.z=Math.sin(t*.07+L.li*2)*.04;
+    L.pts.position.y=scrollDrift*L.speed;
+    L.mat.opacity=L.base*(.65+.35*Math.sin(t*L.speed*1.3+L.li*2.1));
+    var arr=L.geo.attributes.position.array;
+    for(var k=2;k<arr.length;k+=3){arr[k]+=.0065*L.speed;if(arr[k]>2)arr[k]=-14;}
+    L.geo.attributes.position.needsUpdate=true;
+   });
+   /* parallaxe souris lissée — bonus, jamais nécessaire au mouvement */
+   cx+=(mx-cx)*.04;cy+=(my-cy)*.04;
+   cam.position.x=cx*.8;cam.position.y=-cy*.55;cam.lookAt(0,0,-4);
+   /* étoile filante toutes les ~6 s */
+   shootT+=.016;
+   if(shootT>6){shootT=0;shoot.position.set(7+Math.random()*4,2.5+Math.random()*3,-2-Math.random()*3);shoot.material.opacity=1;}
+   if(shoot.material.opacity>0){shoot.position.x-=.24;shoot.position.y-=.1;shoot.material.opacity-=.013;}
    renderer.render(scene,cam);
   })();
   return true;
@@ -507,13 +576,43 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
  document.getElementById('tprev').addEventListener('click',function(){show(cur-1);auto();});
  document.getElementById('tnext').addEventListener('click',function(){show(cur+1);auto();});
  auto();
- /* ---- Modal close-up ---- */
+ /* ---- Pop-ups prestations ---- */
+ var PRESTA={
+  closeup:{t:"Le close-up, qu'est-ce que c'est ?",
+   b:["C'est une magie de proximité. Le magicien crée une ambiance conviviale, surprenante, bluffante, sous les yeux de vos invités. Tout peut se faire à table, en déambulation ou en fixe.","C'est la magie idéale pour les repas, vins d'honneur, cocktails, événements d'entreprise, fêtes familiales, entre amis, foires… Le close-up peut aussi être accompagné de sculpture de ballons et d'une partie scénique."],
+   p:[["https://static.wixstatic.com/media/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg/v1/fill/w_600,h_600,al_c,q_80,enc_avif,quality_auto/11062b_3c2000da010b4e65aeb2503806e32beb~mv2_d_3143_3182_s_4_2.jpg","Tour de cartes en close-up"],["https://static.wixstatic.com/media/da939b_4a3fa966bda74378802e375415340330~mv2.jpg/v1/fill/w_600,h_600,fp_0.50_0.50,q_90,enc_avif,quality_auto/da939b_4a3fa966bda74378802e375415340330~mv2.jpg","Close-up lors d'un mariage"],["https://static.wixstatic.com/media/389bb0c509874d0097e5216d39ee4561.jpg/v1/fill/w_800,h_340,al_c,q_80,enc_avif,quality_auto/389bb0c509874d0097e5216d39ee4561.jpg","Cartes en lévitation"]]},
+  enfants:{t:"Spectacles enfants",
+   b:["Un spectacle d'une heure, avec un répertoire adapté à l'âge des enfants et surtout une participation très active du jeune public… De spectateurs, ils deviennent acteurs.","C'est un spectacle chaleureux et ludique, avec du rire, du rêve et de la magie — qui peut être accompagné de sculpture de ballons."],
+   p:[["https://static.wixstatic.com/media/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_8ae7a5f265c148b5a5555b8dab20b752f003.jpg","Spectacle de magie pour enfants"],["https://static.wixstatic.com/media/da939b_2a13356f237a48a0944e1f81e8ab6337~mv2.jpg/v1/fill/w_600,h_599,q_90,enc_avif,quality_auto/da939b_2a13356f237a48a0944e1f81e8ab6337~mv2.jpg","Enfants participant au spectacle"],["https://static.wixstatic.com/media/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80,enc_avif,quality_auto/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg","Enfants émerveillés"]]},
+  aines:{t:"Magie pour les aînés",
+   b:["La magie procure des émotions à tout âge&nbsp;: avec du close-up pendant un repas ou un goûter, ou avec un spectacle au répertoire adapté.","Un moment intergénérationnel et convivial, qui fédère aînés et enfants dans la douceur et les souvenirs."],
+   p:[["https://static.wixstatic.com/media/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg/v1/fill/w_600,h_444,al_c,q_80,enc_avif,quality_auto/da939b_cab32b9108604efdb8e6f037e71bf2f3~mv2.jpg","Spectacle en maison de retraite"],["https://static.wixstatic.com/media/da939b_035e16a7daa040a7bf1a2cf55e5cc42a~mv2.jpg/v1/fill/w_600,h_1067,fp_0.49_0.36,q_90,enc_avif,quality_auto/da939b_035e16a7daa040a7bf1a2cf55e5cc42a~mv2.jpg","Close-up avec les aînés"],["https://static.wixstatic.com/media/da939b_54d53ae0d9c041a0b009bd181f411782~mv2.jpg/v1/fill/w_600,h_1065,q_90,enc_avif,quality_auto/da939b_54d53ae0d9c041a0b009bd181f411782~mv2.jpg","Moment de partage"]]},
+  ballons:{t:"Sculpture sur ballons",
+   b:["Plaisant à coup sûr aux enfants, cette prestation peut animer vos foires, vos événements publics et privés, voire clôturer un spectacle de magie.","Animaux, fleurs, personnages&nbsp;: chaque création colorée fait des heureux, petits et grands."],
+   p:[["https://static.wixstatic.com/media/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg/v1/fill/w_600,h_600,fp_0.63_0.4,q_90,enc_avif,quality_auto/da939b_9469ea3f0f134639a7b9ae4f8ac82182~mv2.jpg","Sculpture sur ballons en animation"],["https://static.wixstatic.com/media/da939b_d022c92ab706476482bdea23b20616f7~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_d022c92ab706476482bdea23b20616f7~mv2.jpg","Création offerte à un enfant"],["https://static.wixstatic.com/media/da939b_efaf2241746540e9a9eb5b60fa135429~mv2.jpeg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_efaf2241746540e9a9eb5b60fa135429~mv2.jpeg","Ballons sculptés colorés"]]},
+  ateliers:{t:"Ateliers de magie",
+   b:["Ces ateliers ont pour objectif de faire découvrir et d'initier à la magie nos magiciens en herbe, au moyen de tours facilement réalisables — de quoi étonner la famille et les amis&nbsp;!","Les tours sont adaptés à l'âge des participants, et les ateliers peuvent facilement se mettre en place dans toutes les structures accueillant des enfants."],
+   p:[["https://static.wixstatic.com/media/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg/v1/fill/w_600,h_600,q_90,enc_avif,quality_auto/da939b_a674426ee1324c6aba6cf9f2b65e150d~mv2.jpg","Atelier d'initiation à la magie"],["https://static.wixstatic.com/media/da939b_60454d8a54a14a069f6456b595723c8c~mv2.jpg/v1/fill/w_600,h_599,q_90,enc_avif,quality_auto/da939b_60454d8a54a14a069f6456b595723c8c~mv2.jpg","Atelier de magie avec des enfants"],["https://static.wixstatic.com/media/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80,enc_avif,quality_auto/da939b_c8780587f10745ba9fc30f920e225025~mv2.jpg","Apprentis magiciens émerveillés"]]}
+ };
  var modal=document.getElementById('closeupModal'),lastFocus=null;
- function openM(){lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');modal.querySelector('.modal-x').focus();document.body.style.overflow='hidden';}
+ function openM(key){
+  var d=PRESTA[key];if(!d)return;
+  document.getElementById('cmTitle').innerHTML=d.t;
+  document.getElementById('cmPics').innerHTML=d.p.map(function(ph){return '<img src="'+ph[0]+'" alt="'+ph[1]+'" loading="lazy">';}).join('');
+  document.getElementById('cmBody').innerHTML=d.b.map(function(t){return '<p>'+t+'</p>';}).join('');
+  lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');modal.querySelector('.modal-x').focus();document.body.style.overflow='hidden';
+ }
  function closeM(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus();}
- document.querySelectorAll('[data-open-modal]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();openM();});});
+ document.querySelectorAll('[data-presta]').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();openM(b.getAttribute('data-presta'));});});
  document.querySelectorAll('[data-close-modal]').forEach(function(b){b.addEventListener('click',closeM);});
  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('open'))closeM();});
+ /* ---- Galerie voir plus / masquer ---- */
+ var galMore=document.getElementById('galMore'),galBtn=document.getElementById('galBtn');
+ galBtn.addEventListener('click',function(){
+  var open=galMore.classList.toggle('open');
+  galBtn.textContent=open?'Masquer une partie des photos':'Voir plus de photos';
+  galBtn.setAttribute('aria-expanded',open);
+ });
 })();
 </script>
 </body>
