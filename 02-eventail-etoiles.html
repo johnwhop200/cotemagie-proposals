@@ -524,6 +524,7 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
  <p>Francis Darcy — Magicien professionnel</p>
  <p>3 rue Serge Cligman, 36100 Issoudun</p>
  <p><a href="tel:+33672118229">06 72 11 82 29</a> · <a href="mailto:cotemagie@gmail.com">cotemagie@gmail.com</a></p>
+ <p style="margin-top:14px;font-size:13px;line-height:1.9"><a href="close-up-a.html">Close-up</a> &middot; <a href="spectacles-enfants-a.html">Spectacles enfants</a> &middot; <a href="magie-aines-a.html">Magie aînés</a> &middot; <a href="sculpture-ballons-a.html">Sculpture ballons</a> &middot; <a href="ateliers-magie-a.html">Ateliers magie</a></p>
  <p class="sign">Des rires, des sourires et des souvenirs…</p>
 </footer>
 
@@ -613,7 +614,8 @@ footer .sign{font-style:italic;color:var(--or2);margin-top:10px}
   var d=PRESTA[key];if(!d)return;
   document.getElementById('cmTitle').innerHTML=d.t;
   document.getElementById('cmPics').innerHTML=d.p.map(function(ph){return '<img src="'+ph[0]+'" alt="'+ph[1]+'" loading="lazy">';}).join('');
-  document.getElementById('cmBody').innerHTML=d.b.map(function(t){return '<p>'+t+'</p>';}).join('');
+  var PAGE={closeup:'close-up',enfants:'spectacles-enfants',aines:'magie-aines',ballons:'sculpture-ballons',ateliers:'ateliers-magie'};
+  document.getElementById('cmBody').innerHTML=d.b.map(function(t){return '<p>'+t+'</p>';}).join('')+(PAGE[key]?'<p style="margin-top:2px"><a href="'+PAGE[key]+'-a.html">Voir la page complète →</a></p>':'');
   lastFocus=document.activeElement;modal.classList.add('open');modal.setAttribute('aria-hidden','false');modal.querySelector('.modal-x').focus();document.body.style.overflow='hidden';
  }
  function closeM(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus();}
